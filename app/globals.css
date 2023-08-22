@@ -1,0 +1,74 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: black;
+}
+
+@layer components {
+  .padding {
+    @apply px-4 py-4 sm:px-8 xl:px-32;
+  }
+}
+@layer components {
+  .text_size {
+    @apply text-3xl sm:text-xl;
+  }
+}
+
+.overlay {
+  display: block;
+  position: fixed;
+  padding-top: 100px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 100;
+}
+
+.overlay {
+  display: block;
+  position: fixed;
+  padding-top: 100px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 100;
+}
+
+.card {
+  background: linear-gradient(
+    105.87deg,
+    rgba(255, 255, 255, 0.21) 3.04%,
+    rgba(255, 255, 255, 0.06) 100.02%
+  );
+  backdrop-filter: blur(40px);
+  border-radius: 13px;
+  border: 2px solid;
+  border-image-source: linear-gradient(
+    95.35deg,
+    #ffffff 0%,
+    rgba(255, 255, 255, 0) 48.97%,
+    #ffffff 100%
+  );
+}
+.start2 {
+  grid-column-start: 2 !important;
+}
+
+.bluebg {
+  background: linear-gradient(180deg, #b9ddea 0%, #c8e3d6 100%);
+}
+.cborder {
+  border: 1px solid rgba(255, 255, 255, 0.17);
+}
