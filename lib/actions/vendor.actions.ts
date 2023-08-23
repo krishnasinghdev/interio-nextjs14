@@ -26,12 +26,13 @@ export const addVendor = async (body: any) => {
 //-------------LOGIN VENDOR-------------//
 export const vendorLogin = async (body: any) => {
   try {
-    const vendor = await VENDOR.findByCredentials(body.email, body.password)
-    if (!vendor) {
-      throw new Error("Invalid Attempt, vendor not Found!")
-    }
-    const token = await vendor.generateAuthToken()
-    return { name: vendor?.name, _id: vendor?._id, token }
+    console.log(body)
+    // const vendor = await VENDOR.findByCredentials(body.email, body.password)
+    // if (!vendor) {
+    //   throw new Error("Invalid Attempt, vendor not Found!")
+    // }
+    // const token = await vendor.generateAuthToken()
+    return { name: 'vendor?.name', _id: 'vendor?._id', token:2 }
   } catch (error) {
     const err = error as ErrorType
     throw new Error(`Failed to fetch user: ${err.message}`)

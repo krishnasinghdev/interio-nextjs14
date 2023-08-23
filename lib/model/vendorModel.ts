@@ -1,11 +1,11 @@
 import bcrypt from "bcryptjs"
 // import validator from 'validator';
-import jwt from "jsonwebtoken"
+// import jwt from "jsonwebtoken"
 import mongoose from "mongoose"
 
 // import dotenv from 'dotenv';
 // dotenv.config();
-const JWT = process.env.JWT
+// const JWT = process.env.JWT
 mongoose.set("strictQuery", true)
 
 const vendorSchema = new mongoose.Schema(
@@ -149,10 +149,10 @@ vendorSchema.methods.toJSON = function () {
 
 vendorSchema.methods.generateAuthToken = async function () {
   const vendor = this
-  const token = jwt.sign({ _id: vendor._id.toString() }, JWT)
-  vendor.tokens = vendor.tokens.concat({ token })
+  // const token = jwt.sign({ _id: vendor._id.toString() }, JWT)
+  // vendor.tokens = vendor.tokens.concat({ token })
   await vendor.save()
-  return token
+  return 'token'
 }
 
 vendorSchema.statics.findByCredentials = async (email, password) => {

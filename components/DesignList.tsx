@@ -9,11 +9,9 @@ const DesignList = ({ shots }: { shots: shotData[] }) => {
   return (
     <div className="grid grid-cols-2 justify-items-center gap-3 md:grid-cols-3 lg:grid-cols-4">
       {shots.map((shot: shotData) => (
-        // @ts-ignore
         <div key={shot._id} className="mb-2 sm:mb-4">
           <Link href={`/designs/${shot._id}`}>
             <Image
-              // @ts-ignore
               src={shot.images[0].url}
               alt="l1img"
               height={350}

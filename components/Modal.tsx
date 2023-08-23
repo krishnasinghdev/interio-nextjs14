@@ -16,6 +16,7 @@ interface PortalProps {
   onClick: () => void
 }
 const Modal = ({ component, onClick }: PortalProps) => {
+  console.log(component, onClick)
   const ref = useRef<Element | null>(null)
   const dispatch = useDispatch()
   const modalFor = useSelector(MF)

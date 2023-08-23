@@ -1,0 +1,40 @@
+
+> eb_next@0.1.0 build C:\Users\singh\OneDrive\Desktop\GODFATHER\Raj\interio13
+> next build
+
+- info Loaded env from C:\Users\singh\OneDrive\Desktop\GODFATHER\Raj\interio13\.env.local
+- warn You have enabled experimental features (serverActions, serverComponentsExternalPackages) in next.config.js.
+- warn Experimental features are not covered by semver, and may cause unexpected or broken application behavior. Use at your own risk.
+
+- info Creating an optimized production build...
+- info Compiled successfully
+- info Linting and checking validity of types...
+- info Collecting page data...
+- warn Using server actions on a page currently disables static generation for that page
+- info Generating static pages (0/3)
+- info Generating static pages (3/3)
+- info Finalizing page optimization...
+
+Route (app)                                Size     First Load JS
+┌ λ /                                      184 B          92.2 kB
+├ λ /about-us                              174 B          86.4 kB
+├ λ /api/user                              0 B                0 B
+├ λ /designs                               185 B          92.2 kB
+└ λ /designs/upload                        1.25 kB         138 kB
++ First Load JS shared by all              81.3 kB
+  ├ chunks/16-f1fc16bd1ffe4cc7.js          26.7 kB
+  ├ chunks/8b161d94-8273efa96d62e9a7.js    52.7 kB
+  ├ chunks/main-app-17265d8cc90cc482.js    216 B
+  └ chunks/webpack-76147ad7e148aef5.js     1.73 kB
+
+Route (pages)                              Size     First Load JS
+─ ○ /404                                   182 B          76.6 kB
++ First Load JS shared by all              76.4 kB
+  ├ chunks/framework-510ec8ffd65e1d01.js   45.1 kB
+  ├ chunks/main-4d78567bf628f2f8.js        29.4 kB
+  ├ chunks/pages/_app-951be63fd90e4dfc.js  195 B
+  └ chunks/webpack-76147ad7e148aef5.js     1.73 kB
+
+λ  (Server)  server-side renders at runtime (uses getInitialProps or getServerSideProps)
+○  (Static)  automatically rendered as static HTML (uses no initial props)
+

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   // const feedbacks = await fetch("https://evenbeam.com")
 
   const json_response = {

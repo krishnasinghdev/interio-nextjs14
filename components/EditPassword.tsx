@@ -3,7 +3,8 @@ import { joiResolver } from "@hookform/resolvers/joi"
 import axios from "axios"
 import Joi from "joi"
 import { SubmitHandler, useForm } from "react-hook-form"
-import { useDispatch } from "react-redux"
+
+// import { useDispatch } from "react-redux"
 
 import ModalHeader from "./ModalHeader"
 
@@ -22,7 +23,7 @@ const schema = Joi.object({
 })
 
 const EditPassword = ({ onClick }: { onClick: () => void }) => {
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
   const [message, setMessage] = useState<string>("")
   const {
     register,

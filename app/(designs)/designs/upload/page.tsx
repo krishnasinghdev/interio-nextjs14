@@ -1,9 +1,8 @@
 "use client"
 
 import React, { useState } from "react"
-import { useRouter } from "next/navigation"
+// import { useRouter } from "next/navigation"
 import { joiResolver } from "@hookform/resolvers/joi"
-import axios from "axios"
 import Joi from "joi"
 import { SubmitHandler, useForm } from "react-hook-form"
 
@@ -24,7 +23,7 @@ const schema = Joi.object({
 })
 
 const Upload = () => {
-  const router = useRouter()
+  // const router = useRouter()
   // const dispatch = useDispatch()
   const [message, setMessage] = useState<string>("")
   const {

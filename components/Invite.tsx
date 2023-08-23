@@ -1,15 +1,15 @@
 import { useState } from "react"
 import { joiResolver } from "@hookform/resolvers/joi"
-import axios from "axios"
 import Joi from "joi"
 import { SubmitHandler, useForm } from "react-hook-form"
-import { useDispatch } from "react-redux"
+
+// import { useDispatch } from "react-redux"
 
 import ModalHeader from "./ModalHeader"
 
 interface IFormInput {
-  name: String
-  email: String
+  name: string
+  email: string
 }
 
 const schema = Joi.object({
@@ -18,8 +18,8 @@ const schema = Joi.object({
 })
 
 const Invite = ({ onClick }: { onClick: () => void }) => {
-  const dispatch = useDispatch()
-  const [message, setMessage] = useState<String>("")
+  // const dispatch = useDispatch()
+  const [message, setMessage] = useState<string>("")
   const {
     register,
     handleSubmit,
@@ -27,7 +27,7 @@ const Invite = ({ onClick }: { onClick: () => void }) => {
   } = useForm<IFormInput>({
     resolver: joiResolver(schema),
   })
-  const onSubmit: SubmitHandler<IFormInput> = async (val) => {
+  const onSubmit: SubmitHandler<IFormInput> = async () => {
     setMessage("Loading...")
     try {
       // const { data } = await axios.post(

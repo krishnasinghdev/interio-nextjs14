@@ -30,10 +30,12 @@
     "@typescript-eslint/no-unused-vars": "error",
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/no-empty-interface": "off",
+    "@typescript-eslint/no-this-alias": "off",
     "@typescript-eslint/ban-ts-comment": [
       "error",
       {
-        "ts-ignore": "allow-with-description"
+        "ts-ignore": "allow-with-description",
+        "ts-nocheck": "allow-with-description"
       }
     ]
   }
