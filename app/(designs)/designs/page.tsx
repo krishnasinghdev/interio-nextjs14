@@ -1,7 +1,6 @@
-//@ts-check
 import Head from "next/head"
 import Link from "next/link"
-import { isLogin as loginStatus, toggleModal } from "@/context/theme"
+// import { isLogin as loginStatus, toggleModal } from "@/context/theme"
 
 // import SideLayout from "@/components/SideLayout";
 // import { useDispatch, useSelector } from "react-redux"
