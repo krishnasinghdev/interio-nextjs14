@@ -1,16 +1,19 @@
+//@ts-check
 import Head from "next/head"
 import Link from "next/link"
 import { isLogin as loginStatus, toggleModal } from "@/context/theme"
-// import SideLayout from "@/components/SideLayout";
-import { useDispatch, useSelector } from "react-redux"
 
-// import axios from "axios";
+// import SideLayout from "@/components/SideLayout";
+// import { useDispatch, useSelector } from "react-redux"
+
 import { shotData } from "@/types/shotType"
 import { getShot } from "@/lib/actions/shot.actions"
 import DesignList from "@/components/DesignList"
 
-export async function getDesigns() {
-  const result = {
+export type shotType = { shots: shotData[] }
+
+export const getDesigns = async (): Promise<shotType> => {
+  const result: shotType = {
     shots: [
       {
         _id: "642ed1d9a69faebb7421d582",
@@ -40,7 +43,7 @@ export async function getDesigns() {
   try {
     const data = await getShot()
     if (data) {
-      result.shots = data.shot
+      result.shots = data.shots as shotData[]
     }
   } catch (error) {}
 
@@ -48,8 +51,8 @@ export async function getDesigns() {
 }
 
 export default async function Designs() {
-  const { shots }: { shots: shotData[] } = await getDesigns()
-  console.log(shots)
+  const { shots }: shotType = await getDesigns()
+  // console.log(shots)
 
   // const dispatch = useDispatch()
   // const isLogin = useSelector<boolean>(loginStatus)

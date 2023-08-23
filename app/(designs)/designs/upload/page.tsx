@@ -8,7 +8,6 @@ import Joi from "joi"
 import { SubmitHandler, useForm } from "react-hook-form"
 
 import { addShot } from "@/lib/actions/shot.actions"
-import SideLayout from "@/components/SideLayout"
 
 // import { useDispatch } from "react-redux"
 

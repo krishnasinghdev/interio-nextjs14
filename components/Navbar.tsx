@@ -15,7 +15,7 @@ const Navbar = () => {
   // const isLogin = false
   const pathname = usePathname()
   const dispatch = useDispatch()
-  const isLogin = useSelector<boolean>(loginStatus)
+  const isLogin = useSelector(loginStatus)
   const [showMenu, setShowMenu] = useState(false)
 
   return (

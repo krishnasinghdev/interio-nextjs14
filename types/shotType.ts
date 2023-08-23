@@ -2,7 +2,7 @@ export type OwnerType = {
   name: string
   follower: string[]
   following: string[]
-  likedshot: string[]
+  likedshot?: string[]
   email: string
   _id: string
 }
@@ -12,7 +12,7 @@ export type shotData = {
   category: string
   description: string
   tags: string[]
-  images: { title: string; url: string }[]
+  images: { title: string; url: string; _id: string }[]
   _id: string
   owner: OwnerType
 }

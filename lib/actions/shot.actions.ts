@@ -31,15 +31,15 @@ export const addShot = async (body: any) => {
 //-------------GET ALL SHOT-------------//
 export const getShot = async (limit = "10") => {
   try {
-    const shot = await SHOT.find({})
+    const shots = await SHOT.find({})
       .limit(parseInt(limit))
       .select("title category description tags images owner")
       .populate("owner", "name follower following likedshot email")
 
-    if (!shot) {
+    if (!shots) {
       throw Error("NO SHOT FOUND")
     }
-    return { shot }
+    return { shots }
   } catch (error) {
     const err = error as ErrorType
     throw new Error(`Failed to fetch user: ${err.message}`)
