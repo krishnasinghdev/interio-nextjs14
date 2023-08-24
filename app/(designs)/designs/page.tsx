@@ -1,7 +1,6 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { Metadata } from "next"
 import Link from "next/link"
 import { useAppDispatch, useAppSelector } from "@/context/hook"
 import { isLogin, toggleModal } from "@/context/theme"
@@ -10,11 +9,6 @@ import { DUMMYSHOT } from "@/utils/dummy"
 import { shotData } from "@/types/shotType"
 import { getShot } from "@/lib/actions/shot.actions"
 import DesignList from "@/components/DesignList"
-
-export const metadata: Metadata = {
-  title: "Interior Design ",
-  description: "Interior Design Shots, Get Inspired By Other Designer's Works",
-}
 
 export default function Designs() {
   const loginStatus = useAppSelector(isLogin)
