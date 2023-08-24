@@ -1,9 +1,8 @@
 import Image from "next/image"
 import Link from "next/link"
-import { AiOutlineEye, AiOutlineHeart } from "react-icons/ai"
-import { BsChatDots } from "react-icons/bs"
 
 import { shotData } from "../types/shotType"
+import { Icons } from "./Icons"
 
 const DesignList = ({ shots }: { shots: shotData[] }) => {
   return (
@@ -22,14 +21,14 @@ const DesignList = ({ shots }: { shots: shotData[] }) => {
           </Link>
           <div className="flex justify-between px-2 py-2 text-gray">
             <span className="text-xs md:text-base">
-              <BsChatDots className="inline" /> 1.1k
+              <Icons.BsChatDots className="inline" /> 1.1k
             </span>
             <p className="flex gap-2">
               <span className="text-xs md:text-base">
-                <AiOutlineHeart className="inline" /> 1.1k
+                <Icons.AiOutlineHeart className="inline" /> 1.1k
               </span>
               <span className="text-xs md:text-base">
-                <AiOutlineEye className="inline" /> 1.1k
+                <Icons.AiOutlineEye className="inline" /> 1.1k
               </span>
             </p>
           </div>

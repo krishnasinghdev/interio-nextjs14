@@ -8,7 +8,7 @@ import { SubmitHandler, useForm } from "react-hook-form"
 
 import { addShot } from "@/lib/actions/shot.actions"
 
-// import { useDispatch } from "react-redux"
+// import { useAppDispatch } from "@/context/hook"
 
 interface IFormInput {
   shot: string | File[] | File
@@ -24,7 +24,7 @@ const schema = Joi.object({
 
 const Upload = () => {
   // const router = useRouter()
-  // const dispatch = useDispatch()
+  // const dispatch = useAppDispatch()
   const [message, setMessage] = useState<string>("")
   const {
     register,

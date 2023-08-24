@@ -15,11 +15,13 @@ export const addShot = async (body: any) => {
     await shot.save()
 
     const vendor = await VENDOR.findOne({ _id: body.owner })
-    vendor.ownShot.push(shot._id)
-    await vendor.save()
+
     if (!shot || !vendor) {
       throw new Error("Unable to add shot!")
     }
+
+    vendor.ownShot.push(shot._id)
+    await vendor.save()
 
     return { shot }
   } catch (error) {
@@ -29,10 +31,11 @@ export const addShot = async (body: any) => {
 }
 
 //-------------GET ALL SHOT-------------//
-export const getShot = async (limit = "10") => {
+export const getShot = async (limit = 10) => {
   try {
+    connectToDB()
     const shots = await SHOT.find({})
-      .limit(parseInt(limit))
+      .limit(limit)
       .select("title category description tags images owner")
       .populate("owner", "name follower following likedshot email")
 

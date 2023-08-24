@@ -1,8 +1,7 @@
 "use client"
 
-import React from "react"
+import { useAppDispatch, useAppSelector } from "@/context/hook"
 import { modalFor as MF, showModal as SM, toggleModal } from "@/context/theme"
-import { useDispatch, useSelector } from "react-redux"
 
 import Modal from "@/components/Modal"
 import Navbar from "@/components/Navbar"
@@ -12,12 +11,13 @@ export default function HomeLayout({
 }: {
   children: React.ReactNode
 }) {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
 
-  const modalFor = useSelector(MF)
-  const showModal = useSelector(SM)
+  const modalFor = useAppSelector(MF)
+  const showModal = useAppSelector(SM)
   return (
     <>
+      <Navbar />
       {showModal && (
         <Modal
           onClick={() =>
@@ -26,7 +26,6 @@ export default function HomeLayout({
           component={modalFor}
         />
       )}
-      <Navbar />
       {children}
     </>
   )

@@ -1,5 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit"
 
+import { vendorLogout } from "@/lib/actions/vendor.actions"
+
 // import type { PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from "./store"
 
@@ -55,11 +57,20 @@ export const themeSlice = createSlice({
         document.cookie = `token=${token}`
       }
     },
-    setLogout: (state) => {
-      state.isLogin = false
-      localStorage.removeItem("vendor")
-      localStorage.removeItem("token")
-      localStorage.removeItem("v_id")
+    setLogout: (state, actions) => {
+      const { token } = actions?.payload
+      console.log(token)
+      if (!token) return
+      vendorLogout(token)
+        .then(() => {
+          state.isLogin = false
+          localStorage.removeItem("vendor")
+          localStorage.removeItem("token")
+          localStorage.removeItem("v_id")
+        })
+        .catch((error) => {
+          console.log(error)
+        })
     },
   },
 })

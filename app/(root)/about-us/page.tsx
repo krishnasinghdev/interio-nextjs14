@@ -1,5 +1,10 @@
-import type { NextPage } from "next"
+import type { Metadata, NextPage } from "next"
 import Image from "next/image"
+
+export const metadata: Metadata = {
+  title: "Interior Design | Home",
+  description: "Interior Design Shots, Get Inspired By Other Designer's Works",
+}
 
 const About: NextPage = () => {
   return (

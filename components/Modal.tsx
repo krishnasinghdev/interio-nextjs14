@@ -1,8 +1,8 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
+import { useAppDispatch, useAppSelector } from "@/context/hook"
 import { createPortal } from "react-dom"
-import { useDispatch, useSelector } from "react-redux"
 
 import { modalFor as MF, toggleModal } from "../context/theme"
 import EditPassword from "./EditPassword"
@@ -18,8 +18,8 @@ interface PortalProps {
 const Modal = ({ component, onClick }: PortalProps) => {
   console.log(component, onClick)
   const ref = useRef<Element | null>(null)
-  const dispatch = useDispatch()
-  const modalFor = useSelector(MF)
+  const dispatch = useAppDispatch()
+  const modalFor = useAppSelector(MF)
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {

@@ -3,7 +3,7 @@ import { joiResolver } from "@hookform/resolvers/joi"
 import Joi from "joi"
 import { SubmitHandler, useForm } from "react-hook-form"
 
-// import { useDispatch } from "react-redux"
+// import { useAppDispatch } from "@/context/hook"
 
 import ModalHeader from "./ModalHeader"
 
@@ -18,7 +18,7 @@ const schema = Joi.object({
 })
 
 const Invite = ({ onClick }: { onClick: () => void }) => {
-  // const dispatch = useDispatch()
+  // const dispatch = useAppDispatch()
   const [message, setMessage] = useState<string>("")
   const {
     register,

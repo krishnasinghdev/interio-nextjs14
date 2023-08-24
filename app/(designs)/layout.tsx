@@ -4,6 +4,7 @@ import type { ReactElement } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+import { useAppDispatch, useAppSelector } from "@/context/hook"
 import {
   isLogin,
   modalFor as MF,
@@ -12,19 +13,9 @@ import {
   toggleModal,
   vendor as vd,
 } from "@/context/theme"
-import axios from "axios"
 import clsx from "clsx"
-import { AiFillAppstore, AiOutlineUser } from "react-icons/ai"
-import { BsChatDots } from "react-icons/bs"
-import { FiFolderMinus, FiSettings } from "react-icons/fi"
-import {
-  HiOutlineLogout,
-  HiOutlineMail,
-  HiOutlinePhotograph,
-} from "react-icons/hi"
-import { RiSuitcaseLine } from "react-icons/ri"
-import { useDispatch, useSelector } from "react-redux"
 
+import { Icons } from "@/components/Icons"
 import Modal from "@/components/Modal"
 
 type Props = {
@@ -33,25 +24,20 @@ type Props = {
 }
 
 export default function Designs({ children, way }: Props): ReactElement {
-  const dispatch = useDispatch()
-  const vendor = useSelector(vd)
+  const dispatch = useAppDispatch()
+  const vendor = useAppSelector(vd)
   const pathname = usePathname()
-  const modalFor = useSelector(MF)
-  const showModal = useSelector(SM)
-  const loginStatus = useSelector(isLogin)
+  const modalFor = useAppSelector(MF)
+  const showModal = useAppSelector(SM)
+  const loginStatus = useAppSelector(isLogin)
+
   const logoutHandler = async () => {
     try {
-      await axios.post(
-        `${process.env.API_URL}/vendor/logout`,
-        { role: "vendor" },
-        {
-          headers: {
-            "Authorization ": `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      )
-      dispatch(setLogout())
-      // router.push("/designs");
+      const token = localStorage.getItem("token")
+      if (!token) {
+        throw Error("No Token!")
+      }
+      dispatch(setLogout({ token }))
     } catch (error) {
       console.log("Some Error!", error)
     }
@@ -68,7 +54,7 @@ export default function Designs({ children, way }: Props): ReactElement {
       )}
 
       <aside className="fixed hidden h-screen w-[280px] md:flex">
-        <div className="flex h-screen w-[60px] flex-col items-center justify-evenly bg-black pb-[25vh] text-xl text-white ">
+        <div className="flex h-screen w-[60px] flex-col items-center justify-evenly border-r bg-black pb-[25vh] text-xl text-white lg:border-none ">
           <Link href="/">
             <Image
               src={"/interio.png"}
@@ -78,17 +64,17 @@ export default function Designs({ children, way }: Props): ReactElement {
             />
           </Link>
           <Link href="/designs">
-            <AiFillAppstore />
+            <Icons.AiFillAppstore />
           </Link>
           <Link href="/profile/work">
-            <AiOutlineUser />
+            <Icons.AiOutlineUser />
           </Link>
           <button
             onClick={() =>
               dispatch(toggleModal({ showModal: true, modalType: "invite" }))
             }
           >
-            <HiOutlineMail />
+            <Icons.HiOutlineMail />
           </button>
           <button
             onClick={() =>
@@ -97,15 +83,15 @@ export default function Designs({ children, way }: Props): ReactElement {
               )
             }
           >
-            <FiFolderMinus />
+            <Icons.FiFolderMinus />
           </button>
           <p className="w-[2vw] border border-gray"> </p>
           <button title="Coming Soon!">
-            <FiSettings />
+            <Icons.FiSettings />
           </button>
           {loginStatus && (
             <button onClick={logoutHandler}>
-              <HiOutlineLogout />
+              <Icons.HiOutlineLogout />
             </button>
           )}
 
@@ -121,7 +107,7 @@ export default function Designs({ children, way }: Props): ReactElement {
             </Link>
           )}
         </div>
-        <div className="bluebg flex h-screen w-[220px] flex-col items-center justify-evenly pb-[35vh] text-xl  ">
+        <div className="bluebg hidden h-screen w-[220px] flex-col items-center justify-evenly pb-[35vh] text-xl lg:flex  ">
           <div className="mt-3 w-[200px]">
             {/* ?.split(' ')[0] */}
             <h1 className="font-semibold">Hello {vendor?.vendor},</h1>
@@ -135,9 +121,9 @@ export default function Designs({ children, way }: Props): ReactElement {
               "flex w-[200px] items-center gap-4 rounded-lg px-4 py-2"
             )}
           >
-            <HiOutlinePhotograph />
+            <Icons.HiOutlinePhotograph />
             <div>
-              <h1 className="font-semibold">100k+</h1>
+              <h1 className="font-semibold">10k+</h1>
               <p className="text-xs text-light">Inspirations for you</p>
             </div>
           </Link>
@@ -147,7 +133,7 @@ export default function Designs({ children, way }: Props): ReactElement {
               "flex w-[200px] items-center gap-4 rounded-lg px-4 py-2"
             )}
           >
-            <RiSuitcaseLine />
+            <Icons.RiSuitcaseLine />
             <div>
               <h1 className="font-semibold">123+</h1>
               <p className="text-xs text-light">
@@ -161,7 +147,7 @@ export default function Designs({ children, way }: Props): ReactElement {
               "flex w-[200px] items-center gap-4 rounded-lg px-4 py-2"
             )}
           >
-            <AiOutlineUser />
+            <Icons.AiOutlineUser />
             <div>
               <h1 className="font-semibold">104+</h1>
               <p className="text-xs text-light">
@@ -176,32 +162,31 @@ export default function Designs({ children, way }: Props): ReactElement {
                 "bg-lighter":
                   pathname == "/profile/chat" ||
                   pathname == "/profile/chat/[ChatId]",
+                "pointer-events-none": !loginStatus,
               },
               "flex w-[200px] items-center gap-4 rounded-lg px-4 py-2"
             )}
           >
-            <BsChatDots />
+            <Icons.BsChatDots />
             <div>
-              <h1 className="font-semibold">09+</h1>
-              <p className="text-xs text-light">Project messages</p>
+              {loginStatus ? (
+                <>
+                  <h1 className="font-semibold">{"5+"}</h1>
+                  <p className="text-xs text-light">Project messages</p>
+                </>
+              ) : (
+                <p className="text-sm text-light">Login to chat</p>
+              )}
             </div>
           </Link>
         </div>
       </aside>
-
-      {/* {way === 'without' ? (
-        <div className='md:ml-[280px] w-max lg:w-auto min-h-screen bg-black '>{children}</div>
-      ) : (
-        <div className='md:ml-[280px] w-max lg:w-auto min-h-screen bg-black px-4 pt-8 text-white sm:px-8 xl:px-10 '>
-          {children}
-        </div>
-      )} */}
       <div
         className={clsx(
           {
             "px-4 pt-4 text-white sm:px-8 md:pt-8 xl:px-10 ": way === "without",
           },
-          "px-4 pt-4 text-white sm:px-8 md:ml-[280px] md:pt-8 lg:w-auto xl:px-10"
+          "px-4 pt-4 text-white sm:px-8 md:ml-[65px] md:pt-8 lg:ml-[280px] lg:w-auto xl:px-10"
         )}
       >
         {children}

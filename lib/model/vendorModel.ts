@@ -1,14 +1,12 @@
 import bcrypt from "bcryptjs"
-// import validator from 'validator';
-// import jwt from "jsonwebtoken"
+import jwt from "jsonwebtoken"
 import mongoose from "mongoose"
 
-// import dotenv from 'dotenv';
-// dotenv.config();
-// const JWT = process.env.JWT
+import { IVendor, IVendorModel } from "./types/vendor-type"
+
 mongoose.set("strictQuery", true)
 
-const vendorSchema = new mongoose.Schema(
+const vendorSchema = new mongoose.Schema<IVendor, IVendorModel>(
   {
     type: {
       type: String,
@@ -149,10 +147,16 @@ vendorSchema.methods.toJSON = function () {
 
 vendorSchema.methods.generateAuthToken = async function () {
   const vendor = this
-  // const token = jwt.sign({ _id: vendor._id.toString() }, JWT)
-  // vendor.tokens = vendor.tokens.concat({ token })
+  const JWT_SECRET = process.env.JWT_SECRET || null
+  if (!JWT_SECRET) {
+    throw new Error("JWT secret not found")
+  }
+  const token = jwt.sign({ _id: vendor._id.toString() }, JWT_SECRET, {
+    expiresIn: "1h",
+  })
+  vendor.tokens = vendor.tokens.concat({ token })
   await vendor.save()
-  return 'token'
+  return token
 }
 
 vendorSchema.statics.findByCredentials = async (email, password) => {
@@ -177,6 +181,8 @@ vendorSchema.pre("save", async function (next) {
   next()
 })
 
-const Vendor = mongoose.models.Vendor || mongoose.model("Vendor", vendorSchema)
+const Vendor: IVendorModel =
+  (mongoose.models.Vendor as IVendorModel) ||
+  mongoose.model<IVendor, IVendorModel>("Vendor", vendorSchema)
 
 export default Vendor

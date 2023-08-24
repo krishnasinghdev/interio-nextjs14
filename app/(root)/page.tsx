@@ -6,48 +6,28 @@ import Hero from "@/components/Hero"
 import RectangleCard from "@/components/RectangleCard"
 
 const Home: NextPage = () => {
-  const card = [1, 2, 3, 4, 5, 6, 7, 8]
   return (
     <section className="bg-dark">
       <Hero />
+
       {/* ICON LIST */}
-      <div className="padding grid grid-cols-2 gap-4 py-16 text-center md:grid-cols-4 md:gap-6">
-        <div className="flex flex-col items-center gap-y-2">
-          <span className="rounded-full bg-[#40FFBA61] p-4 ">
-            <Image src="/upload.png" alt="Upload" height={20} width={20} />
-          </span>
-          <h2 className="font-medium text-white">Upload Designs</h2>
-          <p className="text-[#FFFFFF66] lg:px-6">
-            Upload your work and become noticable
-          </p>
-        </div>
-        <div className="flex flex-col items-center gap-y-2">
-          <span className="rounded-full bg-[rgb(114,112,255,0.38)] p-4 ">
-            <Image src="/gallery.png" alt="gallery" height={20} width={20} />
-          </span>
-          <h2 className="font-medium text-white">Get Inspired</h2>
-          <p className="text-[#FFFFFF66] lg:px-6">
-            Get inspired by thousands of designs
-          </p>
-        </div>
-        <div className="flex flex-col items-center gap-y-2">
-          <span className="rounded-full bg-[rgb(114,112,255,0.38)] p-4 ">
-            <Image src="/chat.png" alt="chat" height={20} width={20} />
-          </span>
-          <h2 className="font-medium text-white">Message Designer</h2>
-          <p className="text-[#FFFFFF66] lg:px-6">
-            Message Other Interior Designers on the platform
-          </p>
-        </div>
-        <div className="flex flex-col items-center gap-y-2">
-          <span className="rounded-full bg-[#40FFBA61] p-4 ">
-            <Image src="/heart.png" alt="heart" height={20} width={20} />
-          </span>
-          <h2 className="font-medium text-white">Get Feedback</h2>
-          <p className="text-[#FFFFFF66] lg:px-6">
-            Get comments, likes & shares from other people
-          </p>
-        </div>
+      <div className="padding grid grid-cols-2 items-start gap-4 py-16 text-center md:grid-cols-4 md:gap-6">
+        {IconData.map((_, i) => (
+          <div
+            key={i}
+            className="flex flex-col items-center  justify-center gap-4"
+          >
+            <Image
+              src={_.icon}
+              alt="icon"
+              height={30}
+              width={30}
+              className="m-auto"
+            />
+            <h3 className="text-xl font-semibold text-gray">{_.title}</h3>
+            <p className="text-gray">{_.description}</p>
+          </div>
+        ))}
       </div>
 
       {/* SHOTS SECTION */}
@@ -58,66 +38,24 @@ const Home: NextPage = () => {
       </p>
 
       <div className="padding py-16 text-2xl sm:text-4xl">
-        <Link
-          href="/designs/modern"
-          className="group  flex items-center justify-between border-y border-gray p-4 hover:cursor-pointer hover:bg-[#292929]  "
-        >
-          <h3 className="text-gray group-hover:text-white sm:my-2 ">
-            Modern Designs
-          </h3>
-          <Image
-            src={"/arrow.png"}
-            alt="arrow icon"
-            height={50}
-            width={50}
-            className="hidden bg-primary  p-2 md:group-hover:block "
-          />
-        </Link>
-        <Link
-          href="/designs/minimal"
-          className="group flex items-center justify-between border-y border-gray p-4 hover:cursor-pointer hover:bg-[#292929] "
-        >
-          <h3 className=" text-gray group-hover:text-white sm:my-2 ">
-            Minimal Designs
-          </h3>
-          <Image
-            src={"/arrow.png"}
-            alt="arrow icon"
-            height={50}
-            width={50}
-            className="hidden bg-primary p-2   md:group-hover:block "
-          />
-        </Link>
-        <Link
-          href="/designs/space-saving"
-          className="group flex items-center justify-between border-y border-gray p-4 hover:cursor-pointer hover:bg-[#292929]   "
-        >
-          <h3 className="text-gray group-hover:text-white sm:my-2 ">
-            Space Saving
-          </h3>
-          <Image
-            src={"/arrow.png"}
-            alt="arrow icon"
-            height={50}
-            width={50}
-            className="hidden bg-primary p-2   md:group-hover:block "
-          />
-        </Link>
-        <Link
-          href="/designs/luxurious"
-          className="group flex items-center justify-between border-y  border-gray p-4 hover:cursor-pointer hover:bg-[#292929] "
-        >
-          <h3 className="text-gray group-hover:text-white sm:my-2 ">
-            Luxurious Designs
-          </h3>
-          <Image
-            src={"/arrow.png"}
-            alt="arrow icon"
-            height={50}
-            width={50}
-            className="hidden bg-primary p-2  md:group-hover:block "
-          />
-        </Link>
+        {ShotData.map((_, i) => (
+          <Link
+            href="/designs/modern"
+            className="group  flex items-center justify-between border-y border-gray p-4 hover:cursor-pointer hover:bg-[#292929]  "
+            key={i}
+          >
+            <h3 className="text-gray group-hover:text-white sm:my-2 ">
+              {_.title}
+            </h3>
+            <Image
+              src={"/arrow.png"}
+              alt="arrow icon"
+              height={50}
+              width={50}
+              className="hidden bg-primary  p-2 md:group-hover:block "
+            />
+          </Link>
+        ))}
       </div>
 
       {/* WEBSITE TEMPLATE IMAGES */}
@@ -227,3 +165,51 @@ const Home: NextPage = () => {
 }
 
 export default Home
+
+const card = [1, 2, 3, 4, 5, 6, 7, 8]
+
+const IconData = [
+  {
+    icon: "/upload.png",
+    title: "Upload Designs",
+    description: "Upload your work and become noticable",
+  },
+  {
+    icon: "/gallery.png",
+    title: "Get Inspired",
+    description: "Get inspired by thousands of designs",
+  },
+  {
+    icon: "/chat.png",
+    title: "Message Designer",
+    description: "Message Other Interior Designers on the platform",
+  },
+  {
+    icon: "/heart.png",
+    title: "Get Feedback",
+    description: "Get comments, likes & shares from other people",
+  },
+]
+
+const ShotData = [
+  {
+    image: "/Group1.png",
+    title: "Modern Designs",
+    description: "Modern Designs",
+  },
+  {
+    image: "/Group2.png",
+    title: "Minimal Designs",
+    description: "Minimal Designs",
+  },
+  {
+    image: "/Group3.png",
+    title: "Space Saving",
+    description: "Space Saving",
+  },
+  {
+    image: "/Group4.png",
+    title: "Luxurious Designs",
+    description: "Luxurious Designs",
+  },
+]

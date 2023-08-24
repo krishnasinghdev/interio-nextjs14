@@ -1,6 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
-import { BsFillPlayFill } from "react-icons/bs"
+
+import { Icons } from "./Icons"
 
 const Hero = () => {
   return (
@@ -19,7 +20,7 @@ const Hero = () => {
           </Link>
           <p className="flex items-center font-bold text-dark ">
             <span className="mr-2  rounded-full bg-[#1B1A20] p-2">
-              <BsFillPlayFill className="text-2xl text-primary" />
+              <Icons.BsFillPlayFill className="text-2xl text-primary" />
             </span>
             View Demo
           </p>

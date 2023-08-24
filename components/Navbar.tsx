@@ -4,18 +4,17 @@ import { useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+import { useAppDispatch, useAppSelector } from "@/context/hook"
 import clsx from "clsx"
-import { CgMenuRightAlt } from "react-icons/cg"
-import { MdCancelPresentation } from "react-icons/md"
-import { useDispatch, useSelector } from "react-redux"
 
 import { isLogin as loginStatus, toggleModal } from "../context/theme"
+import { Icons } from "./Icons"
 
 const Navbar = () => {
   // const isLogin = false
   const pathname = usePathname()
-  const dispatch = useDispatch()
-  const isLogin = useSelector(loginStatus)
+  const dispatch = useAppDispatch()
+  const isLogin = useAppSelector(loginStatus)
   const [showMenu, setShowMenu] = useState(false)
 
   return (
@@ -100,7 +99,7 @@ const Navbar = () => {
               </>
             )}
             {showMenu ? (
-              <MdCancelPresentation
+              <Icons.MdCancelPresentation
                 className={clsx(
                   { "absolute right-4 top-4 z-50": showMenu },
                   "text-[2.5rem] md:hidden"
@@ -108,7 +107,7 @@ const Navbar = () => {
                 onClick={() => setShowMenu((prev) => !prev)}
               />
             ) : (
-              <CgMenuRightAlt
+              <Icons.CgMenuRightAlt
                 className="text-[2.5rem] md:hidden"
                 onClick={() => setShowMenu((prev) => !prev)}
               />
