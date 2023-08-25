@@ -59,18 +59,12 @@ export const themeSlice = createSlice({
     },
     setLogout: (state, actions) => {
       const { token } = actions?.payload
-      console.log(token)
       if (!token) return
+      state.isLogin = false
+      localStorage.removeItem("vendor")
+      localStorage.removeItem("token")
+      localStorage.removeItem("v_id")
       vendorLogout(token)
-        .then(() => {
-          state.isLogin = false
-          localStorage.removeItem("vendor")
-          localStorage.removeItem("token")
-          localStorage.removeItem("v_id")
-        })
-        .catch((error) => {
-          console.log(error)
-        })
     },
   },
 })

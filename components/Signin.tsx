@@ -25,6 +25,7 @@ const schema = Joi.object({
 const Signin = ({ onClick }: { onClick: () => void }) => {
   const dispatch = useAppDispatch()
   const [message, setMessage] = useState<string>("")
+  const [loading, setLoading] = useState<boolean>(false)
   const {
     register,
     handleSubmit,
@@ -33,6 +34,7 @@ const Signin = ({ onClick }: { onClick: () => void }) => {
     resolver: joiResolver(schema),
   })
   const onSubmit: SubmitHandler<IFormInput> = async (val) => {
+    setLoading(true)
     setMessage("Loading...")
     try {
       const data = await vendorLogin(val)
@@ -45,7 +47,9 @@ const Signin = ({ onClick }: { onClick: () => void }) => {
       )
       setMessage("")
       onClick()
+      setLoading(false)
     } catch (error) {
+      setLoading(false)
       setMessage("Some Error!")
     }
   }
@@ -89,7 +93,10 @@ const Signin = ({ onClick }: { onClick: () => void }) => {
         <span className="mt-1 text-xs text-red-400">
           {errors.password?.message}
         </span>
-        <button className="mt-4 w-full rounded bg-primary p-2 ">
+        <button
+          disabled={loading}
+          className="mt-4 w-full rounded bg-primary p-2 "
+        >
           {message ? message : "Sign in"}
         </button>
       </form>

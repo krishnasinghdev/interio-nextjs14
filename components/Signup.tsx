@@ -46,7 +46,7 @@ const Signup = ({ onClick }: { onClick: () => void }) => {
       //@ts-ignore - cpassword is not optional
       delete val.cpassword
       const data = await addVendor(val)
-      console.log(data)
+      // console.log(data)
       setMessage("")
       dispatch(
         setLogin({
