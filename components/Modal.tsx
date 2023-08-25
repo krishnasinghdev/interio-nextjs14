@@ -11,7 +11,6 @@ import NewCollection from "./NewCollection"
 import Signin from "./Signin"
 import Signup from "./Signup"
 
-
 const Modal = () => {
   const ref = useRef<Element | null>(null)
   const dispatch = useAppDispatch()

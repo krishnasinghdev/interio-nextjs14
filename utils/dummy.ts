@@ -1,6 +1,6 @@
-import { shotData } from "@/types/shotType";
+import { shotData } from "@/types/shotType"
 
-export const DUMMYSHOT:shotData[] = [
+export const DUMMYSHOT: shotData[] = [
   {
     _id: "642ed1d9a69faebb7421d582",
     title: "Hotel Room",

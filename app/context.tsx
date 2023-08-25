@@ -2,8 +2,8 @@
 
 import { useEffect } from "react"
 import { useAppDispatch, useAppSelector } from "@/context/hook"
-import { setLogin } from "@/context/theme"
-import {showModal as SM} from "@/context/theme"
+import { setLogin, showModal as SM } from "@/context/theme"
+
 import Modal from "@/components/Modal"
 
 export default function Context() {
@@ -23,7 +23,9 @@ export default function Context() {
         })
       )
     }
-  }, [])
+  }, [dispatch])
 
-  return <>{showModal && <Modal/>}</>
+  // what if i remove dependency array from use effect, does it will generaete error or infinte loop
+
+  return <>{showModal && <Modal />}</>
 }

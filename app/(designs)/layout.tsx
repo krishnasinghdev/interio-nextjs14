@@ -5,15 +5,11 @@ import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useAppDispatch, useAppSelector } from "@/context/hook"
-import {
-  isLogin,
-  setLogout,
-  toggleModal,
-  vendor as vd,
-} from "@/context/theme"
+import { isLogin, setLogout, toggleModal, vendor as vd } from "@/context/theme"
 import clsx from "clsx"
 
 import { Icons } from "@/components/Icons"
+
 import DesignNav from "./design-nav"
 
 type Props = {
@@ -176,9 +172,7 @@ export default function Designs({ children, way }: Props): ReactElement {
           "px-4 pt-4 text-white sm:px-8 md:ml-[65px] md:pt-8 lg:ml-[280px] lg:w-auto xl:px-10"
         )}
       >
-        {
-          !(pathname == "/designs/upload") && (<DesignNav/>)
-        }
+        {!(pathname == "/designs/upload") && <DesignNav />}
         {children}
       </div>
     </>
