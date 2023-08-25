@@ -4,7 +4,7 @@ import {
   AiOutlineHeart,
   AiOutlineUser,
 } from "react-icons/ai"
-import { BsChatDots, BsFillPlayFill } from "react-icons/bs"
+import { BsChatDots, BsFillPlayFill ,BsShareFill} from "react-icons/bs"
 import { CgMenuRightAlt } from "react-icons/cg"
 import { FiFolderMinus, FiSettings } from "react-icons/fi"
 import {
@@ -22,6 +22,7 @@ export const Icons = {
   AiFillAppstore,
   AiOutlineUser,
   BsChatDots,
+  BsShareFill,
   FiFolderMinus,
   FiSettings,
   HiOutlineLogout,

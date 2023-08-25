@@ -7,16 +7,14 @@ import { usePathname } from "next/navigation"
 import { useAppDispatch, useAppSelector } from "@/context/hook"
 import {
   isLogin,
-  modalFor as MF,
   setLogout,
-  showModal as SM,
   toggleModal,
   vendor as vd,
 } from "@/context/theme"
 import clsx from "clsx"
 
 import { Icons } from "@/components/Icons"
-import Modal from "@/components/Modal"
+import DesignNav from "./design-nav"
 
 type Props = {
   children?: React.ReactNode
@@ -27,8 +25,6 @@ export default function Designs({ children, way }: Props): ReactElement {
   const dispatch = useAppDispatch()
   const vendor = useAppSelector(vd)
   const pathname = usePathname()
-  const modalFor = useAppSelector(MF)
-  const showModal = useAppSelector(SM)
   const loginStatus = useAppSelector(isLogin)
 
   const logoutHandler = async () => {
@@ -44,15 +40,6 @@ export default function Designs({ children, way }: Props): ReactElement {
   }
   return (
     <>
-      {showModal && (
-        <Modal
-          onClick={() =>
-            dispatch(toggleModal({ showModal: false, modalType: "" }))
-          }
-          component={modalFor}
-        />
-      )}
-
       <aside className="fixed hidden h-screen w-[280px] md:flex">
         <div className="flex h-screen w-[60px] flex-col items-center justify-evenly border-r bg-black pb-[25vh] text-xl text-white lg:border-none ">
           <Link href="/">
@@ -189,6 +176,9 @@ export default function Designs({ children, way }: Props): ReactElement {
           "px-4 pt-4 text-white sm:px-8 md:ml-[65px] md:pt-8 lg:ml-[280px] lg:w-auto xl:px-10"
         )}
       >
+        {
+          !(pathname == "/designs/upload") && (<DesignNav/>)
+        }
         {children}
       </div>
     </>

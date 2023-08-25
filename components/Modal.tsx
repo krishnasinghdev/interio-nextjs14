@@ -11,12 +11,8 @@ import NewCollection from "./NewCollection"
 import Signin from "./Signin"
 import Signup from "./Signup"
 
-interface PortalProps {
-  component: string
-  onClick: () => void
-}
-const Modal = ({ component, onClick }: PortalProps) => {
-  console.log(component, onClick)
+
+const Modal = () => {
   const ref = useRef<Element | null>(null)
   const dispatch = useAppDispatch()
   const modalFor = useAppSelector(MF)

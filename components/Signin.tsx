@@ -36,7 +36,6 @@ const Signin = ({ onClick }: { onClick: () => void }) => {
     setMessage("Loading...")
     try {
       const data = await vendorLogin(val)
-      console.log(data)
       dispatch(
         setLogin({
           vendor: data.name,

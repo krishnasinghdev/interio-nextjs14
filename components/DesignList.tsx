@@ -6,7 +6,7 @@ import { Icons } from "./Icons"
 
 const DesignList = ({ shots }: { shots: shotData[] }) => {
   return (
-    <div className="grid grid-cols-2 justify-items-center gap-3 md:grid-cols-3 lg:grid-cols-4">
+    <div className="grid grid-cols-2 justify-items-center gap-3 md:grid-cols-3 xl:grid-cols-4">
       {shots.map((shot: shotData) => (
         <div key={shot._id} className="mb-2 sm:mb-4">
           <Link href={`/designs/${shot._id}`}>

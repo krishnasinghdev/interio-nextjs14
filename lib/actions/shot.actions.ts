@@ -38,7 +38,7 @@ export const getShot = async (limit = 10) => {
       .limit(limit)
       .select("title category description tags images owner")
       .populate("owner", "name follower following likedshot email")
-
+      .sort('-createdAt')
     if (!shots) {
       throw Error("NO SHOT FOUND")
     }
@@ -50,8 +50,9 @@ export const getShot = async (limit = 10) => {
 }
 
 //-------------GET SHOT BY ID-------------//
-export const getshot_byid = async (id: string) => {
+export const getShotById = async (id: string) => {
   try {
+    connectToDB()
     const shot = await SHOT.findById(id)
       .select("title category description tags images owner")
       .populate("owner", "name follower following likedshot email")
@@ -59,7 +60,7 @@ export const getshot_byid = async (id: string) => {
     if (!shot) {
       throw Error("NO SHOT FOUND")
     }
-    return { shot }
+    return shot 
   } catch (error) {
     const err = error as ErrorType
     throw new Error(`Failed to fetch user: ${err.message}`)
