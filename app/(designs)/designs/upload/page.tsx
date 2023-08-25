@@ -35,7 +35,7 @@ const Upload = () => {
     setLoading(true)
     setMessage("Uploading...")
     try {
-      const { data } = await axios.post("http://localhost:3000/api/shots", {
+      const { data } = await axios.post("/api/shots", {
         role: "vendor",
         description: val.description,
         images: {
