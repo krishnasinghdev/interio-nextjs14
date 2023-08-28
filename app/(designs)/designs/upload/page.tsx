@@ -8,16 +8,35 @@ import axios from "axios"
 import Joi from "joi"
 import { SubmitHandler, useForm } from "react-hook-form"
 
+import { Icons } from "@/components/Icons"
+
 interface IFormInput {
-  shot: string | File[] | File
   description: string
   shotUrl: string
+  minimal: boolean
+  luxurious: boolean
+  spaceSaving: boolean
+  title: string
 }
 
 const schema = Joi.object({
-  shot: Joi.any().required().label("Shot is Required "),
-  description: Joi.string().min(200).max(600).required(),
-  shotUrl: Joi.string().required(),
+  description: Joi.string().min(200).max(800).required().messages({
+    "string.empty": `Description cannot be empty`,
+    "any.required": `Please provide a description for your shot. It will be used as the description of the shot.`,
+    "string.min": `Description should have a minimum length of {#limit}`,
+    "string.max": `Description should have a maximum length of {#limit}`,
+  }),
+  shotUrl: Joi.string().required().messages({
+    "string.empty": `Shot Url cannot be empty`,
+    "any.required": `Please provide a url for your shot. It will be used as the image of the shot.`,
+  }),
+  title: Joi.string().required().messages({
+    "string.empty": `Title cannot be empty`,
+    "any.required": `Please provide a title for your shot. It will be used as the title of the shot.`,
+  }),
+  minimal: Joi.boolean(),
+  luxurious: Joi.boolean(),
+  spaceSaving: Joi.boolean(),
 })
 
 const Upload = () => {
@@ -31,9 +50,15 @@ const Upload = () => {
   } = useForm<IFormInput>({
     resolver: joiResolver(schema),
   })
+
   const onSubmit: SubmitHandler<IFormInput> = async (val) => {
     setLoading(true)
     setMessage("Uploading...")
+    const tags = []
+    if (val.minimal) tags.push("Minimal")
+    if (val.luxurious) tags.push("Luxurious")
+    if (val.spaceSaving) tags.push("Space Saving")
+
     try {
       const { data } = await axios.post("/api/shots", {
         role: "vendor",
@@ -42,22 +67,21 @@ const Upload = () => {
           title: "Hotel Room",
           url: val.shotUrl,
         },
-        tags: ["Minimal", "Modern", "Luxurious"],
-        category: "room",
-        title: "Hotel Room",
+        tags,
+        category: "Furniture",
+        title: val.title,
         owner: localStorage.getItem("v_id"),
       })
       if (!data) {
         setMessage("Some Error!")
-        setLoading(false)
         return
       }
       setMessage("Uploaded Successfully: Redirecting to shot!")
       router.push(`/designs/${data.shot._id}`)
-      setLoading(false)
     } catch (error) {
-      setLoading(false)
       setMessage("Some Error!")
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -77,25 +101,16 @@ const Upload = () => {
         className="flex flex-col gap-4  py-8 text-gray"
         onSubmit={handleSubmit(onSubmit)}
       >
-        <div className="flex h-[70vh] flex-col items-center justify-center rounded border border-dashed px-16  text-center">
-          <input
-            accept="image/*"
-            type="file"
-            id="shot"
-            className="mb-4"
-            {...register("shot")}
-          />
-          <span className="mt-1 text-xs text-red-400">
-            {errors.shot?.message}
-          </span>
-          <p>
-            Drag and drop image or <span className="text-primary">Browse</span>
-          </p>
-          <p>
-            Minimum 1600px width recommended. Max 10MB each shot High resolution
-            (png, jpg, jepg)
-          </p>
-        </div>
+        <input
+          type="text"
+          id="title"
+          className="rounded bg-dark p-4"
+          placeholder="Add the title here..."
+          {...register("title")}
+        />
+        <span className="mt-1 text-xs text-red-400">
+          {errors.title?.message}
+        </span>
         <input
           type="text"
           id="shotUrl"
@@ -103,6 +118,9 @@ const Upload = () => {
           placeholder="Add the url here..."
           {...register("shotUrl")}
         />
+        <span className="mt-1 text-xs text-red-400">
+          {errors.shotUrl?.message}
+        </span>
         <textarea
           {...register("description")}
           className="rounded bg-dark p-4"
@@ -114,8 +132,36 @@ const Upload = () => {
         <span className="mt-1 text-xs text-red-400">
           {errors.description?.message}
         </span>
-        <button disabled={loading} className="mt-4 rounded bg-primary p-2 ">
-          Upload
+        <label htmlFor="shot">Select the tags</label>
+        <div className="flex flex-row gap-4">
+          <input
+            type="checkbox"
+            id="minimal"
+            {...register("minimal")}
+            className="rounded bg-dark p-4"
+          />
+          <label htmlFor="minimal">Minimal</label>
+          <input
+            type="checkbox"
+            id="luxurious"
+            {...register("luxurious")}
+            className="rounded bg-dark p-4"
+          />
+          <label htmlFor="luxurious">Luxurious</label>
+          <input
+            type="checkbox"
+            id="spaceSaving"
+            {...register("spaceSaving")}
+            className="rounded bg-dark p-4"
+          />
+          <label htmlFor="luxurious">Space Saving</label>
+        </div>
+
+        <button
+          disabled={loading}
+          className="mt-4 rounded bg-primary p-2 text-center"
+        >
+          Upload {loading && <Icons.Loading />}
         </button>
       </form>
     </>

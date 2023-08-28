@@ -107,28 +107,37 @@ const Edit = () => {
   return (
     <main className="py-16">
       <h1>Your Profile</h1>
+      {
+        message && (
+          <p className="text-xs text-red-400">
+            {message}
+          </p>
+        )
+      }
       <div className="flex items-center justify-between gap-4 ">
-        <div className="flex gap-4 items-center">
-        <Image
-          src={"/girl.png"}
-          alt="dpgirl"
-          height={70}
-          width={70}
-          className="rounded-full"
-        />
-        <button className="rounded bg-primary px-4  py-1  ">Upload Now</button>
-        <button className="rounded bg-trans px-4  py-1  ">Delete Pic</button>
+        <div className="flex items-center gap-4">
+          <Image
+            src={"/girl.png"}
+            alt="dpgirl"
+            height={70}
+            width={70}
+            className="rounded-full"
+          />
+          <button className="rounded bg-primary px-4  py-1  ">
+            Upload Now
+          </button>
+          <button className="rounded bg-trans px-4  py-1  ">Delete Pic</button>
         </div>
         <button
-            className="rounded bg-trans px-4  py-2 "
-            onClick={() =>
-              dispatch(
-                toggleModal({ showModal: true, modalType: "edit-password" })
-              )
-            }
-          >
-            Password
-          </button>
+          className="rounded bg-trans px-4  py-2 "
+          onClick={() =>
+            dispatch(
+              toggleModal({ showModal: true, modalType: "edit-password" })
+            )
+          }
+        >
+          Password
+        </button>
       </div>
       <form
         className="flex  flex-col text-gray placeholder:text-sm "

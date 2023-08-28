@@ -77,7 +77,7 @@ export default function Designs({ children, way }: Props): ReactElement {
           )}
 
           {loginStatus && (
-            <Link href="/profile/about" className="absolute bottom-8 ">
+            <Link href="/profile" className="absolute bottom-8 ">
               <Image
                 src={"/dp.png"}
                 alt="interio logo"
@@ -167,7 +167,7 @@ export default function Designs({ children, way }: Props): ReactElement {
           {
             "px-4 pt-4 text-white sm:px-8 md:pt-8 xl:px-10 ": way === "without",
           },
-          "px-4 pt-4 text-white sm:px-8 md:ml-[65px] md:pt-8 lg:ml-[280px] lg:w-auto xl:px-10"
+          "px-4 py-8 text-white sm:px-8 md:ml-[65px] md:pt-8 lg:ml-[280px] lg:w-auto xl:px-10"
         )}
       >
         {!(pathname == "/designs/upload") && <DesignNav />}

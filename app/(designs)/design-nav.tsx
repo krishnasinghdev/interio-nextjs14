@@ -57,17 +57,8 @@ export default function DesignNav() {
           className="w-full rounded bg-trans px-4 py-2  "
         />
         <div className="mt-4 flex gap-4 overflow-x-auto pb-4">
-          <button className="whitespace-nowrap rounded bg-primary px-4 py-2 ">
-            Modern
-          </button>
           <button className="whitespace-nowrap rounded bg-trans px-4 py-2 ">
             Minimal
-          </button>
-          <button className="whitespace-nowrap rounded bg-trans px-4 py-2">
-            Dark Theme
-          </button>
-          <button className="whitespace-nowrap rounded bg-trans px-4 py-2 ">
-            Hotel Room
           </button>
           <button className="whitespace-nowrap rounded bg-trans px-4 py-2 ">
             Luxurious
