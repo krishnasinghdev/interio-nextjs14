@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from "@/context/hook"
 import { isLogin, setLogout, toggleModal, vendor as vd } from "@/context/theme"
 import clsx from "clsx"
 
+import { vendorLogout } from "@/lib/actions/vendor.actions"
 import { Icons } from "@/components/Icons"
 
 import DesignNav from "./design-nav"
@@ -25,11 +26,8 @@ export default function Designs({ children, way }: Props): ReactElement {
 
   const logoutHandler = async () => {
     try {
-      const token = localStorage.getItem("token")
-      if (!token) {
-        throw Error("No Token!")
-      }
-      dispatch(setLogout({ token }))
+      await vendorLogout()
+      dispatch(setLogout())
     } catch (error) {
       console.log("Some Error!", error)
     }
@@ -49,7 +47,7 @@ export default function Designs({ children, way }: Props): ReactElement {
           <Link href="/designs">
             <Icons.AiFillAppstore />
           </Link>
-          <Link href="/profile/work">
+          <Link href="/profile">
             <Icons.AiOutlineUser />
           </Link>
           <button

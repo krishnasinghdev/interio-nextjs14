@@ -16,7 +16,6 @@ export default function Layout({
   const pathname = usePathname()
   const loginStatus = useSelector(isLogin)
   const vendor = useSelector(vd)
-  console.log(pathname)
   return (
     <>
       <Image
@@ -29,6 +28,8 @@ export default function Layout({
       />
       {loginStatus ? (
         <>
+          {
+            !(pathname == "/profile/edit") && ( <>
           <section className="-mt-4 flex items-center justify-between px-8 text-white">
             <div className="flex items-center gap-4  ">
               <Image src={"/dp2.png"} alt="dp2" width={100} height={100} />
@@ -40,24 +41,26 @@ export default function Layout({
               </div>
             </div>
             <div className="">
-              {pathname == "/profile/about" && (
-                <button className="cborder mr-4   rounded bg-trans px-4 py-2 ">
-                  Change Password
-                </button>
-              )}
-              <Link
-                href={"/profile/edit"}
-                className="  rounded bg-primary px-4 py-2 "
-              >
-                Edit Profile
-              </Link>
+              {pathname == "/profile/edit" ? (
+                <Link className="cborder mr-4  rounded bg-trans px-4 py-2 " href={"/profile"}>
+                  Cancel Edit
+                </Link>)
+                :
+                <Link
+                  href={"/profile/edit"}
+                  className="  rounded bg-primary px-4 py-2 "
+                >
+                  Edit Profile
+                </Link>
+              }
             </div>
           </section>
-          <header className="flex items-center justify-around py-4 text-gray">
+          
+              <header className="flex items-center justify-around py-4 text-gray">
             <Link
               href={"/profile/work"}
               className={clsx(
-                // { "text-primary": router?.query?.tab == "work" },
+                { "text-primary": pathname == "profile/work" },
                 "hover:text-primary"
               )}
             >
@@ -66,7 +69,7 @@ export default function Layout({
             <Link
               href={"/profile/liked-shot"}
               className={clsx(
-                // { "text-primary": router?.query?.tab == "liked-shot" },
+                { "text-primary": pathname == "profile/liked-shot" },
                 "hover:text-primary"
               )}
             >
@@ -75,7 +78,7 @@ export default function Layout({
             <Link
               href={"/profile/collection"}
               className={clsx(
-                // { "text-primary": router?.query?.tab == "collection" },
+                { "text-primary": pathname == "profile/collection" },
                 "hover:text-primary"
               )}
             >
@@ -84,15 +87,18 @@ export default function Layout({
             <Link
               href={"/profile/about"}
               className={clsx(
-                // { "text-primary": router?.query?.tab == "about" },
+                { "text-primary": pathname == "profile/about" },
                 "hover:text-primary"
               )}
             >
               About me
             </Link>
-          </header>
+              </header>
+              <p className="mb-4 w-full border-[0.5px] border-gray px-4" />
+          </>  )
+          }
           <div className="px-8 ">
-            <p className="mb-4 w-full border-[0.5px] border-gray px-4" />
+            
             {children}
           </div>
         </>

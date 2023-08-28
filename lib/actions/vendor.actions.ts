@@ -2,12 +2,10 @@
 
 import { cookies } from "next/headers"
 import getIdByToken from "@/utils/helper"
-import loginAuth from "@/utils/middleware"
 
 import { ErrorType } from "@/types/core"
 
 import SHOT from "../model/shotModel"
-import { IVendor } from "../model/types/vendor-type"
 // import { FilterQuery, SortOrder } from "mongoose";
 // import { revalidatePath } from "next/cache";
 
@@ -22,10 +20,45 @@ export const addVendor = async (body: any) => {
     const vendor = new VENDOR(body)
     await vendor.save()
     const token = await vendor.generateAuthToken()
+    cookies().set("token", token)
     return { name: vendor?.name, _id: vendor._id, token }
   } catch (error) {
     const err = error as ErrorType
     throw new Error(`Failed to fetch user: ${err.message}`)
+  }
+}
+
+//-------------Revalidate VENDOR-------------//
+export const revalidateVendor = async () => {
+  try {
+    connectToDB()
+
+    const cookieStore = cookies()
+    const prevToken = cookieStore.get("token")
+    if (!prevToken) {
+      return { message: "Token Not Found", code: 500 }
+    }
+
+    const _id = await getIdByToken(prevToken)
+    if (!_id) {
+      return { message: "Token Expired", code: 500 }
+    }
+
+    const vendor = await VENDOR.findOne({ _id })
+    if (!vendor) {
+      return { message: "Vendor Not Found", code: 500 }
+    }
+    vendor.tokens = vendor.tokens.filter((tok) => {
+      return tok.token !== prevToken?.value
+    })
+
+    const token = await vendor.generateAuthToken()
+    await vendor.save()
+    cookies().set("token", token)
+    return { name: vendor?.name, _id: vendor._id, token, code: 200 }
+  } catch (error) {
+    const err = error as ErrorType
+    throw new Error(`Failed to Revalidate: ${err.message}`)
   }
 }
 
@@ -47,15 +80,22 @@ export const vendorLogin = async (body: any) => {
 }
 
 //-------------LOGOUT VENDOR-------------//
-export const vendorLogout = async (token: string) => {
+export const vendorLogout = async () => {
   try {
-    const vendor: IVendor = await loginAuth(token)
+    const cookieStore = cookies()
+    const token = cookieStore.get("token")
+    const _id = await getIdByToken(token)
+
+    if (!_id) {
+      return { message: "Token Expired", code: 500 }
+    }
+    const vendor = await VENDOR.findOne({ _id })
     if (!vendor) {
       throw new Error("Invalid Attempt, vendor not Found!")
     }
     cookies().delete("token")
     vendor.tokens = vendor.tokens.filter((tok) => {
-      return tok.token !== token
+      return tok.token !== token?.value
     })
 
     await vendor.save()

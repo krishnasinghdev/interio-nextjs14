@@ -69,7 +69,7 @@ const Navbar = () => {
           <div className="flex justify-between gap-4 text-lg ">
             {isLogin ? (
               <Link
-                href="/profile/work"
+                href="/profile"
                 className="sm:rounded-full sm:border-2 sm:border-primary sm:px-6 sm:py-1 sm:text-primary "
               >
                 Hello

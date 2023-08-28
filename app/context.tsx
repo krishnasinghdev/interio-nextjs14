@@ -2,30 +2,29 @@
 
 import { useEffect } from "react"
 import { useAppDispatch, useAppSelector } from "@/context/hook"
-import { setLogin, showModal as SM } from "@/context/theme"
+import { setLogin, setLogout, showModal as SM } from "@/context/theme"
 
+import { revalidateVendor } from "@/lib/actions/vendor.actions"
 import Modal from "@/components/Modal"
 
 export default function Context() {
   const dispatch = useAppDispatch()
   const showModal = useAppSelector(SM)
 
-  useEffect(() => {
-    const token = localStorage.getItem("token")
-    const vendor = localStorage.getItem("vendor")
-    const v_id = localStorage.getItem("v_id")
-    if (token && vendor && v_id) {
-      dispatch(
-        setLogin({
-          vendor,
-          v_id,
-          token,
-        })
-      )
+  const checkLogin = async () => {
+    try {
+      const vendor = await revalidateVendor()
+      vendor && vendor.code === 200 && dispatch(setLogin(vendor))
+    } catch (error) {
+      dispatch(setLogout())
+      console.log("Some Error!", error)
     }
-  }, [dispatch])
+  }
 
-  // what if i remove dependency array from use effect, does it will generaete error or infinte loop
+  useEffect(() => {
+    checkLogin()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return <>{showModal && <Modal />}</>
 }

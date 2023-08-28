@@ -11,10 +11,8 @@ const getIdByToken = async (token: any) => {
     if (typeof decoded === "string") {
       throw new Error("Invalid token")
     }
-
     return decoded._id
   } catch (error) {
-    console.log(error)
     throw new Error(`No token : ${error}`)
   }
 }
