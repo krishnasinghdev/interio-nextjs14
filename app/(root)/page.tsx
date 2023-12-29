@@ -2,33 +2,18 @@ import type { NextPage } from "next"
 import Image from "next/image"
 import Link from "next/link"
 
+import { getShot } from "@/lib/actions/shot.actions"
 import Hero from "@/components/Hero"
+import IconList from "@/components/motion/icon-list"
 import RectangleCard from "@/components/RectangleCard"
 
-const Home: NextPage = () => {
+const Home: NextPage = async () => {
+  const { shots } = await getShot(10)
+
   return (
     <section className="bg-dark">
       <Hero />
-
-      {/* ICON LIST */}
-      <div className="padding grid grid-cols-2 items-start gap-4 py-16 text-center md:grid-cols-4 md:gap-6">
-        {IconData.map((_, i) => (
-          <div
-            key={i}
-            className="flex flex-col items-center  justify-center gap-4"
-          >
-            <Image
-              src={_.icon}
-              alt="icon"
-              height={30}
-              width={30}
-              className="m-auto"
-            />
-            <h3 className="text-xl font-semibold text-gray">{_.title}</h3>
-            <p className="text-gray">{_.description}</p>
-          </div>
-        ))}
-      </div>
+      <IconList />
 
       {/* SHOTS SECTION */}
       <h1 className="pt-16 text-center text-4xl font-bold text-gray">SHOTS</h1>
@@ -82,23 +67,24 @@ const Home: NextPage = () => {
       </h1>
 
       <div className="padding grid grid-cols-2 gap-4 md:grid-cols-5">
-        {card.map((_, i) => (
-          <div key={i}>
-            <span className=" absolute m-2 rounded-2xl bg-pink-500 px-2 py-0 text-sm text-white">
-              24k
-            </span>
-            <Image
-              src={`/Group${i + 1}.png`}
-              height={250}
-              width={250}
-              alt={"man"}
-              className="rounded hover:cursor-pointer "
-            />
-            {/* <span className='relative m-2 rounded-2xl bg-primary px-2 py-0 text-sm'>
-                <BsFillPlayFill className='text-xl text-white' />
-              </span> */}
-          </div>
-        ))}
+        {shots &&
+          shots.map((_, i) => (
+            <div key={i}>
+              <span className=" absolute m-2 rounded-2xl bg-pink-500 px-2 py-0 text-sm text-white">
+                24k
+              </span>
+              <Link href={`/designs/${_._id}`}>
+                <Image
+                  src={_.images[0].url}
+                  height={250}
+                  width={250}
+                  alt={"man"}
+                  className="rounded hover:cursor-pointer "
+                />
+              </Link>
+              {/* <p>{_.title}</p> */}
+            </div>
+          ))}
       </div>
       <p className="m-auto mt-6 w-3/4 border-b border-gray pb-16 text-center">
         <Link
@@ -166,30 +152,7 @@ const Home: NextPage = () => {
 
 export default Home
 
-const card = [1, 2, 3, 4, 5, 6, 7, 8]
-
-const IconData = [
-  {
-    icon: "/upload.png",
-    title: "Upload Designs",
-    description: "Upload your work and become noticable",
-  },
-  {
-    icon: "/gallery.png",
-    title: "Get Inspired",
-    description: "Get inspired by thousands of designs",
-  },
-  {
-    icon: "/chat.png",
-    title: "Message Designer",
-    description: "Message Other Interior Designers on the platform",
-  },
-  {
-    icon: "/heart.png",
-    title: "Get Feedback",
-    description: "Get comments, likes & shares from other people",
-  },
-]
+// const card = [1, 2, 3, 4, 5, 6, 7, 8]
 
 const ShotData = [
   {

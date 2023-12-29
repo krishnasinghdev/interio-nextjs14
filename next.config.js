@@ -1,18 +1,6 @@
 /** @type {import('next').NextConfig} */
 
 const nextConfig = {
-  modularizeImports: {
-    "react-icons": {
-      transform: "react-icons/{{member}}",
-    },
-  },
-  experimental: {
-    serverActions: true,
-    serverComponentsExternalPackages: ["mongoose"],
-  },
-  // env: {
-  //   API_URL: 'https://api.evenbeam.com',
-  // },
   images: {
     remotePatterns: [
       {

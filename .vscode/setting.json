@@ -4,5 +4,33 @@
   "editor.codeActionsOnSave": {
     "source.fixAll": true,
     "source.organizeImports": true
-  }
-}
+  },
+  "editor.fontFamily": "Mono Lisa",
+  "editor.fontSize": 18,
+  "terminal.integrated.fontSize": 18,
+  "window.zoomLevel": 1,
+  "editor.wordWrap": "on",
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.formatOnType": true
+  },
+  "tailwind-class-sorter.classRegex": {
+    "rescript": [
+     "className\\w*?=\\w*(\"[\\s\\S]+?\")|className\\w*?=\\w*?\\{([\\s\\S]+?)\\}",
+     "\"(.+?)\""
+    ]
+  },
+  "tailwindCSS.includeLanguages": {
+    "html": "html",
+    "javascript": "javascript",
+    "javascriptreact": "javascriptreact",
+    "css": "css"
+  },
+    "editor.quickSuggestions": {
+      "strings": true
+    },
+    "editor.mouseWheelZoom": true
+}  

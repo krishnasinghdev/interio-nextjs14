@@ -107,13 +107,7 @@ const Edit = () => {
   return (
     <main className="py-16">
       <h1>Your Profile</h1>
-      {
-        message && (
-          <p className="text-xs text-red-400">
-            {message}
-          </p>
-        )
-      }
+      {message && <p className="text-xs text-red-400">{message}</p>}
       <div className="flex items-center justify-between gap-4 ">
         <div className="flex items-center gap-4">
           <Image

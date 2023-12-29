@@ -1,10 +1,11 @@
 import { TailwindIndicator } from "../components/TailwindIndicator"
-import ReduxProvider from "./provider"
 
 import "./globals.css"
 
 import { Metadata } from "next"
 import { Poppins } from "next/font/google"
+import QueryProvider from "@/providers/query-provider"
+import ReduxProvider from "@/providers/redux-provider"
 
 import Context from "./context"
 
@@ -26,12 +27,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={poppins.className}>
-        <ReduxProvider>
-          <div id="modal" />
-          {children}
-          <TailwindIndicator />
-          <Context />
-        </ReduxProvider>
+        <QueryProvider>
+          <ReduxProvider>
+            <div id="modal" />
+            {children}
+            <TailwindIndicator />
+            <Context />
+          </ReduxProvider>
+        </QueryProvider>
       </body>
     </html>
   )

@@ -12,7 +12,7 @@ const RectangleCard = () => {
   return (
     <div className="padding relative -bottom-14 z-10 mx-auto hidden w-[85%] items-center justify-between rounded-md bg-black  py-8 text-center text-white md:flex lg:w-[65%] ">
       <button
-        className=""
+        className="border-2 transition-all border-transparent hover:border-primary px-4 py-2 rounded-full"
         onClick={() =>
           dispatch(toggleModal({ showModal: true, modalType: "signin" }))
         }
