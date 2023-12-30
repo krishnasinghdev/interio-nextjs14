@@ -32,11 +32,20 @@ export const themeSlice = createSlice({
   initialState,
   reducers: {
     toggleModal: (state, actions) => {
-      const { showModal, modalType } = actions.payload
-      state.showModal = showModal
-      if (showModal) state.modalFor = modalType
-      else state.modalFor = ""
+      const modalType = actions.payload
+
+      if (modalType === "HIDE") {
+        state.viewSignin = false
+        state.viewSignup = false
+      }
+      if (modalType === "signin") {
+        state.viewSignin = true
+      }
+      if (modalType === "signup") {
+        state.viewSignup = true
+      }
     },
+
     showSidebar: (state) => {
       state.sidebar = true
     },
@@ -62,8 +71,7 @@ export const themeSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { showSidebar, hideSidebar, setLogin, setLogout, toggleModal } =
-  themeSlice.actions
+export const { showSidebar, hideSidebar, setLogin, setLogout, toggleModal } = themeSlice.actions
 export const sidebar = (state: RootState) => state.theme.sidebar
 export const isLogin = (state: RootState) => state.theme.isLogin
 export const viewSignup = (state: RootState) => state.theme.viewSignup

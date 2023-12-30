@@ -1,21 +1,9 @@
-import {
-  AiFillAppstore,
-  AiOutlineEye,
-  AiOutlineHeart,
-  AiOutlineUser,
-} from "react-icons/ai"
+import { AiFillAppstore, AiOutlineEye, AiOutlineHeart, AiOutlineUser } from "react-icons/ai"
 import { BsChatDots, BsFillPlayFill, BsShareFill } from "react-icons/bs"
 import { CgMenuRightAlt } from "react-icons/cg"
 import { FiFolderMinus, FiSettings } from "react-icons/fi"
-import {
-  HiOutlineLogout,
-  HiOutlineMail,
-  HiOutlinePhotograph,
-} from "react-icons/hi"
-import {
-  MdCancelPresentation,
-  MdOutlineCancelPresentation,
-} from "react-icons/md"
+import { HiOutlineLogout, HiOutlineMail, HiOutlinePhotograph } from "react-icons/hi"
+import { MdCancelPresentation, MdOutlineCancelPresentation } from "react-icons/md"
 import { RiSuitcaseLine } from "react-icons/ri"
 
 export const Icons = {

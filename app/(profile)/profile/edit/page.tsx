@@ -48,14 +48,7 @@ const schema = Joi.object({
 const Edit = () => {
   const dispatch = useDispatch()
   const [message, setMessage] = useState<string>("")
-  const allTags = [
-    "Modern",
-    "Minimal",
-    "Dark Theme",
-    "Hotel Room",
-    "Luxurious",
-    "Space Saving",
-  ]
+  const allTags = ["Modern", "Minimal", "Dark Theme", "Hotel Room", "Luxurious", "Space Saving"]
   const {
     register,
     handleSubmit,
@@ -110,33 +103,18 @@ const Edit = () => {
       {message && <p className="text-xs text-red-400">{message}</p>}
       <div className="flex items-center justify-between gap-4 ">
         <div className="flex items-center gap-4">
-          <Image
-            src={"/girl.png"}
-            alt="dpgirl"
-            height={70}
-            width={70}
-            className="rounded-full"
-          />
-          <button className="rounded bg-primary px-4  py-1  ">
-            Upload Now
-          </button>
-          <button className="rounded bg-trans px-4  py-1  ">Delete Pic</button>
+          <Image src={"/girl.png"} alt="dpgirl" height={70} width={70} className="rounded-full" />
+          <button className="rounded bg-primary px-4  py-1  ">Upload Now</button>
+          <button className="bg-trans rounded px-4  py-1  ">Delete Pic</button>
         </div>
         <button
-          className="rounded bg-trans px-4  py-2 "
-          onClick={() =>
-            dispatch(
-              toggleModal({ showModal: true, modalType: "edit-password" })
-            )
-          }
+          className="bg-trans rounded px-4  py-2 "
+          onClick={() => dispatch(toggleModal({ showModal: true, modalType: "edit-password" }))}
         >
           Password
         </button>
       </div>
-      <form
-        className="flex  flex-col text-gray placeholder:text-sm "
-        onSubmit={handleSubmit(onSubmit)}
-      >
+      <form className="text-gray  flex flex-col placeholder:text-sm " onSubmit={handleSubmit(onSubmit)}>
         <div className="mt-4 flex ">
           <div className="w-1/2 ">
             <label htmlFor="name" className=" block">
@@ -160,9 +138,7 @@ const Edit = () => {
               placeholder="username"
               {...register("username")}
             />
-            <p className="mt-1 text-xs text-red-400">
-              {errors.username?.message}
-            </p>
+            <p className="mt-1 text-xs text-red-400">{errors.username?.message}</p>
           </div>
         </div>
         <div className="mt-4 flex w-full">
@@ -188,19 +164,14 @@ const Edit = () => {
               placeholder="location"
               {...register("location")}
             />
-            <p className="mt-1 text-xs text-red-400">
-              {errors.location?.message}
-            </p>
+            <p className="mt-1 text-xs text-red-400">{errors.location?.message}</p>
           </div>
         </div>
         <div className="">
           <label htmlFor="location" className=" block">
             Tags
           </label>
-          <select
-            {...register("tag")}
-            className="cborder mr-4 mt-2 rounded bg-[#1D1D1D]  px-4 py-2"
-          >
+          <select {...register("tag")} className="cborder mr-4 mt-2 rounded bg-[#1D1D1D]  px-4 py-2">
             {allTags.map((tag, i) => (
               <option className="bg-[#1D1D1D]" key={i} value={tag}>
                 {tag}
@@ -221,9 +192,7 @@ const Edit = () => {
             rows={10}
             {...register("biography")}
           ></textarea>
-          <p className="mt-1 text-xs text-red-400">
-            {errors.biography?.message}
-          </p>
+          <p className="mt-1 text-xs text-red-400">{errors.biography?.message}</p>
         </div>
 
         <div className=" ">
@@ -236,13 +205,9 @@ const Edit = () => {
             placeholder="portfolio"
             {...register("portfolio")}
           />
-          <p className="mt-1 text-xs text-red-400">
-            {errors.portfolio?.message}
-          </p>
+          <p className="mt-1 text-xs text-red-400">{errors.portfolio?.message}</p>
         </div>
-        <button className="mt-4 w-fit rounded bg-primary px-4 py-2 ">
-          Save Changes
-        </button>
+        <button className="mt-4 w-fit rounded bg-primary px-4 py-2 ">Save Changes</button>
       </form>
     </main>
   )

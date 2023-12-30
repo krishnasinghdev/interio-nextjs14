@@ -37,12 +37,7 @@ export default function Designs({ children, way }: Props): ReactElement {
       <aside className="fixed hidden h-screen w-[280px] md:flex">
         <div className="flex h-screen w-[60px] flex-col items-center justify-evenly border-r bg-black pb-[25vh] text-xl text-white lg:border-none ">
           <Link href="/">
-            <Image
-              src={"/interio.png"}
-              alt="interio logo"
-              height={35}
-              width={35}
-            />
+            <Image src={"/interio.png"} alt="interio logo" height={35} width={35} />
           </Link>
           <Link href="/designs">
             <Icons.AiFillAppstore />
@@ -50,23 +45,13 @@ export default function Designs({ children, way }: Props): ReactElement {
           <Link href="/profile">
             <Icons.AiOutlineUser />
           </Link>
-          <button
-            onClick={() =>
-              dispatch(toggleModal({ showModal: true, modalType: "invite" }))
-            }
-          >
+          <button onClick={() => dispatch(toggleModal({ showModal: true, modalType: "invite" }))}>
             <Icons.HiOutlineMail />
           </button>
-          <button
-            onClick={() =>
-              dispatch(
-                toggleModal({ showModal: true, modalType: "collection" })
-              )
-            }
-          >
+          <button onClick={() => dispatch(toggleModal({ showModal: true, modalType: "collection" }))}>
             <Icons.FiFolderMinus />
           </button>
-          <p className="w-[2vw] border border-gray"> </p>
+          <p className="border-gray w-[2vw] border"> </p>
           <button title="Coming Soon!">
             <Icons.FiSettings />
           </button>
@@ -78,13 +63,7 @@ export default function Designs({ children, way }: Props): ReactElement {
 
           {loginStatus && (
             <Link href="/profile" className="absolute bottom-8 ">
-              <Image
-                src={"/dp.png"}
-                alt="interio logo"
-                height={35}
-                width={35}
-                className="rounded-full bg-primary "
-              />
+              <Image src={"/dp.png"} alt="interio logo" height={35} width={35} className="rounded-full bg-primary " />
             </Link>
           )}
         </div>
@@ -92,46 +71,33 @@ export default function Designs({ children, way }: Props): ReactElement {
           <div className="mt-3 w-[200px]">
             {/* ?.split(' ')[0] */}
             <h1 className="font-semibold">Hello {vendor?.vendor},</h1>
-            <p className="text-xs text-light">Check out your store analysis</p>
+            <p className="text-light text-xs">Check out your store analysis</p>
           </div>
 
           <Link
             href="/designs"
-            className={clsx(
-              { "bg-lighter": pathname == "/designs" },
-              "flex w-[200px] items-center gap-4 rounded-lg px-4 py-2"
-            )}
+            className={clsx({ "bg-lighter": pathname == "/designs" }, "flex w-[200px] items-center gap-4 rounded-lg px-4 py-2")}
           >
             <Icons.HiOutlinePhotograph />
             <div>
               <h1 className="font-semibold">10k+</h1>
-              <p className="text-xs text-light">Inspirations for you</p>
+              <p className="text-light text-xs">Inspirations for you</p>
             </div>
           </Link>
-          <div
-            className={clsx(
-              { "bg-lighter": pathname == "/suitcase" },
-              "flex w-[200px] items-center gap-4 rounded-lg px-4 py-2"
-            )}
-          >
+          <div className={clsx({ "bg-lighter": pathname == "/suitcase" }, "flex w-[200px] items-center gap-4 rounded-lg px-4 py-2")}>
             <Icons.RiSuitcaseLine />
             <div>
               <h1 className="font-semibold">123+</h1>
-              <p className="text-xs text-light">
+              <p className="text-light text-xs">
                 Find Work <br /> (coming soon)
               </p>
             </div>
           </div>
-          <div
-            className={clsx(
-              { "bg-lighter": pathname == "/user" },
-              "flex w-[200px] items-center gap-4 rounded-lg px-4 py-2"
-            )}
-          >
+          <div className={clsx({ "bg-lighter": pathname == "/user" }, "flex w-[200px] items-center gap-4 rounded-lg px-4 py-2")}>
             <Icons.AiOutlineUser />
             <div>
               <h1 className="font-semibold">104+</h1>
-              <p className="text-xs text-light">
+              <p className="text-light text-xs">
                 Hire Designer <br /> (coming soon)
               </p>
             </div>
@@ -140,9 +106,7 @@ export default function Designs({ children, way }: Props): ReactElement {
             href={`/profile/chat?v_id=${vendor.v_id}`}
             className={clsx(
               {
-                "bg-lighter":
-                  pathname == "/profile/chat" ||
-                  pathname == "/profile/chat/[ChatId]",
+                "bg-lighter": pathname == "/profile/chat" || pathname == "/profile/chat/[ChatId]",
                 "pointer-events-none": !loginStatus,
               },
               "flex w-[200px] items-center gap-4 rounded-lg px-4 py-2"
@@ -153,10 +117,10 @@ export default function Designs({ children, way }: Props): ReactElement {
               {loginStatus ? (
                 <>
                   <h1 className="font-semibold">{"5+"}</h1>
-                  <p className="text-xs text-light">Project messages</p>
+                  <p className="text-light text-xs">Project messages</p>
                 </>
               ) : (
-                <p className="text-sm text-light">Login to chat</p>
+                <p className="text-light text-sm">Login to chat</p>
               )}
             </div>
           </Link>

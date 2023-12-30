@@ -24,42 +24,18 @@ const Modal = () => {
 
   return mounted && ref.current
     ? createPortal(
-        <dialog className="overlay z-10">
-          {modalFor === "signup" && (
-            <Signup
-              onClick={() =>
-                dispatch(toggleModal({ showModal: false, modalType: "" }))
-              }
-            />
-          )}
+        <dialog className=" z-10">
+          {modalFor === "signup" && <Signup onClick={() => dispatch(toggleModal({ showModal: false, modalType: "" }))} />}
           {modalFor === "signin" && (
             <Signin
-              onClick={() =>
-                dispatch(toggleModal({ showModal: false, modalType: "" }))
-              }
+            // onClick={() =>
+            //   dispatch(toggleModal({ showModal: false, modalType: "" }))
+            // }
             />
           )}
-          {modalFor === "invite" && (
-            <Invite
-              onClick={() =>
-                dispatch(toggleModal({ showModal: false, modalType: "" }))
-              }
-            />
-          )}
-          {modalFor === "collection" && (
-            <NewCollection
-              onClick={() =>
-                dispatch(toggleModal({ showModal: false, modalType: "" }))
-              }
-            />
-          )}
-          {modalFor === "edit-password" && (
-            <EditPassword
-              onClick={() =>
-                dispatch(toggleModal({ showModal: false, modalType: "" }))
-              }
-            />
-          )}
+          {modalFor === "invite" && <Invite onClick={() => dispatch(toggleModal({ showModal: false, modalType: "" }))} />}
+          {modalFor === "collection" && <NewCollection onClick={() => dispatch(toggleModal({ showModal: false, modalType: "" }))} />}
+          {modalFor === "edit-password" && <EditPassword onClick={() => dispatch(toggleModal({ showModal: false, modalType: "" }))} />}
         </dialog>,
         ref.current
       )

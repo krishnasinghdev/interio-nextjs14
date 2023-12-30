@@ -1,18 +1,59 @@
+"use client"
+
 import { useState } from "react"
 import { useAppDispatch } from "@/context/hook"
+import { toggleModal, viewSignup } from "@/context/theme"
+import { cn, useMediaQuery } from "@/utils"
 import { joiResolver } from "@hookform/resolvers/joi"
-// import axios from "axios"
 import Joi from "joi"
 import { SubmitHandler, useForm } from "react-hook-form"
+import { useSelector } from "react-redux"
+import { toast } from "sonner"
 
 import { addVendor } from "@/lib/actions/vendor.actions"
+import { Button } from "@/components/ui/button"
+import { Dialog, DialogContent } from "@/components/ui/dialog"
+import { Drawer, DrawerClose, DrawerContent, DrawerFooter } from "@/components/ui/drawer"
+import { Input } from "@/components/ui/input"
 
 import { setLogin } from "../context/theme"
-import ModalHeader from "./ModalHeader"
+import { CardDescription, CardHeader, CardTitle } from "./ui/card"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "./ui/form"
+
+export default function SignUpPanel() {
+  const isDesktop = useMediaQuery("(min-width: 768px)")
+  const dispatch = useAppDispatch()
+  const VSI = useSelector(viewSignup)
+  if (!VSI) return null
+
+  if (isDesktop) {
+    return (
+      <Dialog open={VSI} onOpenChange={() => dispatch(toggleModal("HIDE"))}>
+        <DialogContent className="sm:max-w-[425px]">
+          <SignUpForm />
+        </DialogContent>
+      </Dialog>
+    )
+  }
+
+  return (
+    <Drawer open={VSI}>
+      <DrawerContent className="pb-6">
+        <SignUpForm className="px-4" />
+        <DrawerFooter className="pt-4">
+          <DrawerClose asChild>
+            <Button variant="outline" onClick={() => dispatch(toggleModal("HIDE"))}>
+              Cancel
+            </Button>
+          </DrawerClose>
+        </DrawerFooter>
+      </DrawerContent>
+    </Drawer>
+  )
+}
 
 interface IFormInput {
   name: string
-  username: string
   email: string
   password: string
   cpassword: string
@@ -22,32 +63,34 @@ const schema = Joi.object({
   email: Joi.string()
     .required()
     .email({ tlds: { allow: false } })
-    .label("Email/Username is required "),
-  password: Joi.string().min(3).required(),
+    .messages({
+      "any.required": "Email is required",
+      "string.email": "Email is invalid",
+    }),
+  password: Joi.string().min(3).required().messages({
+    "any.required": "Password is required",
+    "string.min": "Password must be at least 3 characters",
+  }),
   cpassword: Joi.ref("password"),
-  name: Joi.string().required(),
-  username: Joi.string().min(5).required(),
+  name: Joi.string().required().messages({
+    "any.required": "Name is required",
+  }),
 })
 
-const Signup = ({ onClick }: { onClick: () => void }) => {
+const SignUpForm = ({ className }: React.ComponentProps<"form">) => {
   const dispatch = useAppDispatch()
-  const [message, setMessage] = useState<string>("")
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<IFormInput>({
+  const form = useForm<IFormInput>({
     resolver: joiResolver(schema),
   })
-
+  const [loading, setLoading] = useState(false)
   const onSubmit: SubmitHandler<IFormInput> = async (val) => {
-    setMessage("Creating Account...")
+    setLoading(true)
     try {
       //@ts-ignore - cpassword is not optional
       delete val.cpassword
       const data = await addVendor(val)
       // console.log(data)
-      setMessage("")
+
       dispatch(
         setLogin({
           vendor: data.name,
@@ -55,120 +98,80 @@ const Signup = ({ onClick }: { onClick: () => void }) => {
           token: data.token,
         })
       )
-      onClick()
+      toast.success("Account Created!")
     } catch (error) {
-      setMessage("Some Error!")
+      toast.error("Something went wrong")
+    } finally {
+      setLoading(false)
     }
   }
 
   return (
-    <section className="z-10 m-auto rounded bg-[#0F0F0F] p-6 md:w-1/2">
-      <ModalHeader
-        heading="Make your account"
-        onClick={onClick}
-        title="Create a new account and explore the community"
-      />
+    <section className={cn("grid items-start", className)}>
+      <CardHeader className="mb-4">
+        <CardTitle className="text-white">Sign Up</CardTitle>
+        <CardDescription>Create accoun to get inspirations</CardDescription>
+      </CardHeader>
 
-      {message && (
-        <p className="mt-2 text-center text-sm text-red-500">{message}</p>
-      )}
-      <form
-        className="flex flex-col bg-[#0F0F0F] text-gray placeholder:text-sm"
-        onSubmit={handleSubmit(onSubmit)}
-      >
-        <div className="mt-4  grid gap-4 md:grid-cols-2">
-          <p className="col-span-1">
-            <label htmlFor="name" className=" block">
-              Name
-            </label>
-            <input
-              type="text"
-              {...register("name")}
-              className="mt-2 w-full rounded bg-[#1D1D1D] px-4 py-2"
-              placeholder="name"
-              required={true}
-            />
-            <span className="mt-1 text-xs text-red-400">
-              {errors.name?.message}
-            </span>
-          </p>
-          <p className="col-span-1 ">
-            <label htmlFor="username" className=" block">
-              Username
-            </label>
-            <input
-              type="text"
-              className="mt-2 w-full rounded bg-[#1D1D1D] px-4  py-2"
-              placeholder="username"
-              {...register("username")}
-              required={true}
-            />
-            <span className="mt-1 text-xs text-red-400">
-              {errors.username?.message}
-            </span>
-          </p>
-        </div>
-        <label htmlFor="email" className="mt-4 block">
-          Email
-        </label>
-        <input
-          type="email"
-          className="mt-2 rounded bg-[#1D1D1D] px-4  py-2"
-          placeholder="email"
-          {...register("email")}
-          required={true}
-        />
-        <span className="mt-1 text-xs text-red-400">
-          {errors.email?.message}
-        </span>
-        <label htmlFor="cpassword" className="mt-4 block">
-          Password
-        </label>
-        <input
-          type="password"
-          className="mt-2 rounded bg-[#1D1D1D] px-4  py-2"
-          placeholder="password"
-          {...register("password")}
-          autoComplete="true"
-          required={true}
-        />
-        <span className="mt-1 text-xs text-red-400">
-          {errors.password?.message}
-        </span>
-        <label htmlFor="password" className="mt-4 block">
-          Confirm Password
-        </label>
-        <input
-          type="password"
-          className="mt-2 rounded bg-[#1D1D1D] px-4  py-2"
-          placeholder="confirm password"
-          autoComplete="true"
-          required={true}
-          {...register("cpassword")}
-        />
-        <span className="mt-1 text-xs text-red-400">
-          {errors.cpassword?.message}
-        </span>
-        <p className="mt-4">
-          <input
-            type="checkbox"
-            className="mr-2 mt-2 inline rounded bg-[#1D1D1D] px-4 py-2"
-            name="checkbox"
-            required={true}
-            defaultChecked
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+          <FormField
+            control={form.control}
+            name="name"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Name</FormLabel>
+                <FormControl>
+                  <Input placeholder="enter name" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
           />
-          <label htmlFor="checkbox" className="">
-            Creating an account means you’re okay with our <br />
-            <span className="text-primary">Terms of Service</span> &
-            <span className="text-primary">Privacy Policy</span>
-          </label>
-        </p>
-        <button className="mt-4 w-full rounded bg-primary p-2 ">
-          {message ? message : "Sign up"}
-        </button>
-      </form>
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Email</FormLabel>
+                <FormControl>
+                  <Input type="email" placeholder="hello@gmail.com" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="password"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Password</FormLabel>
+                <FormControl>
+                  <Input type="password" autoComplete="true" placeholder="enter password" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="cpassword"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Confirm Password</FormLabel>
+                <FormControl>
+                  <Input type="cpassword" autoComplete="true" placeholder="enter password" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <Button type="submit" className="mt-4 w-full" disabled={loading}>
+            Sign Up
+          </Button>
+        </form>
+      </Form>
     </section>
   )
 }
-
-export default Signup

@@ -1,8 +1,79 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0, 0%, 8%;
+    --foreground: 0, 0%, 50%;
+
+    --card: 0, 0%, 8%;
+    --card-foreground: 0, 0%, 50%;
+
+    --popover: 0, 0%, 8%;
+    --popover-foreground: 0, 0%, 50%;
+
+    --primary: 241, 100%, 72%;
+    --primary-foreground: 210 20% 98%;
+
+    --secondary: 0, 0%, 80%;
+    --secondary-foreground: 241, 100%, 72%;
+
+    --muted: 0, 0%, 80%;
+    --muted-foreground: 220 8.9% 46.1%;
+
+    --accent: 0, 0%, 80%;
+    --accent-foreground: 241, 100%, 72%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 20% 98%;
+
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 220 13% 91%;
+
+    --radius: 0.5rem;
+  }
+
+  /* .dark {
+    --background: 0, 0%, 50%;
+    --foreground: 210 20% 98%;
+ 
+    --card: 0, 0%, 50%;
+    --card-foreground: 210 20% 98%;
+ 
+    --popover: 0, 0%, 50%;
+    --popover-foreground: 210 20% 98%;
+ 
+    --primary: 210 20% 98%;
+    --primary-foreground: 241, 100%, 72%;
+ 
+    --secondary: 215 27.9% 16.9%;
+    --secondary-foreground: 210 20% 98%;
+ 
+    --muted: 215 27.9% 16.9%;
+    --muted-foreground: 217.9 10.6% 64.9%;
+ 
+    --accent: 215 27.9% 16.9%;
+    --accent-foreground: 210 20% 98%;
+ 
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 20% 98%;
+ 
+    --border: 215 27.9% 16.9%;
+    --input: 215 27.9% 16.9%;
+    --ring: 216 12.2% 83.9%;
+  } */
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
 
 body {
   font-family: "Poppins", sans-serif;
@@ -47,20 +118,11 @@ body {
 }
 
 .card {
-  background: linear-gradient(
-    105.87deg,
-    rgba(255, 255, 255, 0.21) 3.04%,
-    rgba(255, 255, 255, 0.06) 100.02%
-  );
+  background: linear-gradient(105.87deg, rgba(255, 255, 255, 0.21) 3.04%, rgba(255, 255, 255, 0.06) 100.02%);
   backdrop-filter: blur(40px);
   border-radius: 13px;
   border: 2px solid;
-  border-image-source: linear-gradient(
-    95.35deg,
-    #ffffff 0%,
-    rgba(255, 255, 255, 0) 48.97%,
-    #ffffff 100%
-  );
+  border-image-source: linear-gradient(95.35deg, #ffffff 0%, rgba(255, 255, 255, 0) 48.97%, #ffffff 100%);
 }
 .start2 {
   grid-column-start: 2 !important;

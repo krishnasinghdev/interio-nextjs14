@@ -19,14 +19,9 @@ const Navbar = () => {
 
   return (
     <>
-      <header className="padding flex items-center justify-between bg-dark text-white ">
+      <header className="padding bg-dark flex items-center justify-between text-white ">
         <Link href="/">
-          <Image
-            src={"/interio.png"}
-            alt="interio logo"
-            height={40}
-            width={40}
-          />
+          <Image src={"/interio.png"} alt="interio logo" height={40} width={40} />
         </Link>
         <nav className="flex items-center gap-4 ">
           <div className="hidden gap-6 md:flex">
@@ -45,8 +40,7 @@ const Navbar = () => {
               href="/designs"
               className={clsx(
                 {
-                  "border-b-2 border-primary text-primary":
-                    pathname === "/designs",
+                  "border-b-2 border-primary text-primary": pathname === "/designs",
                 },
                 "hover:text-primary"
               )}
@@ -57,8 +51,7 @@ const Navbar = () => {
               href="/about-us"
               className={clsx(
                 {
-                  "border-b-2 border-primary text-primary":
-                    pathname === "/about-us",
+                  "border-b-2 border-primary text-primary": pathname === "/about-us",
                 },
                 "hover:text-primary"
               )}
@@ -68,31 +61,17 @@ const Navbar = () => {
           </div>
           <div className="flex justify-between gap-4 text-lg ">
             {isLogin ? (
-              <Link
-                href="/profile"
-                className="sm:rounded-full sm:border-2 sm:border-primary sm:px-6 sm:py-1 sm:text-primary "
-              >
+              <Link href="/profile" className="sm:rounded-full sm:border-2 sm:border-primary sm:px-6 sm:py-1 sm:text-primary ">
                 Hello
               </Link>
             ) : (
               <>
-                <button
-                  className="sm:rounded-full sm:bg-primary sm:px-6 sm:py-1 "
-                  onClick={() =>
-                    dispatch(
-                      toggleModal({ showModal: true, modalType: "signup" })
-                    )
-                  }
-                >
+                <button className="sm:rounded-full sm:bg-primary sm:px-6 sm:py-1 " onClick={() => dispatch(toggleModal("signup"))}>
                   Sign up
                 </button>
                 <button
                   className="sm:rounded-full sm:border-2 sm:border-primary sm:px-6 sm:py-1 sm:text-primary "
-                  onClick={() =>
-                    dispatch(
-                      toggleModal({ showModal: true, modalType: "signin" })
-                    )
-                  }
+                  onClick={() => dispatch(toggleModal("signin"))}
                 >
                   Sign in
                 </button>
@@ -100,17 +79,11 @@ const Navbar = () => {
             )}
             {showMenu ? (
               <Icons.MdCancelPresentation
-                className={clsx(
-                  { "absolute right-4 top-4 z-50": showMenu },
-                  "text-[2.5rem] md:hidden"
-                )}
+                className={clsx({ "absolute right-4 top-4 z-50": showMenu }, "text-[2.5rem] md:hidden")}
                 onClick={() => setShowMenu((prev) => !prev)}
               />
             ) : (
-              <Icons.CgMenuRightAlt
-                className="text-[2.5rem] md:hidden"
-                onClick={() => setShowMenu((prev) => !prev)}
-              />
+              <Icons.CgMenuRightAlt className="text-[2.5rem] md:hidden" onClick={() => setShowMenu((prev) => !prev)} />
             )}
           </div>
         </nav>
@@ -118,7 +91,7 @@ const Navbar = () => {
       </header>
 
       {showMenu && (
-        <div className="absolute top-0 z-10 flex h-auto w-screen flex-col items-center gap-4 bg-dark py-10 text-white transition-all duration-200 ">
+        <div className="bg-dark absolute top-0 z-10 flex h-auto w-screen flex-col items-center gap-4 py-10 text-white transition-all duration-200 ">
           <Link
             href="/"
             className={clsx(
@@ -135,8 +108,7 @@ const Navbar = () => {
             href="/designs"
             className={clsx(
               {
-                "border-b-2 border-primary text-primary":
-                  pathname === "/designs",
+                "border-b-2 border-primary text-primary": pathname === "/designs",
               },
               "hover:text-primary"
             )}
@@ -148,8 +120,7 @@ const Navbar = () => {
             href="/about-us"
             className={clsx(
               {
-                "border-b-2 border-primary text-primary":
-                  pathname === "/about-us",
+                "border-b-2 border-primary text-primary": pathname === "/about-us",
               },
               "hover:text-primary"
             )}

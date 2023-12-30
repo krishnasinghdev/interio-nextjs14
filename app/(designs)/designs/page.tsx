@@ -15,13 +15,5 @@ export default async function Designs() {
     shots.push(...DUMMYSHOT)
   }
 
-  return (
-    <>
-      {shots?.length > 0 ? (
-        <DesignList shots={shots} />
-      ) : (
-        <p className="text-center">Nothing to show!</p>
-      )}
-    </>
-  )
+  return <>{shots?.length > 0 ? <DesignList shots={shots} /> : <p className="text-center">Nothing to show!</p>}</>
 }

@@ -1,15 +1,13 @@
 "use client"
 
 import { useEffect } from "react"
-import { useAppDispatch, useAppSelector } from "@/context/hook"
-import { setLogin, setLogout, showModal as SM } from "@/context/theme"
+import { useAppDispatch } from "@/context/hook"
+import { setLogin, setLogout } from "@/context/theme"
 
 import { revalidateVendor } from "@/lib/actions/vendor.actions"
-import Modal from "@/components/Modal"
 
 export default function Context() {
   const dispatch = useAppDispatch()
-  const showModal = useAppSelector(SM)
 
   const checkLogin = async () => {
     try {
@@ -26,5 +24,5 @@ export default function Context() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  return <>{showModal && <Modal />}</>
+  return null
 }

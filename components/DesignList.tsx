@@ -19,7 +19,7 @@ const DesignList = ({ shots }: { shots: shotData[] }) => {
               className="cursor-pointer rounded transition-all duration-200 hover:scale-105"
             />
           </Link>
-          <div className="flex justify-between px-2 py-2 text-gray">
+          <div className="text-gray flex justify-between px-2 py-2">
             <span className="text-xs md:text-base">
               <Icons.BsChatDots className="inline" /> 1.1k
             </span>

@@ -35,15 +35,11 @@ const EditPassword = ({ onClick }: { onClick: () => void }) => {
   const onSubmit: SubmitHandler<IFormInput> = async (val) => {
     setMessage("Updating...")
     try {
-      const { data } = await axios.post(
-        `${process.env.API_URL}/vendor/update-password`,
-        val,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      )
+      const { data } = await axios.post(`${process.env.API_URL}/vendor/update-password`, val, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
       console.log(data)
       setMessage("")
       onClick()
@@ -55,13 +51,8 @@ const EditPassword = ({ onClick }: { onClick: () => void }) => {
   return (
     <section className="m-auto w-11/12 rounded bg-[#0F0F0F] p-8 md:w-1/2 ">
       <ModalHeader onClick={onClick} title="Update your password" />
-      {message && (
-        <p className="mt-2 text-center text-sm text-red-500">{message}</p>
-      )}
-      <form
-        className="flex flex-col bg-[#0F0F0F] text-gray placeholder:text-sm"
-        onSubmit={handleSubmit(onSubmit)}
-      >
+      {message && <p className="mt-2 text-center text-sm text-red-500">{message}</p>}
+      <form className="text-gray flex flex-col bg-[#0F0F0F] placeholder:text-sm" onSubmit={handleSubmit(onSubmit)}>
         <label htmlFor="email" className="mt-4 block">
           Email
         </label>
@@ -82,9 +73,7 @@ const EditPassword = ({ onClick }: { onClick: () => void }) => {
           autoComplete="true"
           {...register("oldPassword")}
         />
-        <span className="mt-1 text-xs text-red-400">
-          {errors.oldPassword?.message}
-        </span>
+        <span className="mt-1 text-xs text-red-400">{errors.oldPassword?.message}</span>
         <label htmlFor="newPassword" className="mt-4 block">
           New Password
         </label>
@@ -95,9 +84,7 @@ const EditPassword = ({ onClick }: { onClick: () => void }) => {
           {...register("newPassword")}
           autoComplete="true"
         />
-        <span className="mt-1 text-xs text-red-400">
-          {errors.newPassword?.message}
-        </span>
+        <span className="mt-1 text-xs text-red-400">{errors.newPassword?.message}</span>
         <label htmlFor="cnewPassword" className="mt-4 block">
           Confirm Password
         </label>
@@ -108,12 +95,8 @@ const EditPassword = ({ onClick }: { onClick: () => void }) => {
           {...register("cnewPassword")}
           autoComplete="true"
         />
-        <span className="mt-1 text-xs text-red-400">
-          {errors.cnewPassword?.message}
-        </span>
-        <button className="mt-4 w-full rounded bg-primary p-2 ">
-          {message ? message : "Update Password"}
-        </button>
+        <span className="mt-1 text-xs text-red-400">{errors.cnewPassword?.message}</span>
+        <button className="mt-4 w-full rounded bg-primary p-2 ">{message ? message : "Update Password"}</button>
       </form>
     </section>
   )

@@ -4,6 +4,8 @@ import Link from "next/link"
 import { useAppDispatch, useAppSelector } from "@/context/hook"
 import { isLogin, toggleModal } from "@/context/theme"
 
+import { Button } from "@/components/ui/button"
+
 export default function DesignNav() {
   const loginStatus = useAppSelector(isLogin)
   const dispatch = useAppDispatch()
@@ -16,32 +18,15 @@ export default function DesignNav() {
         </Link>
         <p>
           {loginStatus ? (
-            <Link
-              href="/designs/upload"
-              className="mr-4 rounded bg-primary px-4 py-2"
-            >
+            <Link href="/designs/upload" className="mr-4 rounded bg-primary px-4 py-2">
               Upload Shot
             </Link>
           ) : (
             <>
-              <button
-                className="mr-4 rounded bg-primary px-4 py-2"
-                onClick={() =>
-                  dispatch(
-                    toggleModal({ showModal: true, modalType: "signup" })
-                  )
-                }
-              >
+              <button className="mr-4 rounded bg-primary px-4 py-2" onClick={() => dispatch(toggleModal("signup"))}>
                 Sign up
               </button>
-              <button
-                className="rounded bg-trans px-4 py-2"
-                onClick={() =>
-                  dispatch(
-                    toggleModal({ showModal: true, modalType: "signin" })
-                  )
-                }
-              >
+              <button className="bg-trans rounded px-4 py-2" onClick={() => dispatch(toggleModal("signin"))}>
                 Sign in
               </button>
             </>
@@ -51,21 +36,11 @@ export default function DesignNav() {
 
       {/* SEARCH + TAGS */}
       <div className="my-4 w-full">
-        <input
-          type="text"
-          placeholder="Search for anything ..."
-          className="w-full rounded bg-trans px-4 py-2  "
-        />
+        <input type="text" placeholder="Search for anything ..." className="bg-trans w-full rounded px-4 py-2  " />
         <div className="mt-4 flex gap-4 overflow-x-auto pb-4">
-          <button className="whitespace-nowrap rounded bg-trans px-4 py-2 ">
-            Minimal
-          </button>
-          <button className="whitespace-nowrap rounded bg-trans px-4 py-2 ">
-            Luxurious
-          </button>
-          <button className="whitespace-nowrap rounded bg-trans px-4 py-2 ">
-            Space Saving
-          </button>
+          <Button>Minimal</Button>
+          <Button>Luxurious</Button>
+          <Button>Space Saving</Button>
         </div>
       </div>
     </>

@@ -10,14 +10,11 @@ const NewCollection = ({ onClick }: { onClick: () => void }) => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const { data } = await axios.get(
-          `${process.env.API_URL}/vendor/collection`,
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          }
-        )
+        const { data } = await axios.get(`${process.env.API_URL}/vendor/collection`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        })
         if (data?.data) {
           setCol(data.data.col.shotCollections)
         }
@@ -28,42 +25,21 @@ const NewCollection = ({ onClick }: { onClick: () => void }) => {
 
   return (
     <section className="m-auto w-1/2 rounded bg-[#0F0F0F] p-8">
-      <ModalHeader
-        heading="New Collection"
-        onClick={onClick}
-        title="Create a new collection of designs to get inspired"
-      />
+      <ModalHeader heading="New Collection" onClick={onClick} title="Create a new collection of designs to get inspired" />
       <form className="my-8 w-full">
-        <input
-          type="text"
-          placeholder="Search Collection..."
-          className="cborder w-full rounded bg-trans px-4 py-2 "
-        />
+        <input type="text" placeholder="Search Collection..." className="cborder bg-trans w-full rounded px-4 py-2 " />
       </form>
       {col && col.length > 0 ? (
         col.map((item: any) => (
-          <div
-            className="cborder mb-4 flex items-center justify-between rounded bg-trans p-2"
-            key={item._id}
-          >
+          <div className="cborder bg-trans mb-4 flex items-center justify-between rounded p-2" key={item._id}>
             <div className="flex gap-4  ">
-              <Image
-                src={"/l1.png"}
-                alt="ivon"
-                height={90}
-                width={80}
-                className="rounded-lg"
-              />
+              <Image src={"/l1.png"} alt="ivon" height={90} width={80} className="rounded-lg" />
               <div>
                 <h2 className="text-white">Minimalistic Design</h2>
-                <p className="text-sm font-thin text-gray">
-                  19 Shots added * Updated 2 months ago
-                </p>
+                <p className="text-gray text-sm font-thin">19 Shots added * Updated 2 months ago</p>
               </div>
             </div>
-            <button className="flex rounded-full bg-trans px-8 py-2 text-white">
-              Add
-            </button>
+            <button className="bg-trans flex rounded-full px-8 py-2 text-white">Add</button>
           </div>
         ))
       ) : (
@@ -71,12 +47,8 @@ const NewCollection = ({ onClick }: { onClick: () => void }) => {
       )}
 
       <div className="mt-8 flex items-center gap-4">
-        <button className=" cborder w-3/4 rounded bg-trans px-4 py-2 text-white ">
-          Create new collection{" "}
-        </button>
-        <button className=" w-1/4 rounded bg-primary px-4 py-2 text-white ">
-          Done
-        </button>
+        <button className=" cborder bg-trans w-3/4 rounded px-4 py-2 text-white ">Create new collection </button>
+        <button className=" w-1/4 rounded bg-primary px-4 py-2 text-white ">Done</button>
       </div>
     </section>
   )

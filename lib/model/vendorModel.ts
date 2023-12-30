@@ -181,8 +181,6 @@ vendorSchema.pre("save", async function (next) {
   next()
 })
 
-const Vendor: IVendorModel =
-  (mongoose.models.Vendor as IVendorModel) ||
-  mongoose.model<IVendor, IVendorModel>("Vendor", vendorSchema)
+const Vendor: IVendorModel = (mongoose.models.Vendor as IVendorModel) || mongoose.model<IVendor, IVendorModel>("Vendor", vendorSchema)
 
 export default Vendor

@@ -27,14 +27,8 @@ export default function IconList() {
           key={i}
           className="flex flex-col items-center justify-center gap-4"
         >
-          <Image
-            src={_.icon}
-            alt="icon"
-            height={30}
-            width={30}
-            className="m-auto cursor-pointer transition-all hover:scale-105"
-          />
-          <h3 className="text-xl font-semibold text-gray">{_.title}</h3>
+          <Image src={_.icon} alt="icon" height={30} width={30} className="m-auto cursor-pointer transition-all hover:scale-105" />
+          <h3 className="text-gray text-xl font-semibold">{_.title}</h3>
           <p className="text-gray">{_.description}</p>
         </motion.div>
       ))}

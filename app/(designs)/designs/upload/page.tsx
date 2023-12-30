@@ -87,80 +87,38 @@ const Upload = () => {
 
   return (
     <>
-      <Link
-        href="/designs"
-        className="block w-full bg-trans px-4 py-2 text-center "
-      >
+      <Link href="/designs" className="bg-trans block w-full px-4 py-2 text-center ">
         Cancel !
       </Link>
       <header className="my-4 text-center">
         <h1>What have you been working on?</h1>
         {message && <h1 className="fixed left-1/2 top-5">{message}</h1>}
       </header>
-      <form
-        className="flex flex-col gap-4  py-8 text-gray"
-        onSubmit={handleSubmit(onSubmit)}
-      >
-        <input
-          type="text"
-          id="title"
-          className="rounded bg-dark p-4"
-          placeholder="Add the title here..."
-          {...register("title")}
-        />
-        <span className="mt-1 text-xs text-red-400">
-          {errors.title?.message}
-        </span>
-        <input
-          type="text"
-          id="shotUrl"
-          className="rounded bg-dark p-4"
-          placeholder="Add the url here..."
-          {...register("shotUrl")}
-        />
-        <span className="mt-1 text-xs text-red-400">
-          {errors.shotUrl?.message}
-        </span>
+      <form className="text-gray flex flex-col  gap-4 py-8" onSubmit={handleSubmit(onSubmit)}>
+        <input type="text" id="title" className="bg-dark rounded p-4" placeholder="Add the title here..." {...register("title")} />
+        <span className="mt-1 text-xs text-red-400">{errors.title?.message}</span>
+        <input type="text" id="shotUrl" className="bg-dark rounded p-4" placeholder="Add the url here..." {...register("shotUrl")} />
+        <span className="mt-1 text-xs text-red-400">{errors.shotUrl?.message}</span>
         <textarea
           {...register("description")}
-          className="rounded bg-dark p-4"
+          className="bg-dark rounded p-4"
           id="description"
           cols={30}
           rows={10}
           placeholder="Add the description here..."
         />
-        <span className="mt-1 text-xs text-red-400">
-          {errors.description?.message}
-        </span>
+        <span className="mt-1 text-xs text-red-400">{errors.description?.message}</span>
         <label htmlFor="shot">Select the tags</label>
         <div className="flex flex-row gap-4">
-          <input
-            type="checkbox"
-            id="minimal"
-            {...register("minimal")}
-            className="rounded bg-dark p-4"
-          />
+          <input type="checkbox" id="minimal" {...register("minimal")} className="bg-dark rounded p-4" />
           <label htmlFor="minimal">Minimal</label>
-          <input
-            type="checkbox"
-            id="luxurious"
-            {...register("luxurious")}
-            className="rounded bg-dark p-4"
-          />
+          <input type="checkbox" id="luxurious" {...register("luxurious")} className="bg-dark rounded p-4" />
           <label htmlFor="luxurious">Luxurious</label>
-          <input
-            type="checkbox"
-            id="spaceSaving"
-            {...register("spaceSaving")}
-            className="rounded bg-dark p-4"
-          />
+          <input type="checkbox" id="spaceSaving" {...register("spaceSaving")} className="bg-dark rounded p-4" />
           <label htmlFor="luxurious">Space Saving</label>
         </div>
 
-        <button
-          disabled={loading}
-          className="mt-4 rounded bg-primary p-2 text-center"
-        >
+        <button disabled={loading} className="mt-4 rounded bg-primary p-2 text-center">
           Upload {loading && <Icons.Loading />}
         </button>
       </form>

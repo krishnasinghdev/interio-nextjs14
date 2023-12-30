@@ -7,7 +7,9 @@ import { Poppins } from "next/font/google"
 import QueryProvider from "@/providers/query-provider"
 import ReduxProvider from "@/providers/redux-provider"
 
-import Context from "./context"
+import { Toaster } from "@/components/ui/sonner"
+import SignInPanel from "@/components/Signin"
+import SignUpPanel from "@/components/Signup"
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -19,11 +21,7 @@ export const metadata: Metadata = {
   description: "Interior Design Shots, Get Inspired By Other Designer's Works",
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body className={poppins.className}>
@@ -31,10 +29,12 @@ export default function RootLayout({
           <ReduxProvider>
             <div id="modal" />
             {children}
-            <TailwindIndicator />
-            <Context />
+            <SignInPanel />
+            <SignUpPanel />
           </ReduxProvider>
         </QueryProvider>
+        <Toaster />
+        <TailwindIndicator />
       </body>
     </html>
   )

@@ -16,22 +16,19 @@ const Home: NextPage = async () => {
       <IconList />
 
       {/* SHOTS SECTION */}
-      <h1 className="pt-16 text-center text-4xl font-bold text-gray">SHOTS</h1>
-      <p className="mt-4 text-center text-gray">
-        Upload Interior Design Shots Or Get Inspired <br /> By Other
-        Designer&apos;s Works
+      <h1 className="text-gray pt-16 text-center text-4xl font-bold">SHOTS</h1>
+      <p className="text-gray mt-4 text-center">
+        Upload Interior Design Shots Or Get Inspired <br /> By Other Designer&apos;s Works
       </p>
 
       <div className="padding py-16 text-2xl sm:text-4xl">
-        {ShotData.map((_, i) => (
+        {SHOTDATA.map((_, i) => (
           <Link
             href="/designs/modern"
-            className="group  flex items-center justify-between border-y border-gray p-4 hover:cursor-pointer hover:bg-[#292929]  "
+            className="border-gray  group flex items-center justify-between border-y p-4 hover:cursor-pointer hover:bg-[#292929]  "
             key={i}
           >
-            <h3 className="text-gray group-hover:text-white sm:my-2 ">
-              {_.title}
-            </h3>
+            <h3 className="text-gray group-hover:text-white sm:my-2 ">{_.title}</h3>
             <Image
               src={"/arrow.png"}
               alt="arrow icon"
@@ -45,52 +42,28 @@ const Home: NextPage = async () => {
 
       {/* WEBSITE TEMPLATE IMAGES */}
 
-      <Image
-        src={"/imac.png"}
-        alt="music bg"
-        height={700}
-        width={500}
-        className="m-auto my-8 hidden md:block"
-      />
-      <Image
-        src={"/phone.png"}
-        alt="music bg"
-        height={350}
-        width={350}
-        className="m-auto my-8 md:hidden"
-      />
+      <Image src={"/imac.png"} alt="music bg" height={700} width={500} className="m-auto my-8 hidden md:block" />
+      <Image src={"/phone.png"} alt="music bg" height={350} width={350} className="m-auto my-8 md:hidden" />
 
       {/* SHOT LISTS */}
-      <h1 className="padding pt-16 text-center text-4xl font-bold uppercase text-gray">
-        OVER <span className="text-primary">205+</span> Shots of <br /> INTERIOR
-        dESIGN
+      <h1 className="padding text-gray pt-16 text-center text-4xl font-bold uppercase">
+        OVER <span className="text-primary">205+</span> Shots of <br /> INTERIOR dESIGN
       </h1>
 
       <div className="padding grid grid-cols-2 gap-4 md:grid-cols-5">
         {shots &&
           shots.map((_, i) => (
             <div key={i}>
-              <span className=" absolute m-2 rounded-2xl bg-pink-500 px-2 py-0 text-sm text-white">
-                24k
-              </span>
+              <span className=" absolute m-2 rounded-2xl bg-pink-500 px-2 py-0 text-sm text-white">24k</span>
               <Link href={`/designs/${_._id}`}>
-                <Image
-                  src={_.images[0].url}
-                  height={250}
-                  width={250}
-                  alt={"man"}
-                  className="rounded hover:cursor-pointer "
-                />
+                <Image src={_.images[0].url} height={250} width={250} alt={"man"} className="rounded hover:cursor-pointer " />
               </Link>
               {/* <p>{_.title}</p> */}
             </div>
           ))}
       </div>
-      <p className="m-auto mt-6 w-3/4 border-b border-gray pb-16 text-center">
-        <Link
-          href={"/designs"}
-          className="rounded-md bg-primary px-8 py-2 font-semibold text-black"
-        >
+      <p className="border-gray m-auto mt-6 w-3/4 border-b pb-16 text-center">
+        <Link href={"/designs"} className="rounded-md bg-primary px-8 py-2 font-semibold text-black">
           SEE MORE
         </Link>
       </p>
@@ -100,28 +73,23 @@ const Home: NextPage = async () => {
           <Image src={"/saly.png"} height={500} width={500} alt={"saly"} />
         </div>
         <div className="padding col-span-5 mr-4 sm:mr-8 lg:col-span-3 xl:mr-32">
-          <h1 className="pt-8 text-4xl font-bold uppercase   text-gray">
+          <h1 className="text-gray pt-8 text-4xl font-bold   uppercase">
             WHAT OUR
             <span className="text-primary"> USERS</span>
             <br /> SAY ABOUT US
           </h1>
-          <p className="my-6 text-gray">
-            Our users are our strength. We do every thing possible to make their
-            experience unique and effortless.
+          <p className="text-gray my-6">
+            Our users are our strength. We do every thing possible to make their experience unique and effortless.
           </p>
-          <div className="card my-4 p-4 text-gray ">
+          <div className="card text-gray my-4 p-4 ">
             <p>
-              Interio Design is a true treasure trove for interior enthusiasts!
-              The site boasts an exquisite array of design inspirations, from
-              sleek modernism to cozy rustic vibes. Navigating the user-friendly
-              interface is a breeze, and the curated galleries provide endless
-              ideas. Whether you&apos;re a novice or a seasoned designer, this
-              site is a must-visit for endless creative sparks!
+              Interio Design is a true treasure trove for interior enthusiasts! The site boasts an exquisite array of design
+              inspirations, from sleek modernism to cozy rustic vibes. Navigating the user-friendly interface is a breeze, and the
+              curated galleries provide endless ideas. Whether you&apos;re a novice or a seasoned designer, this site is a must-visit
+              for endless creative sparks!
             </p>
 
-            <h6 className="mt-4 font-semibold text-primary">
-              STIEVE JOHN MATT
-            </h6>
+            <h6 className="mt-4 font-semibold text-primary">STIEVE JOHN MATT</h6>
             <p>Interior Designer</p>
           </div>
         </div>
@@ -131,17 +99,11 @@ const Home: NextPage = async () => {
       {/* FOOTER */}
       <div className="z-0 flex h-auto flex-col items-center justify-center gap-y-2 bg-primary py-24 text-center leading-10 text-[rgba(255,255,255,0.75)] ">
         <Link href="/">
-          <Image
-            src={"/interio.png"}
-            alt="interio logo"
-            height={40}
-            width={40}
-          />
+          <Image src={"/interio.png"} alt="interio logo" height={40} width={40} />
         </Link>
         <p className="px-2 md:px-6 lg:px-10">
-          Modern Designs | Minimal Designs | Luxurious Designs | Space Saving
-          Designs <br /> Dark themed Designs | Hotel Room Designs | Terms &
-          Conditions Privacy Policy | About us
+          Modern Designs | Minimal Designs | Luxurious Designs | Space Saving Designs <br /> Dark themed Designs | Hotel Room Designs |
+          Terms & Conditions Privacy Policy | About us
         </p>
         <p>Handcrafted by © XYZ Company 2023</p>
         <p>Made with 💖 </p>
@@ -152,9 +114,7 @@ const Home: NextPage = async () => {
 
 export default Home
 
-// const card = [1, 2, 3, 4, 5, 6, 7, 8]
-
-const ShotData = [
+const SHOTDATA = [
   {
     image: "/Group1.png",
     title: "Modern Designs",

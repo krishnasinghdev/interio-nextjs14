@@ -51,18 +51,9 @@ const Invite = ({ onClick }: { onClick: () => void }) => {
 
   return (
     <section className="m-auto w-11/12 rounded bg-[#0F0F0F] p-8 md:w-1/2 ">
-      <ModalHeader
-        heading="Invite a friend"
-        onClick={onClick}
-        title="Invite a designer to share their work on Dribbble"
-      />
-      {message && (
-        <p className="mt-2 text-center text-sm text-red-500">{message}</p>
-      )}
-      <form
-        className="flex flex-col bg-[#0F0F0F] text-gray placeholder:text-sm"
-        onSubmit={handleSubmit(onSubmit)}
-      >
+      <ModalHeader heading="Invite a friend" onClick={onClick} title="Invite a designer to share their work on Dribbble" />
+      {message && <p className="mt-2 text-center text-sm text-red-500">{message}</p>}
+      <form className="text-gray flex flex-col bg-[#0F0F0F] placeholder:text-sm" onSubmit={handleSubmit(onSubmit)}>
         <label htmlFor="email" className="mt-2 block">
           Name
         </label>
@@ -73,9 +64,7 @@ const Invite = ({ onClick }: { onClick: () => void }) => {
           autoComplete="true"
           {...register("name")}
         />
-        <span className="mt-1 text-xs text-red-400">
-          {errors.name?.message}
-        </span>
+        <span className="mt-1 text-xs text-red-400">{errors.name?.message}</span>
         <label htmlFor="password" className="mt-4 block">
           Email Address
         </label>
@@ -86,12 +75,8 @@ const Invite = ({ onClick }: { onClick: () => void }) => {
           {...register("email")}
           autoComplete="true"
         />
-        <span className="mt-1 text-xs text-red-400">
-          {errors.email?.message}
-        </span>
-        <button className="mt-4 w-full rounded bg-primary p-2 text-white ">
-          {message ? message : "Send Invite"}
-        </button>
+        <span className="mt-1 text-xs text-red-400">{errors.email?.message}</span>
+        <button className="mt-4 w-full rounded bg-primary p-2 text-white ">{message ? message : "Send Invite"}</button>
       </form>
     </section>
   )
