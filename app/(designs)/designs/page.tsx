@@ -4,10 +4,16 @@ import { shotData } from "@/types/shotType"
 import { getShot } from "@/lib/actions/shot.actions"
 import DesignList from "@/components/DesignList"
 
-export default async function Designs() {
+type Props = {
+  searchParams: { type: string }
+}
+export default async function Designs({ searchParams }: Props) {
+  const type = searchParams.type
+  console.log({ type })
   const shots: shotData[] = []
   try {
-    const data = await getShot()
+    const data = await getShot(type)
+    console.log(data)
     if (data) {
       shots.push(...(data.shots as shotData[]))
     }

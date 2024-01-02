@@ -3,15 +3,15 @@ import { TailwindIndicator } from "../components/TailwindIndicator"
 import "./globals.css"
 
 import { Metadata } from "next"
-import { Poppins } from "next/font/google"
+import { Roboto } from "next/font/google"
 import QueryProvider from "@/providers/query-provider"
 import ReduxProvider from "@/providers/redux-provider"
 
 import { Toaster } from "@/components/ui/sonner"
-import SignInPanel from "@/components/Signin"
-import SignUpPanel from "@/components/Signup"
 
-const poppins = Poppins({
+import ExtraComponents from "./extra"
+
+const roboto = Roboto({
   subsets: ["latin"],
   weight: "500",
 })
@@ -24,13 +24,11 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={poppins.className}>
+      <body className={roboto.className}>
         <QueryProvider>
           <ReduxProvider>
-            <div id="modal" />
             {children}
-            <SignInPanel />
-            <SignUpPanel />
+            <ExtraComponents />
           </ReduxProvider>
         </QueryProvider>
         <Toaster />

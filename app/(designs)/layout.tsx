@@ -5,13 +5,14 @@ import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useAppDispatch, useAppSelector } from "@/context/hook"
-import { isLogin, setLogout, toggleModal, vendor as vd } from "@/context/theme"
+import { isLogin, setLogout, togglePanel, vendor as vd } from "@/context/theme"
 import clsx from "clsx"
 
 import { vendorLogout } from "@/lib/actions/vendor.actions"
 import { Icons } from "@/components/Icons"
 
 import DesignNav from "./design-nav"
+import { toast } from "sonner"
 
 type Props = {
   children?: React.ReactNode
@@ -26,9 +27,14 @@ export default function Designs({ children, way }: Props): ReactElement {
 
   const logoutHandler = async () => {
     try {
-      await vendorLogout()
+      const data = await vendorLogout()
+      if (data.error) {
+        return toast.error(data.error)
+      }
+      toast.success("Logout Successfully!")
       dispatch(setLogout())
-    } catch (error) {
+    } catch (error:any) {
+      toast.error(error?.message)
       console.log("Some Error!", error)
     }
   }
@@ -45,21 +51,21 @@ export default function Designs({ children, way }: Props): ReactElement {
           <Link href="/profile">
             <Icons.AiOutlineUser />
           </Link>
-          <button onClick={() => dispatch(toggleModal({ showModal: true, modalType: "invite" }))}>
+          <button onClick={() => dispatch(togglePanel({ showModal: true, modalType: "invite" }))}>
             <Icons.HiOutlineMail />
           </button>
-          <button onClick={() => dispatch(toggleModal({ showModal: true, modalType: "collection" }))}>
+          <button onClick={() => dispatch(togglePanel({ showModal: true, modalType: "collection" }))}>
             <Icons.FiFolderMinus />
           </button>
           <p className="border-gray w-[2vw] border"> </p>
           <button title="Coming Soon!">
             <Icons.FiSettings />
           </button>
-          {loginStatus && (
-            <button onClick={logoutHandler}>
-              <Icons.HiOutlineLogout />
-            </button>
-          )}
+         
+            <div >
+            {loginStatus && ( <Icons.HiOutlineLogout onClick={logoutHandler}/>)}
+            </div>
+          
 
           {loginStatus && (
             <Link href="/profile" className="absolute bottom-8 ">
@@ -67,36 +73,36 @@ export default function Designs({ children, way }: Props): ReactElement {
             </Link>
           )}
         </div>
-        <div className="bluebg hidden h-screen w-[220px] flex-col items-center justify-evenly pb-[35vh] text-xl lg:flex  ">
+        <div className="bluebg text-secondary hidden h-screen w-[220px] flex-col items-center justify-evenly pb-[35vh] text-xl lg:flex  ">
           <div className="mt-3 w-[200px]">
             {/* ?.split(' ')[0] */}
-            <h1 className="font-semibold">Hello {vendor?.vendor},</h1>
+            <h3 className="font-medium font-sm">Hello {vendor?.vendor},</h3>
             <p className="text-light text-xs">Check out your store analysis</p>
           </div>
 
           <Link
             href="/designs"
-            className={clsx({ "bg-lighter": pathname == "/designs" }, "flex w-[200px] items-center gap-4 rounded-lg px-4 py-2")}
+            className={clsx({ "bg-secondary/70 text-white": pathname == "/designs" }, "flex w-[200px] items-center gap-x-2 rounded-lg px-4 py-2")}
           >
-            <Icons.HiOutlinePhotograph />
+            <Icons.HiOutlinePhotograph size={30} />
             <div>
-              <h1 className="font-semibold">10k+</h1>
+              <h3 className="font-medium font-sm">10k+</h3>
               <p className="text-light text-xs">Inspirations for you</p>
             </div>
           </Link>
-          <div className={clsx({ "bg-lighter": pathname == "/suitcase" }, "flex w-[200px] items-center gap-4 rounded-lg px-4 py-2")}>
+          <div className={clsx({ "bg-secondary text-white": pathname == "/suitcase" }, "flex w-[200px] items-center gap-x-2 rounded-lg px-4 py-2")}>
             <Icons.RiSuitcaseLine />
             <div>
-              <h1 className="font-semibold">123+</h1>
+              <h3 className="font-medium font-sm">123+</h3>
               <p className="text-light text-xs">
                 Find Work <br /> (coming soon)
               </p>
             </div>
           </div>
-          <div className={clsx({ "bg-lighter": pathname == "/user" }, "flex w-[200px] items-center gap-4 rounded-lg px-4 py-2")}>
+          <div className={clsx({ "bg-secondary text-white": pathname == "/user" }, "flex w-[200px] items-center gap-x-2 rounded-lg px-4 py-2")}>
             <Icons.AiOutlineUser />
             <div>
-              <h1 className="font-semibold">104+</h1>
+              <h3 className="font-medium font-sm">104+</h3>
               <p className="text-light text-xs">
                 Hire Designer <br /> (coming soon)
               </p>
@@ -106,17 +112,17 @@ export default function Designs({ children, way }: Props): ReactElement {
             href={`/profile/chat?v_id=${vendor.v_id}`}
             className={clsx(
               {
-                "bg-lighter": pathname == "/profile/chat" || pathname == "/profile/chat/[ChatId]",
+                "bg-secondary text-white": pathname == "/profile/chat" || pathname == "/profile/chat/[ChatId]",
                 "pointer-events-none": !loginStatus,
               },
-              "flex w-[200px] items-center gap-4 rounded-lg px-4 py-2"
+              "flex w-[200px] items-center gap-x-2 rounded-lg px-4 py-2"
             )}
           >
             <Icons.BsChatDots />
             <div>
               {loginStatus ? (
                 <>
-                  <h1 className="font-semibold">{"5+"}</h1>
+                  <h3 className="font-medium font-sm">{"5+"}</h3>
                   <p className="text-light text-xs">Project messages</p>
                 </>
               ) : (

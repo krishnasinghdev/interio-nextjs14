@@ -12,7 +12,7 @@ export type Props = {
 
 const ShotId = async ({ params }: Props) => {
   const shot = await getShotById(params.shotId)
-  const moreShot = await getShot(4)
+  const moreShot = await getShot("",4)
 
   return (
     <>
