@@ -1,30 +1,44 @@
-"use server"
+"use server";
 
-import { cookies } from "next/headers"
-import getIdByToken from "@/utils/helper"
-
-import { ErrorType } from "@/types/core"
-
-import SHOT from "../model/shotModel"
+import { cookies } from "next/headers";
+import getIdByToken, { getErrorMessage } from "@/utils/helper";
+import { ErrorType } from "@/types/core";
+import SHOT from "../model/shotModel";
 // import { FilterQuery, SortOrder } from "mongoose";
 // import { revalidatePath } from "next/cache";
 
-import VENDOR from "../model/vendorModel"
-import { connectToDB } from "../mongoose"
+import VENDOR from "../model/vendorModel";
+import { connectToDB } from "../mongoose";
+
+
+//-------------NEW VENDOR-------------//
+export const getAllVendors = async () => {
+  try {
+    connectToDB()
+    const vendor = await VENDOR.find({})
+    return { vendor }
+  } catch (error) {
+    const err = error as ErrorType
+    throw new Error(`Failed to fetch user: ${err.message}`)
+  }
+}
 
 //-------------NEW VENDOR-------------//
 export const addVendor = async (body: any) => {
   try {
     connectToDB()
+    body['username'] = body.email
     console.log(body)
     const vendor = new VENDOR(body)
     await vendor.save()
     const token = await vendor.generateAuthToken()
     cookies().set("token", token)
-    return { name: vendor?.name, _id: vendor._id, token }
+
+    return { name: vendor?.name, _id: vendor._id.toString(), token }
   } catch (error) {
-    const err = error as ErrorType
-    throw new Error(`Failed to fetch user: ${err.message}`)
+    return {
+      error: getErrorMessage(error),
+    }
   }
 }
 
@@ -74,8 +88,9 @@ export const vendorLogin = async (body: any) => {
     cookies().set("token", token)
     return { name: vendor?.name, _id: vendor?._id, token }
   } catch (error) {
-    const err = error as ErrorType
-    throw new Error(`Failed to fetch user: ${err.message}`)
+    return {
+      error: getErrorMessage(error),
+    }
   }
 }
 
@@ -101,8 +116,9 @@ export const vendorLogout = async () => {
     await vendor.save()
     return { message: "Logged Out!" }
   } catch (error) {
-    const err = error as ErrorType
-    throw new Error(`Failed to fetch user: ${err.message}`)
+    return {
+      error: getErrorMessage(error),
+    }
   }
 }
 

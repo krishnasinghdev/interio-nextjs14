@@ -4,7 +4,7 @@
 // import { useAppDispatch, useAppSelector } from "@/context/hook"
 // import { createPortal } from "react-dom"
 
-// import { modalFor as MF, toggleModal } from "../context/theme"
+// import { modalFor as MF, togglePanel } from "../context/theme"
 // import EditPassword from "./EditPassword"
 // import Invite from "./Invite"
 // import NewCollection from "./NewCollection"
@@ -25,17 +25,17 @@
 //   return mounted && ref.current
 //     ? createPortal(
 //         <dialog className=" z-10">
-//           {modalFor === "signup" && <Signup onClick={() => dispatch(toggleModal({ showModal: false, modalType: "" }))} />}
+//           {modalFor === "signup" && <Signup onClick={() => dispatch(togglePanel({ showModal: false, modalType: "" }))} />}
 //           {modalFor === "signin" && (
 //             <Signin
 //             // onClick={() =>
-//             //   dispatch(toggleModal({ showModal: false, modalType: "" }))
+//             //   dispatch(togglePanel({ showModal: false, modalType: "" }))
 //             // }
 //             />
 //           )}
-//           {modalFor === "invite" && <Invite onClick={() => dispatch(toggleModal({ showModal: false, modalType: "" }))} />}
-//           {modalFor === "collection" && <NewCollection onClick={() => dispatch(toggleModal({ showModal: false, modalType: "" }))} />}
-//           {modalFor === "edit-password" && <EditPassword onClick={() => dispatch(toggleModal({ showModal: false, modalType: "" }))} />}
+//           {modalFor === "invite" && <Invite onClick={() => dispatch(togglePanel({ showModal: false, modalType: "" }))} />}
+//           {modalFor === "collection" && <NewCollection onClick={() => dispatch(togglePanel({ showModal: false, modalType: "" }))} />}
+//           {modalFor === "edit-password" && <EditPassword onClick={() => dispatch(togglePanel({ showModal: false, modalType: "" }))} />}
 //         </dialog>,
 //         ref.current
 //       )

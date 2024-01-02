@@ -31,10 +31,17 @@ export const addShot = async (body: any) => {
 }
 
 //-------------GET ALL SHOT-------------//
-export const getShot = async (limit = 10) => {
+export const getShot = async (type: "", limit = 10) => {
   try {
     connectToDB()
-    const shots = await SHOT.find({})
+    console.log("from action", { type })
+    let where = {}
+    if (type) {
+      //@ts-ignore - typescript is not recognizing the regex
+      const types = type?.split(",").map((t) => new RegExp(t.trim(), "i"))
+      where = { tags: { $in: types } }
+    }
+    const shots = await SHOT.find(where)
       .limit(limit)
       .select("title category description tags images owner")
       .populate("owner", "name follower following likedshot email")

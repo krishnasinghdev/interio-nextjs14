@@ -1,15 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit"
 
-// import type { PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from "./store"
 
 export interface themeState {
   sidebar: boolean
   isLogin: boolean
-  viewSignup: boolean
-  viewSignin: boolean
-  showModal: boolean
-  modalFor: string
+  showPanel: boolean
+  panelFor: string
   vendor: {
     vendor?: string
     v_id?: string
@@ -20,10 +17,8 @@ export interface themeState {
 const initialState: themeState = {
   sidebar: false,
   isLogin: false,
-  showModal: false,
-  modalFor: "",
-  viewSignup: false,
-  viewSignin: false,
+  showPanel: false,
+  panelFor: "",
   vendor: {},
 }
 
@@ -31,18 +26,15 @@ export const themeSlice = createSlice({
   name: "theme",
   initialState,
   reducers: {
-    toggleModal: (state, actions) => {
+    togglePanel: (state, actions) => {
       const modalType = actions.payload
 
       if (modalType === "HIDE") {
-        state.viewSignin = false
-        state.viewSignup = false
-      }
-      if (modalType === "signin") {
-        state.viewSignin = true
-      }
-      if (modalType === "signup") {
-        state.viewSignup = true
+        state.showPanel = false
+        state.panelFor = ""
+      } else {
+        state.showPanel = true
+        state.panelFor = modalType
       }
     },
 
@@ -54,7 +46,6 @@ export const themeSlice = createSlice({
     },
     setLogin: (state, actions) => {
       state.isLogin = true
-      state.viewSignin = false
       state.vendor = actions?.payload
       const { vendor, v_id } = actions?.payload
       if (vendor && v_id) {
@@ -71,12 +62,10 @@ export const themeSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { showSidebar, hideSidebar, setLogin, setLogout, toggleModal } = themeSlice.actions
+export const { showSidebar, hideSidebar, setLogin, setLogout, togglePanel } = themeSlice.actions
 export const sidebar = (state: RootState) => state.theme.sidebar
 export const isLogin = (state: RootState) => state.theme.isLogin
-export const viewSignup = (state: RootState) => state.theme.viewSignup
-export const viewSignin = (state: RootState) => state.theme.viewSignin
-export const modalFor = (state: RootState) => state.theme.modalFor
-export const showModal = (state: RootState) => state.theme.showModal
+export const panelFor = (state: RootState) => state.theme.panelFor
+export const showPanel = (state: RootState) => state.theme.showPanel
 export const vendor = (state: RootState) => state.theme.vendor
 export default themeSlice.reducer

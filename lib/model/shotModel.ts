@@ -21,7 +21,10 @@ const shotSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
-    tags: [String],
+    tags: {
+      type: [String],
+      lowercase: true,
+    },
     images: [
       {
         title: String,
