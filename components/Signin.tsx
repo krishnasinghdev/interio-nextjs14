@@ -2,55 +2,19 @@
 
 import { useState } from "react"
 import { useAppDispatch } from "@/context/hook"
-import { toggleModal, viewSignin } from "@/context/theme"
-import { cn, useMediaQuery } from "@/utils"
+import { cn } from "@/utils"
 import { joiResolver } from "@hookform/resolvers/joi"
 import Joi from "joi"
 import { SubmitHandler, useForm } from "react-hook-form"
-import { useSelector } from "react-redux"
 import { toast } from "sonner"
 
 import { vendorLogin } from "@/lib/actions/vendor.actions"
 import { Button } from "@/components/ui/button"
-import { Dialog, DialogContent } from "@/components/ui/dialog"
-import { Drawer, DrawerClose, DrawerContent, DrawerFooter } from "@/components/ui/drawer"
-import { Input } from "@/components/ui/input"
+import { Input, PasswordInput } from "@/components/ui/input"
 
-import { setLogin } from "../context/theme"
+import { setLogin, togglePanel } from "../context/theme"
 import { CardDescription, CardHeader, CardTitle } from "./ui/card"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "./ui/form"
-
-export default function SignInPanel() {
-  const isDesktop = useMediaQuery("(min-width: 768px)")
-  const dispatch = useAppDispatch()
-  const VSI = useSelector(viewSignin)
-  if (!VSI) return null
-
-  if (isDesktop) {
-    return (
-      <Dialog open={VSI} onOpenChange={() => dispatch(toggleModal("HIDE"))}>
-        <DialogContent className="sm:max-w-[425px]">
-          <SigninForm />
-        </DialogContent>
-      </Dialog>
-    )
-  }
-
-  return (
-    <Drawer open={VSI}>
-      <DrawerContent className="pb-6">
-        <SigninForm className="px-4" />
-        <DrawerFooter className="pt-4">
-          <DrawerClose asChild>
-            <Button variant="outline" onClick={() => dispatch(toggleModal("HIDE"))}>
-              Cancel
-            </Button>
-          </DrawerClose>
-        </DrawerFooter>
-      </DrawerContent>
-    </Drawer>
-  )
-}
 
 interface IFormInput {
   email: string
@@ -71,7 +35,7 @@ const schema = Joi.object({
   }),
 })
 
-const SigninForm = ({ className }: React.ComponentProps<"form">) => {
+export default function SignInForm({ className }: React.ComponentProps<"form">) {
   const dispatch = useAppDispatch()
   const [loading, setLoading] = useState<boolean>(false)
 
@@ -91,6 +55,7 @@ const SigninForm = ({ className }: React.ComponentProps<"form">) => {
           token: data.token,
         })
       )
+      dispatch(togglePanel("HIDE"))
       toast.success("Login successful")
     } catch (error) {
       toast.error("Login failed")
@@ -128,7 +93,7 @@ const SigninForm = ({ className }: React.ComponentProps<"form">) => {
               <FormItem>
                 <FormLabel>Password</FormLabel>
                 <FormControl>
-                  <Input type="password" autoComplete="true" placeholder="enter password" {...field} />
+                  <PasswordInput autoComplete="true" placeholder="enter password" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>

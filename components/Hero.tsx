@@ -1,5 +1,4 @@
 import Image from "next/image"
-import Link from "next/link"
 
 import { Icons } from "./Icons"
 
@@ -13,11 +12,8 @@ const Hero = () => {
         <p className="my-4 text-lg ">
           Discover a community of interior designers on Xyz. <br /> Post your works or get inspired by others
         </p>
-        <button className="mt-4 flex items-center gap-4 ">
-          <Link href={"/designs"} className="bg-dark rounded-full px-4 py-2">
-            Explore Designs
-          </Link>
-          <p className="text-dark flex items-center font-bold ">
+        <button className="mt-4 flex items-center gap-4">
+          <p className="text-dark flex items-center font-semibold ">
             <span className="mr-2  rounded-full bg-[#1B1A20] p-2">
               <Icons.BsFillPlayFill className="text-2xl text-primary" />
             </span>

@@ -2,55 +2,19 @@
 
 import { useState } from "react"
 import { useAppDispatch } from "@/context/hook"
-import { toggleModal, viewSignup } from "@/context/theme"
-import { cn, useMediaQuery } from "@/utils"
+import { cn } from "@/utils"
 import { joiResolver } from "@hookform/resolvers/joi"
 import Joi from "joi"
 import { SubmitHandler, useForm } from "react-hook-form"
-import { useSelector } from "react-redux"
 import { toast } from "sonner"
 
 import { addVendor } from "@/lib/actions/vendor.actions"
 import { Button } from "@/components/ui/button"
-import { Dialog, DialogContent } from "@/components/ui/dialog"
-import { Drawer, DrawerClose, DrawerContent, DrawerFooter } from "@/components/ui/drawer"
-import { Input } from "@/components/ui/input"
+import { Input, PasswordInput } from "@/components/ui/input"
 
-import { setLogin } from "../context/theme"
+import { setLogin, togglePanel } from "../context/theme"
 import { CardDescription, CardHeader, CardTitle } from "./ui/card"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "./ui/form"
-
-export default function SignUpPanel() {
-  const isDesktop = useMediaQuery("(min-width: 768px)")
-  const dispatch = useAppDispatch()
-  const VSI = useSelector(viewSignup)
-  if (!VSI) return null
-
-  if (isDesktop) {
-    return (
-      <Dialog open={VSI} onOpenChange={() => dispatch(toggleModal("HIDE"))}>
-        <DialogContent className="sm:max-w-[425px]">
-          <SignUpForm />
-        </DialogContent>
-      </Dialog>
-    )
-  }
-
-  return (
-    <Drawer open={VSI}>
-      <DrawerContent className="pb-6">
-        <SignUpForm className="px-4" />
-        <DrawerFooter className="pt-4">
-          <DrawerClose asChild>
-            <Button variant="outline" onClick={() => dispatch(toggleModal("HIDE"))}>
-              Cancel
-            </Button>
-          </DrawerClose>
-        </DrawerFooter>
-      </DrawerContent>
-    </Drawer>
-  )
-}
 
 interface IFormInput {
   name: string
@@ -77,7 +41,7 @@ const schema = Joi.object({
   }),
 })
 
-const SignUpForm = ({ className }: React.ComponentProps<"form">) => {
+export default function SignUpForm({ className }: React.ComponentProps<"form">) {
   const dispatch = useAppDispatch()
   const form = useForm<IFormInput>({
     resolver: joiResolver(schema),
@@ -89,8 +53,9 @@ const SignUpForm = ({ className }: React.ComponentProps<"form">) => {
       //@ts-ignore - cpassword is not optional
       delete val.cpassword
       const data = await addVendor(val)
-      // console.log(data)
-
+      if (data.error) {
+        return toast.error(data.error)
+      }
       dispatch(
         setLogin({
           vendor: data.name,
@@ -98,9 +63,10 @@ const SignUpForm = ({ className }: React.ComponentProps<"form">) => {
           token: data.token,
         })
       )
+      dispatch(togglePanel('HIDE'))
       toast.success("Account Created!")
-    } catch (error) {
-      toast.error("Something went wrong")
+    } catch (error: any) {
+      toast.error("Something went wrong", error.message)
     } finally {
       setLoading(false)
     }
@@ -148,7 +114,7 @@ const SignUpForm = ({ className }: React.ComponentProps<"form">) => {
               <FormItem>
                 <FormLabel>Password</FormLabel>
                 <FormControl>
-                  <Input type="password" autoComplete="true" placeholder="enter password" {...field} />
+                <PasswordInput autoComplete="true" placeholder="enter password" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -161,7 +127,7 @@ const SignUpForm = ({ className }: React.ComponentProps<"form">) => {
               <FormItem>
                 <FormLabel>Confirm Password</FormLabel>
                 <FormControl>
-                  <Input type="cpassword" autoComplete="true" placeholder="enter password" {...field} />
+                <PasswordInput autoComplete="true" placeholder="confirm password" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>

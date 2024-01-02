@@ -2,7 +2,7 @@
 
 import React from "react"
 import { useAppDispatch } from "@/context/hook"
-import { toggleModal } from "@/context/theme"
+import { togglePanel } from "@/context/theme"
 import { toast } from "sonner"
 
 export default function Page() {
@@ -21,7 +21,7 @@ export default function Page() {
       >
         toast
       </button>
-      <button className="bg-trans rounded px-4 py-2 text-white" onClick={() => dispatch(toggleModal("signin"))}>
+      <button className="bg-trans rounded px-4 py-2 text-white" onClick={() => dispatch(togglePanel("signin"))}>
         Sign in
       </button>
       <button className="mr-4 w-20 bg-border">border</button>

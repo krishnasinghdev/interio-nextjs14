@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import Image from "next/image"
-import { toggleModal } from "@/context/theme"
+import { togglePanel } from "@/context/theme"
 import { joiResolver } from "@hookform/resolvers/joi"
 import axios from "axios"
 import Joi from "joi"
@@ -109,7 +109,7 @@ const Edit = () => {
         </div>
         <button
           className="bg-trans rounded px-4  py-2 "
-          onClick={() => dispatch(toggleModal({ showModal: true, modalType: "edit-password" }))}
+          onClick={() => dispatch(togglePanel({ showModal: true, modalType: "edit-password" }))}
         >
           Password
         </button>

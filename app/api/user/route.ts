@@ -1,13 +1,11 @@
+import { getAllVendors } from "@/lib/actions/vendor.actions"
 import { NextRequest, NextResponse } from "next/server"
 
 export async function GET() {
   // const feedbacks = await fetch("https://evenbeam.com")
 
-  const json_response = {
-    status: "success",
-    feedbacks: [{ name: "John Doe", feedback: "This is a feedback" }],
-  }
-  return NextResponse.json(json_response)
+  const result = await getAllVendors()
+  return NextResponse.json(result)
 }
 // create a post request that console logs the body
 export async function POST(request: NextRequest) {

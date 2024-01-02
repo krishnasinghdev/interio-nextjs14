@@ -4,7 +4,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { useAppDispatch } from "@/context/hook"
 
-import { toggleModal } from "../context/theme"
+import { togglePanel } from "../context/theme"
 
 const RectangleCard = () => {
   const dispatch = useAppDispatch()
@@ -13,7 +13,7 @@ const RectangleCard = () => {
     <div className="padding relative -bottom-14 z-10 mx-auto hidden w-[85%] items-center justify-between rounded-md bg-black  py-8 text-center text-white md:flex lg:w-[65%] ">
       <button
         className="rounded-full border-2 border-transparent px-4 py-2 transition-all hover:border-primary"
-        onClick={() => dispatch(toggleModal("signin"))}
+        onClick={() => dispatch(togglePanel("signin"))}
       >
         Sign in
       </button>

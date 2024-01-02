@@ -63,8 +63,8 @@ const Home: NextPage = async () => {
           ))}
       </div>
       <p className="border-gray m-auto mt-6 w-3/4 border-b pb-16 text-center">
-        <Link href={"/designs"} className="rounded-md bg-primary px-8 py-2 font-semibold text-black">
-          SEE MORE
+        <Link href={"/designs"} className="rounded-md bg-primary px-6 py-2 text-white">
+          Check More
         </Link>
       </p>
 
