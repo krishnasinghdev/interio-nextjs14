@@ -1,7 +1,7 @@
 "use server"
 
 // import COLLECTION from '../model/collectionModel';
-import { ErrorType } from "@/types/core"
+import { getErrorMessage } from "@/utils/helper"
 
 import SHOT from "../model/shotModel"
 import VENDOR from "../model/vendorModel"
@@ -25,16 +25,16 @@ export const addShot = async (body: any) => {
 
     return { shot }
   } catch (error) {
-    const err = error as ErrorType
-    throw new Error(`Failed to fetch user: ${err.message}`)
+    return {
+      error: getErrorMessage(error),
+    }
   }
 }
 
 //-------------GET ALL SHOT-------------//
-export const getShot = async (type: "", limit = 10) => {
+export const getShot = async (type: string, limit = 10) => {
   try {
     connectToDB()
-    console.log("from action", { type })
     let where = {}
     if (type) {
       //@ts-ignore - typescript is not recognizing the regex
@@ -51,8 +51,9 @@ export const getShot = async (type: "", limit = 10) => {
     }
     return { shots }
   } catch (error) {
-    const err = error as ErrorType
-    throw new Error(`Failed to fetch user: ${err.message}`)
+    return {
+      error: getErrorMessage(error),
+    }
   }
 }
 
@@ -69,8 +70,9 @@ export const getShotById = async (id: string) => {
     }
     return shot
   } catch (error) {
-    const err = error as ErrorType
-    throw new Error(`Failed to fetch user: ${err.message}`)
+    return {
+      error: getErrorMessage(error),
+    }
   }
 }
 

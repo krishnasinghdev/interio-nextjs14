@@ -27,14 +27,14 @@ export const themeSlice = createSlice({
   initialState,
   reducers: {
     togglePanel: (state, actions) => {
-      const modalType = actions.payload
+      const panelType = actions.payload
 
-      if (modalType === "HIDE") {
+      if (panelType === "HIDE") {
         state.showPanel = false
         state.panelFor = ""
       } else {
         state.showPanel = true
-        state.panelFor = modalType
+        state.panelFor = panelType
       }
     },
 

@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react"
 import Image from "next/image"
+import { cn } from "@/utils"
 import axios from "axios"
 
-import ModalHeader from "./ModalHeader"
+import { SearchInput } from "./ui/input"
 
-const NewCollection = ({ onClick }: { onClick: () => void }) => {
+const Collection = ({ className }: React.ComponentProps<"form">) => {
   const [col, setCol] = useState([])
 
   useEffect(() => {
@@ -24,10 +25,9 @@ const NewCollection = ({ onClick }: { onClick: () => void }) => {
   }, [])
 
   return (
-    <section className="m-auto w-1/2 rounded bg-[#0F0F0F] p-8">
-      <ModalHeader heading="New Collection" onClick={onClick} title="Create a new collection of designs to get inspired" />
+    <section className={cn("grid items-start max-sm:px-4", className)}>
       <form className="my-8 w-full">
-        <input type="text" placeholder="Search Collection..." className="cborder bg-trans w-full rounded px-4 py-2 " />
+        <SearchInput type="text" placeholder="Search Collection..." />
       </form>
       {col && col.length > 0 ? (
         col.map((item: any) => (
@@ -46,12 +46,12 @@ const NewCollection = ({ onClick }: { onClick: () => void }) => {
         <p className="text-white">No Collection</p>
       )}
 
-      <div className="mt-8 flex items-center gap-4">
-        <button className=" cborder bg-trans w-3/4 rounded px-4 py-2 text-white ">Create new collection </button>
-        <button className=" w-1/4 rounded bg-primary px-4 py-2 text-white ">Done</button>
+      <div className="mt-4 flex items-center gap-4">
+        <button className="cborder bg-trans w-3/4 rounded px-4 py-2 text-white ">Create new collection </button>
+        <button className="w-1/4 rounded bg-primary px-4 py-2 text-white ">Create</button>
       </div>
     </section>
   )
 }
 
-export default NewCollection
+export default Collection

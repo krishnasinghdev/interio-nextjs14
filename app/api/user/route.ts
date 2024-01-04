@@ -1,5 +1,6 @@
-import { getAllVendors } from "@/lib/actions/vendor.actions"
 import { NextRequest, NextResponse } from "next/server"
+
+import { getAllVendors } from "@/lib/actions/vendor.actions"
 
 export async function GET() {
   // const feedbacks = await fetch("https://evenbeam.com")

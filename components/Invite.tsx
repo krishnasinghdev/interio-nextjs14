@@ -1,11 +1,14 @@
 import { useState } from "react"
+import { cn } from "@/utils"
 import { joiResolver } from "@hookform/resolvers/joi"
 import Joi from "joi"
 import { SubmitHandler, useForm } from "react-hook-form"
+import { toast } from "sonner"
 
-// import { useAppDispatch } from "@/context/hook"
-
-import ModalHeader from "./ModalHeader"
+import { Button } from "./ui/button"
+import { CardDescription, CardHeader, CardTitle } from "./ui/card"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "./ui/form"
+import { Input } from "./ui/input"
 
 interface IFormInput {
   name: string
@@ -13,22 +16,26 @@ interface IFormInput {
 }
 
 const schema = Joi.object({
-  name: Joi.string().min(3).required().label("Name is required "),
-  email: Joi.string().required().label("Email is required "),
+  name: Joi.string().min(3).required().messages({
+    "any.required": "Name is required",
+  }),
+  email: Joi.string()
+    .required()
+    .email({ tlds: { allow: false } })
+    .messages({
+      "string.email": "Email is invalid",
+      "any.required": "Email is required",
+    }),
 })
 
-const Invite = ({ onClick }: { onClick: () => void }) => {
-  // const dispatch = useAppDispatch()
-  const [message, setMessage] = useState<string>("")
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<IFormInput>({
+const Invite = ({ className }: React.ComponentProps<"form">) => {
+  const [loading, setLoading] = useState<boolean>(false)
+  const form = useForm<IFormInput>({
     resolver: joiResolver(schema),
   })
+
   const onSubmit: SubmitHandler<IFormInput> = async () => {
-    setMessage("Loading...")
+    setLoading(true)
     try {
       // const { data } = await axios.post(
       //   `${process.env.API_URL}/vendor/login`,
@@ -42,42 +49,52 @@ const Invite = ({ onClick }: { onClick: () => void }) => {
       //     token: data.data.token,
       //   })
       // );
-      setMessage("")
-      onClick()
     } catch (error) {
-      setMessage("Some Error!")
+      toast.error("Unable to send Invite!")
+    } finally {
+      setLoading(false)
     }
   }
 
   return (
-    <section className="m-auto w-11/12 rounded bg-[#0F0F0F] p-8 md:w-1/2 ">
-      <ModalHeader heading="Invite a friend" onClick={onClick} title="Invite a designer to share their work on Dribbble" />
-      {message && <p className="mt-2 text-center text-sm text-red-500">{message}</p>}
-      <form className="text-gray flex flex-col bg-[#0F0F0F] placeholder:text-sm" onSubmit={handleSubmit(onSubmit)}>
-        <label htmlFor="email" className="mt-2 block">
-          Name
-        </label>
-        <input
-          className="mt-2 rounded bg-[#1D1D1D] px-4  py-2"
-          type="text"
-          placeholder="Type here..."
-          autoComplete="true"
-          {...register("name")}
-        />
-        <span className="mt-1 text-xs text-red-400">{errors.name?.message}</span>
-        <label htmlFor="password" className="mt-4 block">
-          Email Address
-        </label>
-        <input
-          type="email"
-          className="mt-2 rounded bg-[#1D1D1D] px-4  py-2"
-          placeholder="Type here..."
-          {...register("email")}
-          autoComplete="true"
-        />
-        <span className="mt-1 text-xs text-red-400">{errors.email?.message}</span>
-        <button className="mt-4 w-full rounded bg-primary p-2 text-white ">{message ? message : "Send Invite"}</button>
-      </form>
+    <section className={cn("grid items-start max-sm:px-4", className)}>
+      <CardHeader className="mb-4">
+        <CardTitle className="text-white">Send Invite</CardTitle>
+        <CardDescription>Invite your friend/clients and get rewards!</CardDescription>
+      </CardHeader>
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+          <FormField
+            control={form.control}
+            name="name"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Name</FormLabel>
+                <FormControl>
+                  <Input placeholder="enter name" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Email</FormLabel>
+                <FormControl>
+                  <Input type="email" placeholder="hello@gmail.com" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <Button type="submit" className="w-full" disabled={loading}>
+            Send Invite
+          </Button>
+        </form>
+      </Form>
     </section>
   )
 }

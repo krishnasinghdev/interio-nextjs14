@@ -67,10 +67,20 @@ const Navbar = () => {
               </Link>
             ) : (
               <>
-                <Button variant="fill" size="lg" className="rounded-full hidden sm:block" onClick={() => dispatch(togglePanel("signup"))}>
+                <Button
+                  variant="fill"
+                  size="lg"
+                  className="hidden rounded-full sm:block"
+                  onClick={() => dispatch(togglePanel("signup"))}
+                >
                   Sign up
                 </Button>
-                <Button variant="outline" size="lg" className="rounded-full hidden sm:block" onClick={() => dispatch(togglePanel("signin"))}>
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="hidden rounded-full sm:block"
+                  onClick={() => dispatch(togglePanel("signin"))}
+                >
                   Sign in
                 </Button>
               </>
@@ -89,7 +99,7 @@ const Navbar = () => {
       </header>
 
       {showMenu && (
-        <div className="bg-card absolute top-0 z-10 flex h-auto w-screen flex-col items-center gap-4 py-10 text-white transition-all duration-200 ">
+        <div className="absolute top-0 z-10 flex h-auto w-screen flex-col items-center gap-4 bg-card py-10 text-white transition-all duration-200 ">
           <Link
             href="/"
             className={clsx(
@@ -127,12 +137,12 @@ const Navbar = () => {
             About us
           </Link>
           <div className="flex items-center justify-between gap-x-4">
-          <Button variant='outline' className="rounded-full" onClick={() => dispatch(togglePanel("signup"))}>
-          Sign up
-          </Button>
-          <Button variant='outline' className="rounded-full" onClick={() => dispatch(togglePanel("signin"))}>
-          Sign in
-          </Button>
+            <Button variant="outline" className="rounded-full" onClick={() => dispatch(togglePanel("signup"))}>
+              Sign up
+            </Button>
+            <Button variant="outline" className="rounded-full" onClick={() => dispatch(togglePanel("signin"))}>
+              Sign in
+            </Button>
           </div>
         </div>
       )}

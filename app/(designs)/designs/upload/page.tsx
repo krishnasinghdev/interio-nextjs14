@@ -1,26 +1,43 @@
 "use client"
 
 import React, { useState } from "react"
-import Link from "next/link"
 import { useRouter } from "next/navigation"
+import { UploadDropzone } from "@/utils/uploadthing"
 import { joiResolver } from "@hookform/resolvers/joi"
 import axios from "axios"
 import Joi from "joi"
 import { SubmitHandler, useForm } from "react-hook-form"
+import { toast } from "sonner"
 
-import { Icons } from "@/components/Icons"
+import { Button } from "@/components/ui/button"
+import { Checkbox } from "@/components/ui/checkbox"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
 
 interface IFormInput {
   description: string
   shotUrl: string
-  minimal: boolean
-  luxurious: boolean
-  spaceSaving: boolean
+  tags: string[]
   title: string
 }
+const tags = [
+  {
+    id: "minimal",
+    label: "Minimal",
+  },
+  {
+    id: "luxurious",
+    label: "Luxurious",
+  },
+  {
+    id: "spaceSaving",
+    label: "Space Saving",
+  },
+]
 
 const schema = Joi.object({
-  description: Joi.string().min(200).max(800).required().messages({
+  description: Joi.string().min(200).max(1000).required().messages({
     "string.empty": `Description cannot be empty`,
     "any.required": `Please provide a description for your shot. It will be used as the description of the shot.`,
     "string.min": `Description should have a minimum length of {#limit}`,
@@ -34,31 +51,21 @@ const schema = Joi.object({
     "string.empty": `Title cannot be empty`,
     "any.required": `Please provide a title for your shot. It will be used as the title of the shot.`,
   }),
-  minimal: Joi.boolean(),
-  luxurious: Joi.boolean(),
-  spaceSaving: Joi.boolean(),
+  tags: Joi.array().items(Joi.string()).required().messages({
+    "any.required": `Please provide a tags for your shot. It will be used as the tags of the shot.`,
+  }),
 })
 
 const Upload = () => {
   const router = useRouter()
-  const [message, setMessage] = useState<string>("")
   const [loading, setLoading] = useState<boolean>(false)
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<IFormInput>({
+  const form = useForm<IFormInput>({
     resolver: joiResolver(schema),
   })
 
   const onSubmit: SubmitHandler<IFormInput> = async (val) => {
     setLoading(true)
-    setMessage("Uploading...")
-    const tags = []
-    if (val.minimal) tags.push("Minimal")
-    if (val.luxurious) tags.push("Luxurious")
-    if (val.spaceSaving) tags.push("Space Saving")
-
+    toast.info("Uploading Shot...")
     try {
       const { data } = await axios.post("/api/shots", {
         role: "vendor",
@@ -67,61 +74,125 @@ const Upload = () => {
           title: "Hotel Room",
           url: val.shotUrl,
         },
-        tags,
+        tags: val.tags,
         category: "Furniture",
         title: val.title,
         owner: localStorage.getItem("v_id"),
       })
       if (!data) {
-        setMessage("Some Error!")
         return
       }
-      setMessage("Uploaded Successfully: Redirecting to shot!")
+      toast.success("Shot uploaded successfully")
       router.push(`/designs/${data.shot._id}`)
     } catch (error) {
-      setMessage("Some Error!")
+      toast.error("Shot upload failed")
     } finally {
       setLoading(false)
     }
   }
 
+  function addTags(tag: string, tags: string[]) {
+    if (tags) {
+      return [...tags, tag]
+    } else {
+      return [tag]
+    }
+  }
+
   return (
     <>
-      <Link href="/designs" className="bg-trans block w-full px-4 py-2 text-center ">
-        Cancel !
-      </Link>
-      <header className="my-4 text-center">
-        <h1>What have you been working on?</h1>
-        {message && <h1 className="fixed left-1/2 top-5">{message}</h1>}
-      </header>
-      <form className="text-gray flex flex-col  gap-4 py-8" onSubmit={handleSubmit(onSubmit)}>
-        <input type="text" id="title" className="bg-dark rounded p-4" placeholder="Add the title here..." {...register("title")} />
-        <span className="mt-1 text-xs text-red-400">{errors.title?.message}</span>
-        <input type="text" id="shotUrl" className="bg-dark rounded p-4" placeholder="Add the url here..." {...register("shotUrl")} />
-        <span className="mt-1 text-xs text-red-400">{errors.shotUrl?.message}</span>
-        <textarea
-          {...register("description")}
-          className="bg-dark rounded p-4"
-          id="description"
-          cols={30}
-          rows={10}
-          placeholder="Add the description here..."
-        />
-        <span className="mt-1 text-xs text-red-400">{errors.description?.message}</span>
-        <label htmlFor="shot">Select the tags</label>
-        <div className="flex flex-row gap-4">
-          <input type="checkbox" id="minimal" {...register("minimal")} className="bg-dark rounded p-4" />
-          <label htmlFor="minimal">Minimal</label>
-          <input type="checkbox" id="luxurious" {...register("luxurious")} className="bg-dark rounded p-4" />
-          <label htmlFor="luxurious">Luxurious</label>
-          <input type="checkbox" id="spaceSaving" {...register("spaceSaving")} className="bg-dark rounded p-4" />
-          <label htmlFor="luxurious">Space Saving</label>
-        </div>
+      <h1 className="mt-2 text-center">What have you been working on?</h1>
 
-        <button disabled={loading} className="mt-4 rounded bg-primary p-2 text-center">
-          Upload {loading && <Icons.Loading />}
-        </button>
-      </form>
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+          <FormField
+            control={form.control}
+            name="title"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Title</FormLabel>
+                <FormControl>
+                  <Input placeholder="enter title" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="description"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Description</FormLabel>
+                <FormControl>
+                  <Textarea rows={12} placeholder="Tell us a little bit about your shot" className="resize-none" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <p className="text-muted-foreground">Upload Shot</p>
+          <UploadDropzone
+            endpoint="imageUploader"
+            className="h-60 w-full rounded bg-background px-4 text-muted-foreground"
+            onClientUploadComplete={(res) => {
+              form.setValue("shotUrl", res[0].url)
+              setLoading(false)
+            }}
+            onUploadBegin={() => {
+              setLoading(true)
+            }}
+            onUploadError={(error: Error) => {
+              toast.error(error.message)
+            }}
+            config={{
+              mode: "auto",
+            }}
+          />
+          <FormField
+            control={form.control}
+            name="tags"
+            render={() => (
+              <FormItem>
+                <div className="mb-4">
+                  <FormLabel className="text-base">Tags</FormLabel>
+                </div>
+                <div className="flex gap-2">
+                  {tags.map((tag) => (
+                    <FormField
+                      key={tag.id}
+                      control={form.control}
+                      name="tags"
+                      render={({ field }) => {
+                        return (
+                          <FormItem key={tag.id} className="flex items-start space-x-2 space-y-0">
+                            <FormControl>
+                              <Checkbox
+                                checked={field.value?.includes(tag.id)}
+                                onCheckedChange={(checked) => {
+                                  return checked
+                                    ? field.onChange(addTags(tag.id, field.value))
+                                    : field.onChange(field.value?.filter((value) => value !== tag.id))
+                                }}
+                              />
+                            </FormControl>
+                            <FormLabel className="font-normal">{tag.label}</FormLabel>
+                          </FormItem>
+                        )
+                      }}
+                    />
+                  ))}
+                </div>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <Button type="submit" className="w-full" disabled={loading}>
+            Upload Shot
+          </Button>
+        </form>
+      </Form>
     </>
   )
 }

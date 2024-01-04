@@ -24,3 +24,26 @@ export const DUMMYSHOT: shotData[] = [
     },
   },
 ]
+
+export const SHOTDATA = [
+  {
+    image: "/Group1.png",
+    title: "Modern Designs",
+    type: "modern",
+  },
+  {
+    image: "/Group2.png",
+    title: "Minimal Designs",
+    type: "minimal",
+  },
+  {
+    image: "/Group3.png",
+    title: "Space Saving",
+    type: "Space-Saving",
+  },
+  {
+    image: "/Group4.png",
+    title: "Luxurious Designs",
+    type: "Luxurious",
+  },
+]

@@ -31,10 +31,14 @@ const vendorSchema = new mongoose.Schema<IVendor, IVendorModel>(
       unique: true,
       trim: true,
       required: true,
-      // validate(value) {
-      //   if (!validator.isEmail(value)) {
-      //     throw new Error('Enter a valid email address');
-      //   }
+      // validate: {
+      //   validator: async function (value: string) {
+      //     const vendor = await Vendor.findOne({ email: value });
+      //     if (vendor) {
+      //       throw new Error('Email already exists');
+      //     }
+      //   },
+      //   message: 'Email already exists',
       // },
     },
     contact: {

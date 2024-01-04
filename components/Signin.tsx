@@ -48,6 +48,10 @@ export default function SignInForm({ className }: React.ComponentProps<"form">) 
 
     try {
       const data = await vendorLogin(val)
+      if (data.error) {
+        return toast.error(data.error)
+      }
+      console.log(data)
       dispatch(
         setLogin({
           vendor: data.name,
@@ -65,7 +69,7 @@ export default function SignInForm({ className }: React.ComponentProps<"form">) 
   }
 
   return (
-    <section className={cn("grid items-start", className)}>
+    <section className={cn("grid items-start max-sm:px-4", className)}>
       <CardHeader className="mb-4">
         <CardTitle className="text-white">Sign in</CardTitle>
         <CardDescription>Get inspire and share inspirations</CardDescription>

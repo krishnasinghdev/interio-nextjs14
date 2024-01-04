@@ -12,7 +12,9 @@ export type Props = {
 
 const ShotId = async ({ params }: Props) => {
   const shot = await getShotById(params.shotId)
-  const moreShot = await getShot("",4)
+  const moreShot = await getShot("", 4)
+
+  if (!shot || shot.error) return <p className="text-center">Shot not found!</p>
 
   return (
     <>
@@ -82,6 +84,8 @@ const ShotId = async ({ params }: Props) => {
         <div className="flex gap-4 overflow-x-auto ">
           {/* //@ts-ignore - d */}
           {moreShot &&
+            moreShot.shots &&
+            moreShot.shots.length > 0 &&
             moreShot.shots.map((shot, i: number) => (
               <div key={i} className="mb-4">
                 <Link href={`/designs/${shot._id}`}>

@@ -1,6 +1,7 @@
 import type { NextPage } from "next"
 import Image from "next/image"
 import Link from "next/link"
+import { SHOTDATA } from "@/utils/dummy"
 
 import { getShot } from "@/lib/actions/shot.actions"
 import Hero from "@/components/Hero"
@@ -8,7 +9,7 @@ import IconList from "@/components/motion/icon-list"
 import RectangleCard from "@/components/RectangleCard"
 
 const Home: NextPage = async () => {
-  const { shots } = await getShot(10)
+  const { shots } = await getShot("", 10)
 
   return (
     <section className="bg-dark">
@@ -24,7 +25,7 @@ const Home: NextPage = async () => {
       <div className="padding py-16 text-2xl sm:text-4xl">
         {SHOTDATA.map((_, i) => (
           <Link
-            href="/designs/modern"
+            href={`/designs?type=${_.type}`}
             className="border-gray  group flex items-center justify-between border-y p-4 hover:cursor-pointer hover:bg-[#292929]  "
             key={i}
           >
@@ -113,26 +114,3 @@ const Home: NextPage = async () => {
 }
 
 export default Home
-
-const SHOTDATA = [
-  {
-    image: "/Group1.png",
-    title: "Modern Designs",
-    description: "Modern Designs",
-  },
-  {
-    image: "/Group2.png",
-    title: "Minimal Designs",
-    description: "Minimal Designs",
-  },
-  {
-    image: "/Group3.png",
-    title: "Space Saving",
-    description: "Space Saving",
-  },
-  {
-    image: "/Group4.png",
-    title: "Luxurious Designs",
-    description: "Luxurious Designs",
-  },
-]

@@ -10,6 +10,8 @@ import { revalidateVendor } from "@/lib/actions/vendor.actions"
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent } from "@/components/ui/dialog"
 import { Drawer, DrawerClose, DrawerContent, DrawerFooter } from "@/components/ui/drawer"
+import Invite from "@/components/Invite"
+import Collection from "@/components/NewCollection"
 import SignInForm from "@/components/Signin"
 import SignUpForm from "@/components/Signup"
 
@@ -38,7 +40,10 @@ export default function ExtraComponents() {
     return (
       <Dialog open={showPanel} onOpenChange={() => dispatch(togglePanel("HIDE"))}>
         <DialogContent className="sm:max-w-[425px]">
-          {(panel === "signin" && <SignInForm />) || (panel === "signup" && <SignUpForm />)}
+          {(panel === "signin" && <SignInForm />) ||
+            (panel === "signup" && <SignUpForm />) ||
+            (panel === "invite" && <Invite />) ||
+            (panel === "collection" && <Collection />)}
         </DialogContent>
       </Dialog>
     )
@@ -47,7 +52,10 @@ export default function ExtraComponents() {
   return (
     <Drawer open={showPanel} onDrag={() => dispatch(togglePanel("HIDE"))}>
       <DrawerContent className="pb-6">
-        {(panel === "signin" && <SignInForm className="p-4" />) || (panel === "signup" && <SignUpForm className="p-4" />)}
+        {(panel === "signin" && <SignInForm />) ||
+          (panel === "signup" && <SignUpForm />) ||
+          (panel === "invite" && <Invite />) ||
+          (panel === "collection" && <Collection />)}
         <DrawerFooter className="pt-4">
           <DrawerClose asChild>
             <Button variant="outline" onClick={() => dispatch(togglePanel("HIDE"))}>

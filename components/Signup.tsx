@@ -63,7 +63,7 @@ export default function SignUpForm({ className }: React.ComponentProps<"form">) 
           token: data.token,
         })
       )
-      dispatch(togglePanel('HIDE'))
+      dispatch(togglePanel("HIDE"))
       toast.success("Account Created!")
     } catch (error: any) {
       toast.error("Something went wrong", error.message)
@@ -73,7 +73,7 @@ export default function SignUpForm({ className }: React.ComponentProps<"form">) 
   }
 
   return (
-    <section className={cn("grid items-start", className)}>
+    <section className={cn("grid items-start max-sm:px-4", className)}>
       <CardHeader className="mb-4">
         <CardTitle className="text-white">Sign Up</CardTitle>
         <CardDescription>Create accoun to get inspirations</CardDescription>
@@ -114,7 +114,7 @@ export default function SignUpForm({ className }: React.ComponentProps<"form">) 
               <FormItem>
                 <FormLabel>Password</FormLabel>
                 <FormControl>
-                <PasswordInput autoComplete="true" placeholder="enter password" {...field} />
+                  <PasswordInput autoComplete="true" placeholder="enter password" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -127,7 +127,7 @@ export default function SignUpForm({ className }: React.ComponentProps<"form">) 
               <FormItem>
                 <FormLabel>Confirm Password</FormLabel>
                 <FormControl>
-                <PasswordInput autoComplete="true" placeholder="confirm password" {...field} />
+                  <PasswordInput autoComplete="true" placeholder="confirm password" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>

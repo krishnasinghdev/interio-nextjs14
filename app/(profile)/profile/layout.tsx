@@ -4,17 +4,26 @@ import type { ReactElement } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { isLogin, vendor as vd } from "@/context/theme"
+import { useAppDispatch } from "@/context/hook"
+import { isLogin, togglePanel, vendor as vd } from "@/context/theme"
 import clsx from "clsx"
 import { useSelector } from "react-redux"
+import { toast } from "sonner"
+
+import { Button } from "@/components/ui/button"
 
 export default function Layout({ children }: { children: React.ReactNode }): ReactElement {
   const pathname = usePathname()
   const loginStatus = useSelector(isLogin)
   const vendor = useSelector(vd)
+  const dispatch = useAppDispatch()
+
+  if (!loginStatus) {
+    toast.error("Signup/Signin for checking profile!")
+  }
   return (
     <>
-      <Image key={2} src={"/coverimg.png"} alt="cover_image" className="" height={300} width={1300} />
+      <Image key={2} src={"/coverimg.png"} alt="cover_image" className="w-full" height={300} width={1500} />
       {loginStatus ? (
         <>
           {!(pathname == "/profile/edit") && (
@@ -66,7 +75,22 @@ export default function Layout({ children }: { children: React.ReactNode }): Rea
           <div className="px-8 ">{children}</div>
         </>
       ) : (
-        <h1 className="text-gray mt-8 text-center">Login/Signup to access messages!</h1>
+        <div className="flex flex-col items-center justify-center">
+          <h1 className="text-gray mt-8 text-center">
+            Login/Signup to access messages! or Back to{" "}
+            <Link href="/designs" className="text-primary underline">
+              Designs
+            </Link>{" "}
+          </h1>
+          <div className="mt-4 flex gap-4">
+            <Button className="mr-4 rounded bg-primary px-4 py-2" onClick={() => dispatch(togglePanel("signup"))}>
+              Sign up
+            </Button>
+            <Button className="rounded bg-secondary px-4 py-2" onClick={() => dispatch(togglePanel("signin"))}>
+              Sign in
+            </Button>
+          </div>
+        </div>
       )}
     </>
   )

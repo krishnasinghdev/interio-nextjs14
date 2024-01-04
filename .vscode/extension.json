@@ -1,0 +1,9 @@
+{
+  "recommendations": [
+    "vdanchenkov.tailwind-class-sorter",
+    "esbenp.prettier-vscode",
+    "dbaeumer.vscode-eslint",
+    "bradlc.vscode-tailwindcss"
+  ],
+  "unwantedRecommendations": []
+}
