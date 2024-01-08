@@ -1,6 +1,7 @@
 import { shotData } from "@/types/shotType"
 import { getShot } from "@/lib/actions/shot.actions"
-import DesignList from "@/components/DesignList"
+
+import ShotCard from "./shot-card"
 
 type Props = {
   searchParams: { type: string }
@@ -17,5 +18,17 @@ export default async function Designs({ searchParams }: Props) {
     console.log(error)
   }
 
-  return <>{shots?.length > 0 ? <DesignList shots={shots} /> : <p className="text-center">Nothing to show!</p>}</>
+  return (
+    <>
+      {shots?.length > 0 ? (
+        <div className="grid grid-cols-2 justify-items-center gap-4 md:grid-cols-3 xl:grid-cols-4">
+          {shots.map((shot: shotData) => (
+            <ShotCard key={shot._id} shot={shot} />
+          ))}
+        </div>
+      ) : (
+        <p className="text-center">Nothing to show!</p>
+      )}
+    </>
+  )
 }

@@ -2,6 +2,7 @@
 
 import React, { useState } from "react"
 import { useRouter } from "next/navigation"
+import { TAGS } from "@/utils/dummy"
 import { UploadDropzone } from "@/utils/uploadthing"
 import { joiResolver } from "@hookform/resolvers/joi"
 import axios from "axios"
@@ -21,20 +22,6 @@ interface IFormInput {
   tags: string[]
   title: string
 }
-const tags = [
-  {
-    id: "minimal",
-    label: "Minimal",
-  },
-  {
-    id: "luxurious",
-    label: "Luxurious",
-  },
-  {
-    id: "spaceSaving",
-    label: "Space Saving",
-  },
-]
 
 const schema = Joi.object({
   description: Joi.string().min(200).max(1000).required().messages({
@@ -158,7 +145,7 @@ const Upload = () => {
                   <FormLabel className="text-base">Tags</FormLabel>
                 </div>
                 <div className="flex gap-2">
-                  {tags.map((tag) => (
+                  {TAGS.map((tag) => (
                     <FormField
                       key={tag.id}
                       control={form.control}

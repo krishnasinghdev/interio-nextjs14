@@ -1,8 +1,10 @@
 import Image from "next/image"
-import Link from "next/link"
 
+import { shotData } from "@/types/shotType"
 import { getShot, getShotById } from "@/lib/actions/shot.actions"
-import { Icons } from "@/components/Icons"
+import { Icons } from "@/components/icons"
+
+import ShotCard from "../shot-card"
 
 export type Props = {
   params: {
@@ -82,37 +84,10 @@ const ShotId = async ({ params }: Props) => {
           <p className="cursor-pointer text-primary hover:underline">View Profile</p>
         </div>
         <div className="flex gap-4 overflow-x-auto ">
-          {/* //@ts-ignore - d */}
           {moreShot &&
             moreShot.shots &&
             moreShot.shots.length > 0 &&
-            moreShot.shots.map((shot, i: number) => (
-              <div key={i} className="mb-4">
-                <Link href={`/designs/${shot._id}`}>
-                  <Image
-                    src={`${shot.images[0].url}`}
-                    alt="l1img"
-                    height={250}
-                    quality={100}
-                    width={270}
-                    className="cursor-pointer rounded transition-all duration-200 hover:scale-105"
-                  />
-                </Link>
-                <div className="text-gray flex justify-between px-4 py-2">
-                  <span>
-                    <Icons.BsChatDots className="inline" /> 1.1k
-                  </span>
-                  <p className="flex gap-4">
-                    <span>
-                      <Icons.AiOutlineHeart className="inline" /> 1.1k
-                    </span>
-                    <span>
-                      <Icons.AiOutlineEye className="inline" /> 1.1k
-                    </span>
-                  </p>
-                </div>
-              </div>
-            ))}
+            moreShot.shots.map((shot) => <ShotCard key={shot._id} shot={shot as shotData} />)}
         </div>
       </div>
     </>

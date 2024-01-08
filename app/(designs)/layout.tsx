@@ -10,16 +10,16 @@ import clsx from "clsx"
 import { toast } from "sonner"
 
 import { vendorLogout } from "@/lib/actions/vendor.actions"
-import { Icons } from "@/components/Icons"
+import { Icons } from "@/components/icons"
 
 import DesignNav from "./design-nav"
 
 type Props = {
   children?: React.ReactNode
-  way?: string
+  way?: "without" | "with"
 }
 
-export default function Designs({ children, way }: Props): ReactElement {
+export default function LeftSideBar({ children, way }: Props): ReactElement {
   const dispatch = useAppDispatch()
   const vendor = useAppSelector(vd)
   const pathname = usePathname()
@@ -66,7 +66,13 @@ export default function Designs({ children, way }: Props): ReactElement {
 
           {loginStatus && (
             <Link href="/profile" className="absolute bottom-8 ">
-              <Image src={"/dp.png"} alt="interio logo" height={35} width={35} className="rounded-full bg-primary " />
+              <Image
+                src={vendor?.profilePic || "/dp2.png"}
+                alt="interio logo"
+                height={40}
+                width={40}
+                className="h-10 w-10 rounded-full object-fill "
+              />
             </Link>
           )}
         </div>
@@ -150,7 +156,7 @@ export default function Designs({ children, way }: Props): ReactElement {
           "px-4 py-8 text-white sm:px-8 md:ml-[65px] md:pt-8 lg:ml-[280px] lg:w-auto xl:px-10"
         )}
       >
-        {!(pathname == "/designs/upload") && <DesignNav />}
+        {!(pathname == "/designs/upload" || pathname.startsWith("/profile")) && <DesignNav />}
         {children}
       </div>
     </>

@@ -3,14 +3,14 @@
 import { cookies } from "next/headers"
 import getIdByToken, { getErrorMessage } from "@/utils/helper"
 
-import SHOT from "../model/shotModel"
+import SHOT from "../model/shot.model"
 // import { FilterQuery, SortOrder } from "mongoose";
 // import { revalidatePath } from "next/cache";
 
-import VENDOR from "../model/vendorModel"
+import VENDOR from "../model/vendor.model"
 import { connectToDB } from "../mongoose"
 
-//-------------NEW VENDOR-------------//
+//-------------GET ALL VENDOR-------------//
 export const getAllVendors = async () => {
   try {
     connectToDB()
@@ -57,7 +57,7 @@ export const revalidateVendor = async () => {
       return { message: "Token Expired", code: 500 }
     }
 
-    const vendor = await VENDOR.findOne({ _id })
+    const vendor = await VENDOR.findOne({ _id }).select("name profilePic tokens")
     if (!vendor) {
       return { message: "Vendor Not Found", code: 500 }
     }
@@ -68,7 +68,7 @@ export const revalidateVendor = async () => {
     const token = await vendor.generateAuthToken()
     await vendor.save()
     cookies().set("token", token)
-    return { name: vendor?.name, _id: vendor._id.toString(), token, code: 200 }
+    return { name: vendor?.name, _id: vendor._id.toString(), profilePic: vendor.profilePic, token, code: 200 }
   } catch (error) {
     return {
       error: getErrorMessage(error),
@@ -86,7 +86,28 @@ export const vendorLogin = async (body: any) => {
     }
     const token = await vendor.generateAuthToken()
     cookies().set("token", token)
-    return { name: vendor?.name, _id: vendor?._id.toString(), token }
+    return { name: vendor?.name, _id: vendor?._id.toString(), profilePic: vendor.profilePic, token }
+  } catch (error) {
+    return {
+      error: getErrorMessage(error),
+    }
+  }
+}
+
+//-------------GET COMPLETE VENDOR PROFILE-------------//
+export const getVendorProfile = async () => {
+  try {
+    connectToDB()
+    const cookieStore = cookies()
+    const token = cookieStore.get("token")
+    if (!token) throw new Error("Token Not Found")
+    const _id = await getIdByToken(token)
+    if (!_id) throw new Error("Token Expired")
+    const vendor = await VENDOR.findOne({ _id }).select("-password -tokens")
+    if (!vendor) {
+      throw Error("NO vendor data FOUND")
+    }
+    return { vendor }
   } catch (error) {
     return {
       error: getErrorMessage(error),
@@ -160,7 +181,7 @@ export const getTabs = async (tab: string) => {
       if (!shots) {
         throw Error("Unable to get shots!")
       }
-      return shots
+      return { shots }
     }
   } catch (error) {
     return {

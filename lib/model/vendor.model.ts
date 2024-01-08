@@ -20,6 +20,10 @@ const vendorSchema = new mongoose.Schema<IVendor, IVendorModel>(
       trim: true,
       required: true,
     },
+    profilePic: {
+      type: String,
+      default: null,
+    },
     username: {
       type: String,
       trim: true,

@@ -10,10 +10,10 @@ import { revalidateVendor } from "@/lib/actions/vendor.actions"
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent } from "@/components/ui/dialog"
 import { Drawer, DrawerClose, DrawerContent, DrawerFooter } from "@/components/ui/drawer"
-import Invite from "@/components/Invite"
-import Collection from "@/components/NewCollection"
-import SignInForm from "@/components/Signin"
-import SignUpForm from "@/components/Signup"
+import Invite from "@/components/invite"
+import Collection from "@/components/new-collection"
+import SignInForm from "@/components/signin"
+import SignUpForm from "@/components/signup"
 
 export default function ExtraComponents() {
   const isDesktop = useMediaQuery("(min-width: 768px)")

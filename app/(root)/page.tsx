@@ -4,9 +4,9 @@ import Link from "next/link"
 import { SHOTDATA } from "@/utils/dummy"
 
 import { getShot } from "@/lib/actions/shot.actions"
-import Hero from "@/components/Hero"
+import Hero from "@/components/hero"
 import IconList from "@/components/motion/icon-list"
-import RectangleCard from "@/components/RectangleCard"
+import RectangleCard from "@/components/rectangle-card"
 
 const Home: NextPage = async () => {
   const { shots } = await getShot("", 10)
@@ -57,7 +57,13 @@ const Home: NextPage = async () => {
             <div key={i}>
               <span className=" absolute m-2 rounded-2xl bg-pink-500 px-2 py-0 text-sm text-white">24k</span>
               <Link href={`/designs/${_._id}`}>
-                <Image src={_.images[0].url} height={250} width={250} alt={"man"} className="rounded hover:cursor-pointer " />
+                <Image
+                  src={_.images[0].url}
+                  height={250}
+                  width={250}
+                  alt={"man"}
+                  className="h-40 rounded object-fill hover:cursor-pointer "
+                />
               </Link>
               {/* <p>{_.title}</p> */}
             </div>
@@ -106,7 +112,7 @@ const Home: NextPage = async () => {
           Modern Designs | Minimal Designs | Luxurious Designs | Space Saving Designs <br /> Dark themed Designs | Hotel Room Designs |
           Terms & Conditions Privacy Policy | About us
         </p>
-        <p>Handcrafted by © XYZ Company 2023</p>
+        <p>Handcrafted by Interio © {new Date().getFullYear()}</p>
         <p>Made with 💖 </p>
       </div>
     </section>

@@ -8,7 +8,7 @@ import { useAppDispatch, useAppSelector } from "@/context/hook"
 import clsx from "clsx"
 
 import { isLogin as loginStatus, togglePanel } from "../context/theme"
-import { Icons } from "./Icons"
+import { Icons } from "./icons"
 import { Button } from "./ui/button"
 
 const Navbar = () => {

@@ -1,11 +1,10 @@
-import { TailwindIndicator } from "../components/TailwindIndicator"
+import { TailwindIndicator } from "../components/tailwind-indicator"
 
 import "./globals.css"
 
 import { Metadata } from "next"
 import { Roboto } from "next/font/google"
-import QueryProvider from "@/providers/query-provider"
-import ReduxProvider from "@/providers/redux-provider"
+import ReduxProvider, { QueryProvider } from "@/utils/providers"
 import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin"
 import { extractRouterConfig } from "uploadthing/server"
 

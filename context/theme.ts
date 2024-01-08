@@ -11,6 +11,7 @@ export interface themeState {
     vendor?: string
     v_id?: string
     token?: string
+    profilePic?: string
   }
 }
 

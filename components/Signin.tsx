@@ -57,6 +57,7 @@ export default function SignInForm({ className }: React.ComponentProps<"form">) 
           vendor: data.name,
           v_id: data._id,
           token: data.token,
+          profilePic: data.profilePic,
         })
       )
       dispatch(togglePanel("HIDE"))

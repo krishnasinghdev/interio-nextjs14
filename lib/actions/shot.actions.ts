@@ -3,8 +3,8 @@
 // import COLLECTION from '../model/collectionModel';
 import { getErrorMessage } from "@/utils/helper"
 
-import SHOT from "../model/shotModel"
-import VENDOR from "../model/vendorModel"
+import SHOT from "../model/shot.model"
+import VENDOR from "../model/vendor.model"
 import { connectToDB } from "../mongoose"
 
 //-------------NEW SHOT-------------//

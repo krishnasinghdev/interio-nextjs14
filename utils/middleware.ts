@@ -1,6 +1,6 @@
 import jwt, { JwtPayload } from "jsonwebtoken"
 
-import VENDOR from "@/lib/model/vendorModel"
+import VENDOR from "@/lib/model/vendor.model"
 import { connectToDB } from "@/lib/mongoose"
 
 const JWT_SECRET = process.env.JWT_SECRET

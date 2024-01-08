@@ -3,7 +3,7 @@
 import * as React from "react"
 import { cn } from "@/utils"
 
-import { Icons } from "../Icons"
+import { Icons } from "../icons"
 import { Separator } from "./separator"
 
 export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {}

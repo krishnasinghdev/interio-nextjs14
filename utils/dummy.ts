@@ -47,3 +47,18 @@ export const SHOTDATA = [
     type: "Luxurious",
   },
 ]
+
+export const TAGS = [
+  {
+    id: "minimal",
+    label: "Minimal",
+  },
+  {
+    id: "luxurious",
+    label: "Luxurious",
+  },
+  {
+    id: "spaceSaving",
+    label: "Space Saving",
+  },
+]

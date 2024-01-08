@@ -1,6 +1,6 @@
 import Image from "next/image"
 
-import { Icons } from "./Icons"
+import { Icons } from "./icons"
 
 const Hero = () => {
   return (

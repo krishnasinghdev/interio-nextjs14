@@ -1,6 +1,6 @@
 import React from "react"
 
-import { Icons } from "@/components/Icons"
+import { Icons } from "@/components/icons"
 
 export default function loading() {
   return (

@@ -29,6 +29,7 @@ export interface IVendor extends Document {
   otp: string | null
   otpExpireIn: Date | null
   tokens: Array<{ token: string }>
+  profilePic: string | null
   generateAuthToken(): Promise<string>
 }
 
