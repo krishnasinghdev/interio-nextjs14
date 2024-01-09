@@ -32,3 +32,15 @@ export function getErrorMessage(error: unknown): string {
   }
   return message
 }
+
+export function formatDateInDMY(inputDate: string): string {
+  const date = new Date(inputDate)
+  if (isNaN(date.getTime())) return ""
+
+  const options: Intl.DateTimeFormatOptions = {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  }
+  return date.toLocaleDateString(undefined, options)
+}

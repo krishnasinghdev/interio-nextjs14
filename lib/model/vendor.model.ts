@@ -86,13 +86,16 @@ const vendorSchema = new mongoose.Schema<IVendor, IVendorModel>(
     workHistory: [
       {
         title: String,
-        duration: String,
+        company: String,
+        location: String,
+        from: String,
+        to: String,
       },
     ],
     lookingfor: [
       {
         title: String,
-        duration: String,
+        location: String,
       },
     ],
     ownShot: [mongoose.Schema.Types.ObjectId],

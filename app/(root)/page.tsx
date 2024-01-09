@@ -35,6 +35,7 @@ const Home: NextPage = async () => {
               alt="arrow icon"
               height={50}
               width={50}
+              priority
               className="hidden bg-primary  p-2 md:group-hover:block "
             />
           </Link>

@@ -3,8 +3,8 @@ import { shotData } from "@/types"
 import { getTabs } from "@/lib/actions/vendor.actions"
 import ShotCard from "@/app/(designs)/designs/shot-card"
 
-const Profile = async ({ params }: { params: { work: string } }) => {
-  const { shots, error } = (await getTabs(params.work)) as { shots: shotData[]; error?: string }
+const Profile = async ({ params }: { params: { tab: string } }) => {
+  const { shots, error } = (await getTabs(params.tab)) as { shots: shotData[]; error?: string }
 
   if (!shots || shots.length == 0 || error) return <div className="text-center text-foreground">Nothing to show!</div>
 

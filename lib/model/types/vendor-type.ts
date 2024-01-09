@@ -15,8 +15,8 @@ export interface IVendor extends Document {
   pincode: number | null
   area: string | null
   biography: string | null
-  workHistory: Array<{ title: string; duration: string }>
-  lookingfor: Array<{ title: string; duration: string }>
+  workHistory: Array<{ title: string; company: string; location: string; from: string; to: string }>
+  lookingfor: Array<{ title: string; location: string }>
   ownShot: Types.ObjectId[]
   likedShot: Types.ObjectId[]
   shotCollections: Types.ObjectId[]

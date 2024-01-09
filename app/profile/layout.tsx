@@ -25,7 +25,7 @@ export default function Layout({ children }: { children: React.ReactNode }): Rea
     <LeftSideBar>
       <>
         <section className="flex-col">
-          <Image key={2} src={"/coverimg.png"} alt="cover_image" className="block w-full rounded" height={500} width={1000} />
+          <Image key={2} src={"/coverimg.png"} alt="cover_image" className="block w-full rounded" height={170} width={740} />
           {loginStatus && (
             <div className="relative -mt-16 flex  items-center justify-between rounded bg-secondary/80 p-2 px-4 text-white md:-mt-24">
               <div className="flex items-center gap-4">
@@ -43,11 +43,11 @@ export default function Layout({ children }: { children: React.ReactNode }): Rea
               </div>
               <Link
                 className={buttonVariants({
-                  variant: pathname == "/profile" ? "default" : "outline",
+                  variant: pathname == "/profile/edit" ? "outline" : "default",
                 })}
-                href={pathname == "/profile" ? "/profile/edit" : "/profile"}
+                href={pathname == "/profile/edit" ? "/profile" : "/profile/edit"}
               >
-                {pathname == "/profile" ? "Edit Profile" : "Cancel Edit"}
+                {pathname == "/profile/edit" ? "Cancel Edit" : "Edit Profile"}
               </Link>
             </div>
           )}
@@ -56,12 +56,12 @@ export default function Layout({ children }: { children: React.ReactNode }): Rea
           <>
             {!(pathname == "/profile/edit") && (
               <main>
-                <header className="text-gray my-2 grid grid-cols-4 items-center justify-between gap-2">
+                <header className="text-gray my-2 grid grid-cols-4 items-center justify-between gap-2 max-md:flex max-md:overflow-x-scroll">
                   <Link
                     href={"/profile"}
                     className={`${buttonVariants({
                       variant: "secondary",
-                    })} ${pathname == "/profile" ? "bg-secondary/50 text-primary" : "text-white"}`}
+                    })} ${pathname == "/profile" ? "bg-secondary/50 text-primary" : "text-white"} min-w-fit`}
                   >
                     About me
                   </Link>
@@ -69,7 +69,7 @@ export default function Layout({ children }: { children: React.ReactNode }): Rea
                     href={"/profile/work"}
                     className={`${buttonVariants({
                       variant: "secondary",
-                    })} ${pathname == "/profile/work" ? "bg-secondary/80 text-primary" : "text-white"}`}
+                    })} ${pathname == "/profile/work" ? "bg-secondary/80 text-primary" : "text-white"} min-w-fit`}
                   >
                     Work
                   </Link>
@@ -78,7 +78,7 @@ export default function Layout({ children }: { children: React.ReactNode }): Rea
                     href={"/profile/liked-shot"}
                     className={`${buttonVariants({
                       variant: "secondary",
-                    })} ${pathname == "/profile/liked-shot" ? "bg-secondary/80 text-primary" : "text-white"}`}
+                    })} ${pathname == "/profile/liked-shot" ? "bg-secondary/80 text-primary" : "text-white"} min-w-fit`}
                   >
                     Liked Shots
                   </Link>
@@ -86,7 +86,7 @@ export default function Layout({ children }: { children: React.ReactNode }): Rea
                     href={"/profile/collection"}
                     className={`${buttonVariants({
                       variant: "secondary",
-                    })} ${pathname == "/profile/collection" ? "bg-secondary/80 text-primary" : "text-white"}
+                    })} ${pathname == "/profile/collection" ? "bg-secondary/80 text-primary" : "min-w-fit text-white"}
                     `}
                   >
                     Collections
