@@ -1,6 +1,6 @@
 import Image from "next/image"
+import { shotData } from "@/types"
 
-import { shotData } from "@/types/shotType"
 import { getShot, getShotById } from "@/lib/actions/shot.actions"
 import { Icons } from "@/components/icons"
 

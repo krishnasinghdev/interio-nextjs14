@@ -1,4 +1,4 @@
-import { shotData } from "@/types/shotType"
+import { shotData } from "@/types"
 
 export const DUMMYSHOT: shotData[] = [
   {

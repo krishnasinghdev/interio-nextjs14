@@ -1,8 +1,8 @@
 import React from "react"
 import Image from "next/image"
 import Link from "next/link"
+import { shotData } from "@/types"
 
-import { shotData } from "@/types/shotType"
 import { Icons } from "@/components/icons"
 
 export default function ShotCard({ shot }: { shot: shotData }) {

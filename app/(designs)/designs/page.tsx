@@ -1,4 +1,5 @@
-import { shotData } from "@/types/shotType"
+import { shotData } from "@/types"
+
 import { getShot } from "@/lib/actions/shot.actions"
 
 import ShotCard from "./shot-card"

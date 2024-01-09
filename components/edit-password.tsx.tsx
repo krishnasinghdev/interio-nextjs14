@@ -4,10 +4,6 @@ import axios from "axios"
 import Joi from "joi"
 import { SubmitHandler, useForm } from "react-hook-form"
 
-// import { useAppDispatch } from "@/context/hook"
-
-import ModalHeader from "./ModalHeader"
-
 interface IFormInput {
   oldPassword: string
   newPassword: string
@@ -50,7 +46,6 @@ const EditPassword = ({ onClick }: { onClick: () => void }) => {
 
   return (
     <section className="m-auto w-11/12 rounded bg-[#0F0F0F] p-8 md:w-1/2 ">
-      <ModalHeader onClick={onClick} title="Update your password" />
       {message && <p className="mt-2 text-center text-sm text-red-500">{message}</p>}
       <form className="text-gray flex flex-col bg-[#0F0F0F] placeholder:text-sm" onSubmit={handleSubmit(onSubmit)}>
         <label htmlFor="email" className="mt-4 block">

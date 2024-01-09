@@ -1,9 +1,10 @@
-import { shotData } from "@/types/shotType"
+import { shotData } from "@/types"
+
 import { getTabs } from "@/lib/actions/vendor.actions"
 import ShotCard from "@/app/(designs)/designs/shot-card"
 
 const Profile = async ({ params }: { params: { work: string } }) => {
-  const { shots, error } = await getTabs(params.work)
+  const { shots, error } = (await getTabs(params.work)) as { shots: shotData[]; error?: string }
 
   if (!shots || shots.length == 0 || error) return <div className="text-center text-foreground">Nothing to show!</div>
 
