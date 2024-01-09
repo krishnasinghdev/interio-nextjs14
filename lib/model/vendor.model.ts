@@ -92,7 +92,7 @@ const vendorSchema = new mongoose.Schema<IVendor, IVendorModel>(
         to: String,
       },
     ],
-    lookingfor: [
+    lookingFor: [
       {
         title: String,
         location: String,
@@ -107,7 +107,7 @@ const vendorSchema = new mongoose.Schema<IVendor, IVendorModel>(
         url: String,
       },
     ],
-    skill: [String],
+    skills: [String],
     follower: [String],
     following: [String],
     resetToken: String,

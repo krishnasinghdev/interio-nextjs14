@@ -6,6 +6,7 @@ import { HiOutlineLogout, HiOutlineMail, HiOutlinePhotograph } from "react-icons
 import { IoEyeOffOutline as EyeOff, IoEyeOutline as EyeOn, IoSearch as Search } from "react-icons/io5"
 import {
   MdOutlineDateRange as Calender,
+  MdOutlineModeEdit as Edit,
   MdOutlineLocationOn as Location,
   MdCancelPresentation,
   MdOutlineCancelPresentation,
@@ -32,6 +33,7 @@ export const Icons = {
   EyeOn,
   EyeOff,
   Search,
+  Edit,
   Location,
   Calender,
   Loading: () => (

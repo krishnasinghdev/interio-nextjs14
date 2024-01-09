@@ -26,12 +26,12 @@ export default function Layout({ children }: { children: React.ReactNode }): Rea
       <>
         <section className="flex-col">
           <Image key={2} src={"/coverimg.png"} alt="cover_image" className="block w-full rounded" height={170} width={740} />
-          {loginStatus && (
+          {loginStatus && pathname !== "/profile/edit" && (
             <div className="relative -mt-16 flex  items-center justify-between rounded bg-secondary/80 p-2 px-4 text-white md:-mt-24">
               <div className="flex items-center gap-4">
                 <Image
-                  src={vendor?.profilePic || "/dp2.png"}
-                  alt="dp2"
+                  src={vendor?.profilePic || "/user.png"}
+                  alt="user"
                   width={80}
                   height={80}
                   className="h-12 w-12 rounded-full md:h-20 md:w-20"

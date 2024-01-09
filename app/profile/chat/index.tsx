@@ -40,7 +40,7 @@
 //               <Link href={`/profile/chat/${chat._id}`} key={chat._id}>
 //                 <div className="my-4  grid grid-cols-10 items-center justify-between justify-items-start gap-2">
 //                   <div className="col-span-3  flex  items-center gap-4">
-//                     <Image src={"/dp2.png"} alt="dp2" width={70} height={70} />
+//                     <Image src={"/user.png"} alt="user" width={70} height={70} />
 //                     <div>
 //                       <h1>{getName(chat.vendors)}</h1>
 //                       {/* <p className='text-xs text-gray'>Last online 21 days ago</p> */}

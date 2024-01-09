@@ -67,7 +67,7 @@ export default function LeftSideBar({ children, way }: Props): ReactElement {
           {loginStatus && (
             <Link href="/profile" className="absolute bottom-8 ">
               <Image
-                src={vendor?.profilePic || "/dp2.png"}
+                src={vendor?.profilePic || "/user.png"}
                 alt="interio logo"
                 height={40}
                 width={40}

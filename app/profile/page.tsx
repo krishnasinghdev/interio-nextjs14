@@ -23,7 +23,7 @@ const User = async () => {
       <div>
         <h1 className="mb-1 text-xl text-primary underline decoration-foreground underline-offset-2">Skills</h1>
         <div className="text-gray mt-2 flex flex-wrap gap-2">
-          {vendor?.skill.map((_, i) => (
+          {vendor?.skills.map((_, i) => (
             <span className="rounded-3xl bg-secondary px-4 py-1 capitalize text-white" key={i}>
               {_}
             </span>
@@ -33,7 +33,7 @@ const User = async () => {
 
       <div>
         <h1 className="mb-1 text-xl text-primary underline decoration-foreground underline-offset-2">Work History</h1>
-        {vendor.workHistory.length > 0 &&
+        {vendor.workHistory.length > 0 ? (
           vendor?.workHistory.map((_, i) => (
             <div className="mb-4 grid grid-cols-2 items-end justify-between gap-2 text-sm text-foreground lg:grid-cols-4" key={i}>
               <div>
@@ -53,13 +53,16 @@ const User = async () => {
                 {formatDateInDMY(_.to) || "Now"}
               </p>
             </div>
-          ))}
+          ))
+        ) : (
+          <p className="text-foreground">No work history found</p>
+        )}
 
         <div>
           <h1 className="mb-1 text-xl text-primary underline decoration-foreground underline-offset-2">Looking For</h1>
-          {vendor.lookingfor.length > 0 && (
+          {vendor.lookingFor.length > 0 ? (
             <div className="text-foreground">
-              {vendor?.lookingfor.map((_, i) => (
+              {vendor?.lookingFor.map((_, i) => (
                 <div key={i} className="mb-2">
                   <h2 className="mb-1 text-base">{_.title}</h2>
                   <h3 className="flex items-center gap-2 lg:ml-4">
@@ -68,6 +71,8 @@ const User = async () => {
                 </div>
               ))}
             </div>
+          ) : (
+            <p className="text-foreground">No looking for found</p>
           )}
         </div>
       </div>

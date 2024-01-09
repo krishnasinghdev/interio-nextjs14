@@ -51,7 +51,6 @@ export default function SignInForm({ className }: React.ComponentProps<"form">) 
       if (data.error) {
         return toast.error(data.error)
       }
-      console.log(data)
       dispatch(
         setLogin({
           vendor: data.name,

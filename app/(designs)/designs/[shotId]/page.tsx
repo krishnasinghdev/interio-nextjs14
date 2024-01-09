@@ -29,7 +29,7 @@ const ShotId = async ({ params }: Props) => {
       />
       <div className="my-8 flex justify-between">
         <div className="flex gap-x-4">
-          <Image src={"/girl.png"} height={40} width={40} alt="man dp" className="rounded-lg bg-primary " />
+          <Image src={"/user.png"} height={40} width={40} alt="man dp" className="rounded-lg bg-primary " />
           <div>
             <h1>{shot?.title}</h1>
             <p className="text-gray text-xs">{shot?.owner?.name}</p>

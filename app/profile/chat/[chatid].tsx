@@ -91,7 +91,7 @@
 //   return (
 //     <SideLayout>
 //       <header className="sticky top-0 flex  gap-4 bg-black pb-4">
-//         <Image src={"/dp2.png"} alt="dp2" width={50} height={50} />
+//         <Image src={"/user.png"} alt="user" width={50} height={50} />
 //         <div>
 //           <h1>{reciever?.name}</h1>
 //           <p className="text-xs text-gray">
@@ -104,7 +104,7 @@
 //       {chats.length < 0 && (
 //         <Image
 //           src={"/gvector.png"}
-//           alt="dp2"
+//           alt="user"
 //           width={300}
 //           className="m-auto mt-8 "
 //           height={300}

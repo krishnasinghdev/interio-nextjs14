@@ -2,215 +2,271 @@
 
 import { useEffect, useState } from "react"
 import Image from "next/image"
-import { togglePanel } from "@/context/theme"
+import Link from "next/link"
+import { useRouter } from "next/navigation"
+import { TAGS } from "@/utils/dummy"
 import { joiResolver } from "@hookform/resolvers/joi"
 import axios from "axios"
 import Joi from "joi"
 import { SubmitHandler, useForm } from "react-hook-form"
-import { useDispatch } from "react-redux"
+import { toast } from "sonner"
+
+import { Button, buttonVariants } from "@/components/ui/button"
+import { Checkbox } from "@/components/ui/checkbox"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
+import { Icons } from "@/components/icons"
 
 interface IFormInput {
   name: string
+  profilePic: string
   email: string
-  location: string
+  contact: number
+  address: string
   biography: string
-  tag: string
-  portfolio?: string
-  username: string
+  workHistory: object
+  lookingFor: object
+  skills: string[]
 }
 
 const schema = Joi.object({
   name: Joi.string().max(50).required().messages({
     "string.max": "Name must be at most {#limit} characters long",
-    "string.empty": "Name is required",
+    "any.required": "Name is required",
   }),
-  username: Joi.string().max(50).required().messages({
-    "string.max": "username must be at most {#limit} characters long",
-    "string.empty": "Username is required",
+  profilePic: Joi.string(),
+  contact: Joi.string().min(8).max(12).messages({
+    "string.min": "Contact number should be atleast 8 digitd",
+    "string.max": "Name must be at most 12 digits long",
   }),
   email: Joi.string()
     .email({ tlds: { allow: false } })
     .required()
     .messages({
       "string.empty": "Email is required",
+      "any.required": "Email is required",
     }),
-  location: Joi.string().required().messages({
-    "string.empty": "Location is required",
-  }),
-  biography: Joi.string().max(500).required().messages({
+  address: Joi.string(),
+  biography: Joi.string().max(500).messages({
     "string.max": "Bio must be at most {#limit} characters long",
-    "string.empty": "Bio is required",
   }),
-  tag: Joi.string().allow(""),
-  portfolio: Joi.string().allow(""),
+  skills: Joi.array().items(Joi.string()).min(1).required().messages({
+    "any.required": "Select atleast 1 skill.",
+  }),
+  // workHistory: Joi.array().items({
+  //   title: Joi.string(),
+  //   company: Joi.string(),
+  //   location: Joi.string(),
+  //   from: Joi.string(),
+  //   to: Joi.string(),
+  // }),
+  // lookingFor: Joi.array().items({
+  //   title: Joi.string(),
+  //   location: Joi.string(),
+  // }),
 })
 
 const Edit = () => {
-  const dispatch = useDispatch()
-  const [message, setMessage] = useState<string>("")
-  const allTags = ["Modern", "Minimal", "Dark Theme", "Hotel Room", "Luxurious", "Space Saving"]
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    formState: { errors },
-  } = useForm<IFormInput>({
+  const [vendor, setVendor] = useState<IFormInput>()
+  const [loading, setLoading] = useState<boolean>(false)
+  const router = useRouter()
+  const form = useForm<IFormInput>({
     resolver: joiResolver(schema),
+    defaultValues: vendor,
   })
 
-  useEffect(() => {
-    const getVendor = async () => {
-      try {
-        const { data } = await axios.get(`${process.env.API_URL}/vendor`, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        })
-        if (data?.data) {
-          data?.data?.name && setValue("name", data?.data?.name)
-          data?.data?.username && setValue("username", data?.data?.username)
-          data?.data?.email && setValue("email", data?.data?.email)
-          data?.data?.location && setValue("location", data?.data?.location)
-          data?.data?.biography && setValue("biography", data?.data?.biography)
-          data?.data?.tag && setValue("tag", data?.data?.tag)
-          data?.data?.portfolio && setValue("portfolio", data?.data?.portfolio)
-        }
-      } catch (error) {
-        console.log(error)
+  const getVendor = async () => {
+    try {
+      const data = await axios.get(`/api/vendor`)
+      if (data.status !== 200) throw new Error("Something went wrong")
+      const vendor = data.data
+      setVendor(vendor)
+      if (vendor) {
+        form.setValue("name", vendor.name)
+        form.setValue("address", vendor.address)
+        form.setValue("email", vendor.email)
+        form.setValue("skills", vendor.skills)
+        // form.setValue("workHistory", vendor.workHistory)
+        // form.setValue("lookingFor", vendor.lookingFor)
+        // vendor.contact && form.setValue("contact", vendor.contact)
+        // vendor.biography && form.setValue("biography", vendor.biography)
+        // vendor.profilePic && form.setValue("profilePic", vendor.profilePic)
       }
+    } catch (error) {
+      console.log(error)
     }
+  }
+  useEffect(() => {
     getVendor()
-  }, [setValue])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const onSubmit: SubmitHandler<IFormInput> = async (val) => {
-    setMessage("Updating...")
+    setLoading(true)
     try {
-      await axios.post(`${process.env.API_URL}/vendor/edit`, val, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
+      // val.skills.filter((value) => value !== "")
+      // remove repeated skills
+
+      val.skills = val.skills.filter((skill, index) => {
+        return val.skills.indexOf(skill) === index
       })
 
-      setMessage("")
+      const data = await axios.post(`/api/vendor`, val)
+      console.log(data)
+      toast.success("Profile updated successful")
+      router.push("/profile")
     } catch (error) {
-      setMessage("Some Error!")
+      toast.error("Update failed")
+    } finally {
+      setLoading(false)
     }
   }
 
   return (
-    <main className="py-16">
-      <h1>Your Profile</h1>
-      {message && <p className="text-xs text-red-400">{message}</p>}
-      <div className="flex items-center justify-between gap-4 ">
-        <div className="flex items-center gap-4">
-          <Image src={"/girl.png"} alt="dpgirl" height={70} width={70} className="rounded-full" />
-          <button className="rounded bg-primary px-4  py-1  ">Upload Now</button>
-          <button className="bg-trans rounded px-4  py-1  ">Delete Pic</button>
-        </div>
-        <button
-          className="bg-trans rounded px-4  py-2 "
-          onClick={() => dispatch(togglePanel({ showModal: true, modalType: "edit-password" }))}
-        >
-          Password
-        </button>
-      </div>
-      <form className="text-gray  flex flex-col placeholder:text-sm " onSubmit={handleSubmit(onSubmit)}>
-        <div className="mt-4 flex ">
-          <div className="w-1/2 ">
-            <label htmlFor="name" className=" block">
-              Name
-            </label>
-            <input
-              type="text"
-              {...register("name")}
-              className="cborder mr-4 mt-2 rounded bg-[#1D1D1D]  px-4 py-2"
-              placeholder="name"
-            />
-            <p className="mt-1 text-xs text-red-400">{errors?.name?.message}</p>
+    <>
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+          <div className="relative -mt-16 flex  items-center justify-between rounded bg-secondary/80 p-2 px-4 text-white md:-mt-24">
+            <div className="flex items-center gap-4">
+              <Image
+                src={form.getValues("profilePic") || "/user.png"}
+                alt="user"
+                width={80}
+                height={80}
+                className="h-12 w-12 rounded-full md:h-20 md:w-20"
+              />
+              <Icons.Edit size={24} />
+            </div>
+            <Link
+              className={buttonVariants({
+                variant: "outline",
+              })}
+              href={"/profile"}
+            >
+              Cancel Edit
+            </Link>
           </div>
-          <div className="w-1/2 ">
-            <label htmlFor="username" className=" block">
-              Username
-            </label>
-            <input
-              type="text"
-              className="cborder mt-2 rounded bg-[#1D1D1D] px-4  py-2"
-              placeholder="username"
-              {...register("username")}
-            />
-            <p className="mt-1 text-xs text-red-400">{errors.username?.message}</p>
-          </div>
-        </div>
-        <div className="mt-4 flex w-full">
-          <div className=" w-1/2">
-            <label htmlFor="email" className=" block">
-              Email
-            </label>
-            <input
-              type="email"
-              {...register("email")}
-              className="cborder mr-4 mt-2 rounded bg-[#1D1D1D]  px-4 py-2"
-              placeholder="email"
-            />
-            <p className="mt-1 text-xs text-red-400">{errors.email?.message}</p>
-          </div>
-          <div className=" w-1/2">
-            <label htmlFor="location" className=" block">
-              Location
-            </label>
-            <input
-              type="text"
-              className="cborder mt-2 rounded bg-[#1D1D1D] px-4  py-2"
-              placeholder="location"
-              {...register("location")}
-            />
-            <p className="mt-1 text-xs text-red-400">{errors.location?.message}</p>
-          </div>
-        </div>
-        <div className="">
-          <label htmlFor="location" className=" block">
-            Tags
-          </label>
-          <select {...register("tag")} className="cborder mr-4 mt-2 rounded bg-[#1D1D1D]  px-4 py-2">
-            {allTags.map((tag, i) => (
-              <option className="bg-[#1D1D1D]" key={i} value={tag}>
-                {tag}
-              </option>
-            ))}
-          </select>
-          <p className="mt-1 text-xs text-red-400">{errors.tag?.message}</p>
-        </div>
 
-        <div className="mt-4">
-          <label htmlFor="bio" className="mb-2 block">
-            Write Bio
-          </label>
-          <textarea
-            id=""
-            className="cborder w-full rounded bg-[#1D1D1D] p-2 "
-            cols={40}
-            rows={10}
-            {...register("biography")}
-          ></textarea>
-          <p className="mt-1 text-xs text-red-400">{errors.biography?.message}</p>
-        </div>
-
-        <div className=" ">
-          <label htmlFor="portfolio" className=" block">
-            Personal Portfolio
-          </label>
-          <input
-            type="text"
-            className="cborder mt-2 w-full rounded bg-[#1D1D1D] px-4  py-2"
-            placeholder="portfolio"
-            {...register("portfolio")}
+          <div className="grid gap-4 md:grid-cols-3">
+            <FormField
+              control={form.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Name</FormLabel>
+                  <FormControl>
+                    <Input type="name" {...field} defaultValue={vendor?.name} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Email</FormLabel>
+                  <FormControl>
+                    <Input type="email" {...field} defaultValue={vendor?.email} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="contact"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Contact</FormLabel>
+                  <FormControl>
+                    <Input type="number" {...field} defaultValue={vendor?.contact} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+          <FormField
+            control={form.control}
+            name="address"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Address</FormLabel>
+                <FormControl>
+                  <Textarea {...field} defaultValue={vendor?.address} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
           />
-          <p className="mt-1 text-xs text-red-400">{errors.portfolio?.message}</p>
-        </div>
-        <button className="mt-4 w-fit rounded bg-primary px-4 py-2 ">Save Changes</button>
-      </form>
-    </main>
+          <FormField
+            control={form.control}
+            name="biography"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Biography</FormLabel>
+                <FormControl>
+                  <Textarea {...field} defaultValue={vendor?.biography} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="skills"
+            render={() => (
+              <FormItem>
+                <FormLabel className="mb-2 text-base">Skills</FormLabel>
+                <div className="flex gap-2">
+                  {TAGS.map((tag) => (
+                    <FormField
+                      key={tag.id}
+                      control={form.control}
+                      name="skills"
+                      render={({ field }) => {
+                        return (
+                          <FormItem key={tag.id} className="flex items-start space-x-2 space-y-0">
+                            <FormControl>
+                              <Checkbox
+                                checked={field.value?.includes(tag.id)}
+                                onCheckedChange={(checked) => {
+                                  return checked
+                                    ? field.onChange(addSkill(tag.id, field.value))
+                                    : field.onChange(field.value?.filter((value) => value !== tag.id))
+                                }}
+                              />
+                            </FormControl>
+                            <FormLabel className="font-normal">{tag.label}</FormLabel>
+                          </FormItem>
+                        )
+                      }}
+                    />
+                  ))}
+                </div>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <Button type="submit" className="w-full" disabled={loading}>
+            Save
+          </Button>
+        </form>
+      </Form>
+    </>
   )
 }
 
 export default Edit
+
+function addSkill(tag: string, tags: string[]) {
+  if (tags) {
+    return [...tags, tag]
+  } else {
+    return [tag]
+  }
+}

@@ -4,9 +4,6 @@ import { cookies } from "next/headers"
 import getIdByToken, { getErrorMessage } from "@/utils/helper"
 
 import SHOT from "../model/shot.model"
-// import { FilterQuery, SortOrder } from "mongoose";
-// import { revalidatePath } from "next/cache";
-
 import VENDOR from "../model/vendor.model"
 import { connectToDB } from "../mongoose"
 
@@ -41,7 +38,53 @@ export const addVendor = async (body: any) => {
   }
 }
 
-//-------------Revalidate VENDOR-------------//
+//-------------LOGIN VENDOR-------------//
+export const vendorLogin = async (body: any) => {
+  try {
+    connectToDB()
+    const vendor = await VENDOR.findByCredentials(body.email, body.password)
+    if (!vendor) {
+      throw new Error("Invalid Attempt, vendor not Found!")
+    }
+    const token = await vendor.generateAuthToken()
+    cookies().set("token", token)
+    return { name: vendor?.name, _id: vendor?._id.toString(), profilePic: vendor.profilePic, token }
+  } catch (error) {
+    return {
+      error: getErrorMessage(error),
+    }
+  }
+}
+
+//-------------LOGOUT VENDOR-------------//
+export const vendorLogout = async () => {
+  try {
+    const cookieStore = cookies()
+    const token = cookieStore.get("token")
+    const _id = await getIdByToken(token)
+
+    if (!_id) {
+      return { message: "Token Expired", code: 500 }
+    }
+    const vendor = await VENDOR.findOne({ _id })
+    if (!vendor) {
+      throw new Error("Invalid Attempt, vendor not Found!")
+    }
+    cookies().delete("token")
+    vendor.tokens = vendor.tokens.filter((tok) => {
+      return tok.token !== token?.value
+    })
+
+    await vendor.save()
+    return { message: "Logged Out!" }
+  } catch (error) {
+    return {
+      error: getErrorMessage(error),
+    }
+  }
+}
+
+//-------------REVALIDATE VENDOR-------------//
 export const revalidateVendor = async () => {
   try {
     connectToDB()
@@ -76,25 +119,7 @@ export const revalidateVendor = async () => {
   }
 }
 
-//-------------LOGIN VENDOR-------------//
-export const vendorLogin = async (body: any) => {
-  try {
-    connectToDB()
-    const vendor = await VENDOR.findByCredentials(body.email, body.password)
-    if (!vendor) {
-      throw new Error("Invalid Attempt, vendor not Found!")
-    }
-    const token = await vendor.generateAuthToken()
-    cookies().set("token", token)
-    return { name: vendor?.name, _id: vendor?._id.toString(), profilePic: vendor.profilePic, token }
-  } catch (error) {
-    return {
-      error: getErrorMessage(error),
-    }
-  }
-}
-
-//-------------GET COMPLETE VENDOR PROFILE-------------//
+//-------------GET COMPLETE VENDOR-------------//
 export const getVendorProfile = async () => {
   try {
     connectToDB()
@@ -108,34 +133,6 @@ export const getVendorProfile = async () => {
       throw Error("NO vendor data FOUND")
     }
     return { vendor }
-  } catch (error) {
-    return {
-      error: getErrorMessage(error),
-    }
-  }
-}
-
-//-------------LOGOUT VENDOR-------------//
-export const vendorLogout = async () => {
-  try {
-    const cookieStore = cookies()
-    const token = cookieStore.get("token")
-    const _id = await getIdByToken(token)
-
-    if (!_id) {
-      return { message: "Token Expired", code: 500 }
-    }
-    const vendor = await VENDOR.findOne({ _id })
-    if (!vendor) {
-      throw new Error("Invalid Attempt, vendor not Found!")
-    }
-    cookies().delete("token")
-    vendor.tokens = vendor.tokens.filter((tok) => {
-      return tok.token !== token?.value
-    })
-
-    await vendor.save()
-    return { message: "Logged Out!" }
   } catch (error) {
     return {
       error: getErrorMessage(error),
@@ -183,6 +180,33 @@ export const getTabs = async (tab: string) => {
       }
       return { shots }
     }
+  } catch (error) {
+    return {
+      error: getErrorMessage(error),
+    }
+  }
+}
+
+//-------------UPDATE VENDOR-------------//
+
+export const updateVendor = async (body: any) => {
+  try {
+    connectToDB()
+    const cookieStore = cookies()
+    const token = cookieStore.get("token")
+    if (!token) return
+    const _id = await getIdByToken(token)
+    if (!_id) return
+    const vendor: any = await VENDOR.findOne({ _id })
+    if (!vendor) {
+      throw Error("NO vendor data FOUND")
+    }
+    const updates = Object.keys(body)
+    updates.forEach((update) => {
+      vendor[update] = body[update]
+    })
+    await vendor.save()
+    return { vendor }
   } catch (error) {
     return {
       error: getErrorMessage(error),

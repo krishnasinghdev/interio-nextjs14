@@ -141,9 +141,7 @@ const Upload = () => {
             name="tags"
             render={() => (
               <FormItem>
-                <div className="mb-4">
-                  <FormLabel className="text-base">Tags</FormLabel>
-                </div>
+                <FormLabel className="mb-2 text-base">Tags</FormLabel>
                 <div className="flex gap-2">
                   {TAGS.map((tag) => (
                     <FormField

@@ -3,18 +3,18 @@ import { Skeleton } from "@/components/ui/skeleton"
 export default function LoadingDesigns() {
   return (
     <div className="grid grid-cols-2 justify-items-center gap-4 md:grid-cols-3 xl:grid-cols-4">
-      {[1, 2, 3, 4, 5, 6, 7, 8].map((item, index) => (
+      {[1, 2, 3, 4, 5, 6, 7, 8].map((_, index) => (
         <LoadingCard key={index} />
       ))}
     </div>
   )
 }
 
-const LoadingCard = () => {
+export const LoadingCard = () => {
   return (
     <div className="">
       <Skeleton className="h-48 w-[17rem] rounded" />
-      <div className="flex justify-between py-2">
+      <div className="flex justify-between px-1 py-2">
         <Skeleton className="h-[20px] w-[40px] rounded" />
         <div className="flex gap-2">
           <Skeleton className="h-[20px] w-[40px] rounded" />

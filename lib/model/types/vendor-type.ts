@@ -16,12 +16,12 @@ export interface IVendor extends Document {
   area: string | null
   biography: string | null
   workHistory: Array<{ title: string; company: string; location: string; from: string; to: string }>
-  lookingfor: Array<{ title: string; location: string }>
+  lookingFor: Array<{ title: string; location: string }>
   ownShot: Types.ObjectId[]
   likedShot: Types.ObjectId[]
   shotCollections: Types.ObjectId[]
   socialLinks: Array<{ platform: string; url: string }>
-  skill: string[]
+  skills: string[]
   follower: string[]
   following: string[]
   resetToken: string | null
