@@ -8,7 +8,7 @@ import { SanityDocument } from "next-sanity"
 
 import BlogCard from "./blog-card"
 
-const Blog = async () => {
+export default async function BlogPag() {
   const blogs = await sanityFetch<SanityDocument[]>({ query: blogsQuery })
 
   return (
@@ -47,8 +47,6 @@ const Blog = async () => {
     </section>
   )
 }
-
-export default Blog
 
 const title = "Interio | Blogs"
 const description = `Here, you'll find articles on a variety of topics related to " Interior Designing " products and services, as well as general topics of interest to our audience.`

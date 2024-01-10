@@ -20,16 +20,10 @@ const ShotId = async ({ params }: Props) => {
 
   return (
     <>
-      <Image
-        src={shot?.images[0]?.url ? shot?.images[0]?.url : "/group1/png"}
-        alt="bed"
-        height={500}
-        width={1400}
-        className="rounded"
-      />
+      <Image src={shot?.images[0]?.url ? shot.images[0].url : "/group1/png"} alt="bed" height={500} width={1400} className="rounded" />
       <div className="my-8 flex justify-between">
         <div className="flex gap-x-4">
-          <Image src={"/user.png"} height={40} width={40} alt="man dp" className="rounded-lg bg-primary " />
+          <Image src={shot.owner.profilePic || "/user.png"} height={40} width={40} alt="man dp" className="rounded-lg" />
           <div>
             <h1>{shot?.title}</h1>
             <p className="text-gray text-xs">{shot?.owner?.name}</p>
@@ -61,7 +55,9 @@ const ShotId = async ({ params }: Props) => {
       <h2>I am available for new projects</h2>
       <p className="my-4">
         📪 Email:
-        <span className="text-primary"> {shot?.owner?.email}</span>
+        <a href={`mailto:${shot.owner.email}`}>
+          <span className="text-primary"> {shot?.owner?.email}</span>
+        </a>
       </p>
       <p className="border-gray my-8 w-full border-[0.5px]" />
       {/* {shot?.owner?._id === vendor.v_id && (
@@ -78,9 +74,9 @@ const ShotId = async ({ params }: Props) => {
             </div>
           )} */}
 
-      <div className="mt-4 flex flex-col gap-y-8">
+      <div className="flex flex-col gap-y-4">
         <div className="flex justify-between">
-          <p>More from {shot?.owner?.name}</p>
+          <p>Similar Shots</p>
           <p className="cursor-pointer text-primary hover:underline">View Profile</p>
         </div>
         <div className="flex gap-4 overflow-x-auto ">

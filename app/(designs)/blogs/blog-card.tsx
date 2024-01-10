@@ -25,7 +25,7 @@ export default function BlogCard({ image, date, cardTitle, cardDescription, slug
           )}
           <h3>
             <Link
-              href={`/blog/${slug}`}
+              href={`/blogs/${slug}`}
               className="text-dark mb-4 inline-block text-xl font-semibold capitalize hover:text-primary sm:text-2xl lg:text-xl xl:text-2xl"
             >
               {cardTitle.toLocaleLowerCase()}

@@ -93,7 +93,7 @@ export default function LeftSideBar({ children, way }: Props): ReactElement {
               "flex w-[200px] items-center gap-x-2 rounded-lg px-4 py-2"
             )}
           >
-            <Icons.HiOutlinePhotograph size={30} />
+            <Icons.HiOutlinePhotograph size={24} />
             <div>
               <h3 className="font-sm font-medium">10k+</h3>
               <p className="text-light text-xs">Inspirations for you</p>
@@ -105,7 +105,7 @@ export default function LeftSideBar({ children, way }: Props): ReactElement {
               "flex w-[200px] items-center gap-x-2 rounded-lg px-4 py-2"
             )}
           >
-            <Icons.RiSuitcaseLine />
+            <Icons.RiSuitcaseLine size={24} />
             <div>
               <h3 className="font-sm font-medium">123+</h3>
               <p className="text-light text-xs">
@@ -119,7 +119,7 @@ export default function LeftSideBar({ children, way }: Props): ReactElement {
               "flex w-[200px] items-center gap-x-2 rounded-lg px-4 py-2"
             )}
           >
-            <Icons.AiOutlineUser />
+            <Icons.AiOutlineUser size={24} />
             <div>
               <h3 className="font-sm font-medium">104+</h3>
               <p className="text-light text-xs">
@@ -137,7 +137,7 @@ export default function LeftSideBar({ children, way }: Props): ReactElement {
               "flex w-[200px] items-center gap-x-2 rounded-lg px-4 py-2"
             )}
           >
-            <Icons.BsChatDots />
+            <Icons.BsChatDots size={24} />
             <div>
               {loginStatus ? (
                 <>

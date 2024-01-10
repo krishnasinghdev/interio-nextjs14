@@ -63,7 +63,7 @@ export const getShotById = async (id: string) => {
     connectToDB()
     const shot = await SHOT.findById(id)
       .select("title category description tags images owner")
-      .populate("owner", "name follower following likedshot email")
+      .populate("owner", "name profilePic email")
 
     if (!shot) {
       throw Error("NO SHOT FOUND")
