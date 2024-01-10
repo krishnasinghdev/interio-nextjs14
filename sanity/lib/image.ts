@@ -17,5 +17,6 @@ export const urlForImage = (source: Image) => {
 }
 
 export function getImgUrl(obj: object, width: number = 300, height: number = 300) {
+  if (!obj) return "/not-found.jpg"
   return builder.image(obj).width(width).height(height).url()
 }
