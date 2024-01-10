@@ -2,7 +2,7 @@ import React from "react"
 import type { Metadata } from "next"
 import { getImgUrl } from "@/sanity/lib/image"
 import { blogsQuery } from "@/sanity/lib/queries"
-import { sanityFetch } from "@/sanity/lib/sanityFetch"
+import { sanityFetch } from "@/sanity/lib/sanity-fetch"
 import { formatDMY } from "@/utils/helper"
 import { SanityDocument } from "next-sanity"
 
