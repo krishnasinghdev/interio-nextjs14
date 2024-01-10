@@ -10,6 +10,16 @@ type IMGType = {
 
 export const BlogComponents = {
   types: {
-    image: ({ value }: IMGType) => <Image src={getImgUrl(value, 800, 400)} width={800} height={400} alt={value.alt || " "} />,
+    image: ({ value }: IMGType) => (
+      <Image
+        src={getImgUrl(value, 800, 400)}
+        width={800}
+        height={400}
+        className="my-4 rounded-lg"
+        alt={value.alt || "image describing points"}
+      />
+    ),
+    h3: (value: string) => <h3 className=" text-white">{value}</h3>,
+    h2: (value: string) => <h2 className=" text-white">{value}</h2>,
   },
 }

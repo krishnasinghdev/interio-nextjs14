@@ -76,3 +76,4 @@ export const EXCLUDE_PATHS = [
   "/profile/edit",
   "/blogs",
 ]
+export const START_WITH_PATHS = ["/blogs"]

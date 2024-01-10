@@ -20,7 +20,13 @@ const ShotId = async ({ params }: Props) => {
 
   return (
     <>
-      <Image src={shot?.images[0]?.url ? shot.images[0].url : "/group1/png"} alt="bed" height={500} width={1400} className="rounded" />
+      <Image
+        src={shot?.images[0]?.url ? shot.images[0].url : "/group1/png"}
+        className="h-[700px] w-[1200px] rounded"
+        alt="bed"
+        height={500}
+        width={1400}
+      />
       <div className="my-8 flex justify-between">
         <div className="flex gap-x-4">
           <Image src={shot.owner.profilePic || "/user.png"} height={40} width={40} alt="man dp" className="rounded-lg" />

@@ -39,36 +39,34 @@ export default async function Page({ params }: PageProps) {
   }
 
   return (
-    <main className="prose prose-lg mx-auto">
-      <h1>{blog.title}</h1>
+    <main className="prose prose-lg mx-auto text-foreground">
+      <h1 className="text-foreground">{blog.title}</h1>
       {blog?.mainImage && (
         <Image
           className="my-4 rounded-lg"
           src={getImgUrl(blog.mainImage, 800, 400)}
           width={800}
           height={400}
-          alt={blog?.mainImage?.alt}
+          alt={blog?.mainImage?.alt || "Blog Image"}
         />
       )}
       {blog?.body ? <PortableText value={blog.body} components={BlogComponents} /> : null}
 
       {blog.author && (
-        <>
+        <section>
           <h3 className="m-0">Author</h3>
-          <section className="rounded-lg bg-gray-300 p-2">
-            <div className="flex h-fit items-center">
-              <Image
-                src={getImgUrl(blog.author?.image, 40, 40)}
-                width={40}
-                height={40}
-                alt={blog.author?.image?.alt}
-                className="m-0 mr-2 rounded-full"
-              />
-              <p className="capitalize">{blog?.author?.name}</p>
-            </div>
-            <p className="m-0">Published On: {formatDMY(blog.publishedAt)}</p>
-          </section>
-        </>
+          <div className="flex h-fit items-center">
+            <Image
+              src={getImgUrl(blog.author?.image, 40, 40)}
+              width={40}
+              height={40}
+              alt={blog.author?.image?.alt}
+              className="m-0 mr-2 rounded-full"
+            />
+            <p className="capitalize">{blog?.author?.name}</p>
+          </div>
+          <p className="m-0">Published On: {formatDMY(blog.publishedAt)}</p>
+        </section>
       )}
     </main>
   )

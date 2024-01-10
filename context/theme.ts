@@ -8,8 +8,8 @@ export interface themeState {
   showPanel: boolean
   panelFor: string
   vendor: {
-    vendor?: string
-    v_id?: string
+    name?: string
+    _id?: string
     token?: string
     profilePic?: string
   }
@@ -20,7 +20,12 @@ const initialState: themeState = {
   isLogin: false,
   showPanel: false,
   panelFor: "",
-  vendor: {},
+  vendor: {
+    name: "",
+    _id: "",
+    token: "",
+    profilePic: "",
+  },
 }
 
 export const themeSlice = createSlice({
@@ -47,11 +52,15 @@ export const themeSlice = createSlice({
     },
     setLogin: (state, actions) => {
       state.isLogin = true
-      state.vendor = actions?.payload
-      const { vendor, v_id } = actions?.payload
-      if (vendor && v_id) {
-        localStorage.setItem("vendor", vendor)
-        localStorage.setItem("v_id", v_id)
+      const { name, _id, token, profilePic } = actions?.payload
+      state.vendor.name = name
+      state.vendor._id = _id
+      state.vendor.token = token
+      state.vendor.profilePic = profilePic
+
+      if (name && _id) {
+        localStorage.setItem("vendor", name)
+        localStorage.setItem("v_id", _id)
       }
     },
     setLogout: (state) => {

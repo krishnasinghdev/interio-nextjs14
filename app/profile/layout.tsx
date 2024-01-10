@@ -37,7 +37,7 @@ export default function Layout({ children }: { children: React.ReactNode }): Rea
                   className="h-12 w-12 rounded-full md:h-20 md:w-20"
                 />
                 <div>
-                  <h1>{vendor?.vendor}</h1>
+                  <h1>{vendor?.name}</h1>
                   <p className="text-gray text-xs">0 Followers | 0 Following</p>
                 </div>
               </div>

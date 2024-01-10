@@ -15,7 +15,7 @@ export default function BlogCard({ image, date, cardTitle, cardDescription, slug
     <div className="w-full px-4 md:w-1/2 lg:w-1/3">
       <div className="mx-auto mb-10 max-w-[370px]">
         <div className="mb-4 overflow-hidden rounded">
-          <Image src={image} alt={slug} className="w-full" height={320} quality={90} width={340} />
+          <Image src={image} alt={slug} className="h-60 w-full" height={320} quality={90} width={340} />
         </div>
         <div>
           {date && (

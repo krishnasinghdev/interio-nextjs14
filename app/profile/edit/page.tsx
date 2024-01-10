@@ -53,6 +53,7 @@ const schema = Joi.object({
   }),
   skills: Joi.array().items(Joi.string()).min(1).required().messages({
     "any.required": "Select atleast 1 skill.",
+    "array.min": "Select atleast 1 skill.",
   }),
   // workHistory: Joi.array().items({
   //   title: Joi.string(),

@@ -49,6 +49,17 @@ const Navbar = () => {
               Designs
             </Link>
             <Link
+              href="/blogs"
+              className={clsx(
+                {
+                  "border-b-2 border-primary text-primary": pathname === "/blogs",
+                },
+                "hover:text-primary"
+              )}
+            >
+              Blogs
+            </Link>
+            <Link
               href="/about-us"
               className={clsx(
                 {
@@ -60,7 +71,7 @@ const Navbar = () => {
               About us
             </Link>
           </div>
-          <div className="flex justify-between gap-4 text-lg ">
+          <div className="flex items-center justify-between gap-4 text-lg ">
             {isLogin ? (
               <Link href="/profile" className="sm:rounded-full sm:border-2 sm:border-primary sm:px-6 sm:py-1 sm:text-primary ">
                 Hello
@@ -111,6 +122,17 @@ const Navbar = () => {
             onClick={() => setShowMenu(false)}
           >
             Home
+          </Link>
+          <Link
+            href="/blogs"
+            className={clsx(
+              {
+                "border-b-2 border-primary text-primary": pathname === "/blogs",
+              },
+              "hover:text-primary"
+            )}
+          >
+            Blogs
           </Link>
           <Link
             href="/designs"

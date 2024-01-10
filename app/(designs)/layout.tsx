@@ -6,7 +6,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useAppDispatch, useAppSelector } from "@/context/hook"
 import { isLogin, setLogout, togglePanel, vendor as vd } from "@/context/theme"
-import { EXCLUDE_PATHS } from "@/utils/dummy"
+import { EXCLUDE_PATHS, START_WITH_PATHS } from "@/utils/dummy"
 import clsx from "clsx"
 import { toast } from "sonner"
 
@@ -82,7 +82,7 @@ export default function LeftSideBar({ children, way }: Props): ReactElement {
         <div className="bluebg hidden h-screen w-[220px] flex-col items-center justify-evenly pb-[35vh] text-xl text-secondary lg:flex  ">
           <div className="mt-3 w-[200px]">
             {/* ?.split(' ')[0] */}
-            <h3 className="font-sm font-medium">Hello {vendor?.vendor},</h3>
+            <h3 className="font-sm font-medium">Hello {vendor?.name?.split(" ")[0]},</h3>
             <p className="text-light text-xs">Check out your store analysis</p>
           </div>
 
@@ -128,13 +128,13 @@ export default function LeftSideBar({ children, way }: Props): ReactElement {
             </div>
           </div>
           <Link
-            href={`/profile/chat?v_id=${vendor.v_id}`}
+            href={`/profile/chat?v_id=${vendor._id}`}
             className={clsx(
               {
                 "bg-secondary text-white": pathname == "/profile/chat" || pathname == "/profile/chat/[ChatId]",
                 "pointer-events-none": !loginStatus,
               },
-              "flex w-[200px] items-center gap-x-2 rounded-lg px-4 py-2"
+              "pointer-events-none flex w-[200px] items-center gap-x-2 rounded-lg px-4 py-2"
             )}
           >
             <Icons.BsChatDots size={24} />
@@ -159,7 +159,7 @@ export default function LeftSideBar({ children, way }: Props): ReactElement {
           "px-4 py-8 text-white sm:px-8 md:ml-[65px] md:pt-8 lg:ml-[280px] lg:w-auto xl:px-10"
         )}
       >
-        {!EXCLUDE_PATHS.includes(pathname) && <DesignNav />}
+        {!EXCLUDE_PATHS.includes(pathname) && !START_WITH_PATHS.some((_) => pathname.startsWith(_)) && <DesignNav />}
         {children}
       </div>
     </>
