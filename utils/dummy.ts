@@ -61,4 +61,18 @@ export const TAGS = [
     id: "spaceSaving",
     label: "Space Saving",
   },
+  {
+    id: "modern-design",
+    label: "Modern Design",
+  },
+]
+
+export const EXCLUDE_PATHS = [
+  "/designs/upload",
+  "/profile",
+  "/profile/work",
+  "/profile/liked-shot",
+  "/profile/collection",
+  "/profile/edit",
+  "/blogs",
 ]

@@ -44,3 +44,17 @@ export function formatDateInDMY(inputDate: string): string {
   }
   return date.toLocaleDateString(undefined, options)
 }
+
+export function formatDMY(date: string, weekday?: boolean) {
+  const options: {
+    year: string
+    month: string
+    day: string
+    weekday?: string
+  } = { year: "numeric", month: "long", day: "numeric" }
+  if (weekday) {
+    options.weekday = "short"
+  }
+  // @ts-ignore -d s
+  return new Date(date).toLocaleDateString(undefined, options)
+}

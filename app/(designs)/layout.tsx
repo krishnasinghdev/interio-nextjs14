@@ -6,6 +6,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useAppDispatch, useAppSelector } from "@/context/hook"
 import { isLogin, setLogout, togglePanel, vendor as vd } from "@/context/theme"
+import { EXCLUDE_PATHS } from "@/utils/dummy"
 import clsx from "clsx"
 import { toast } from "sonner"
 
@@ -38,6 +39,8 @@ export default function LeftSideBar({ children, way }: Props): ReactElement {
       console.log("Some Error!", error)
     }
   }
+  if (pathname.startsWith("/blogs/add")) return <>{children}</>
+
   return (
     <>
       <aside className="fixed hidden h-screen  md:flex">
@@ -156,7 +159,7 @@ export default function LeftSideBar({ children, way }: Props): ReactElement {
           "px-4 py-8 text-white sm:px-8 md:ml-[65px] md:pt-8 lg:ml-[280px] lg:w-auto xl:px-10"
         )}
       >
-        {!(pathname == "/designs/upload" || pathname.startsWith("/profile")) && <DesignNav />}
+        {!EXCLUDE_PATHS.includes(pathname) && <DesignNav />}
         {children}
       </div>
     </>
