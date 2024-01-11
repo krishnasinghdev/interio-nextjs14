@@ -19,7 +19,5 @@ export const BlogComponents = {
         alt={value.alt || "image describing points"}
       />
     ),
-    h3: (value: string) => <h3 className=" text-white">{value}</h3>,
-    h2: (value: string) => <h2 className=" text-white">{value}</h2>,
   },
 }
