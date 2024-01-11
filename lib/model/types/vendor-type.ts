@@ -10,10 +10,7 @@ export interface IVendor extends Document {
   email: string
   contact: number | null
   password: string
-  state: string | null
-  city: string | null
-  pincode: number | null
-  area: string | null
+  address: string | null
   biography: string | null
   workHistory: Array<{ title: string; company: string; location: string; from: string; to: string }>
   lookingFor: Array<{ title: string; location: string }>

@@ -58,22 +58,7 @@ const vendorSchema = new mongoose.Schema<IVendor, IVendorModel>(
       trim: true,
       required: true,
     },
-    state: {
-      type: String,
-      trim: true,
-      default: null,
-    },
-    city: {
-      type: String,
-      trim: true,
-      default: null,
-    },
-    pincode: {
-      type: Number,
-      trim: true,
-      default: null,
-    },
-    area: {
+    address: {
       type: String,
       trim: true,
       default: null,
@@ -121,7 +106,6 @@ const vendorSchema = new mongoose.Schema<IVendor, IVendorModel>(
       expireAfterSeconds: 150,
       default: null,
     },
-
     tokens: [
       {
         token: {
@@ -144,12 +128,8 @@ vendorSchema.virtual("Shot", {
 
 vendorSchema.methods.toJSON = function () {
   const vendor = this
-  const subscriptionStatus = vendor.subscriptionStatus
-  const planId = vendor.plan_id
   const vendorObject = vendor.toObject()
 
-  vendorObject.subscriptionStatus = subscriptionStatus
-  vendorObject.plan_id = planId
   delete vendorObject.password
   delete vendorObject.tokens
   delete vendorObject.otp

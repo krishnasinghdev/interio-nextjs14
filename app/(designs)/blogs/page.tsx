@@ -1,4 +1,3 @@
-import React from "react"
 import type { Metadata } from "next"
 import { getImgUrl } from "@/sanity/lib/image"
 import { blogsQuery } from "@/sanity/lib/queries"
