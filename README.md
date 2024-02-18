@@ -28,7 +28,7 @@ Here're some of the project's best features:
 
 <p>I initiated the project using Next.js with TypeScript for the front end, coupled with Node.js and MongoDB for the backend, ensuring the incorporation of all essential features. As the project progressed, I stayed abreast of the latest technologies and, when Next.js introduced app routing and server actions, I promptly implemented these updates. This strategic move not only aligned with the project's goals but also contributed to cost reduction and improved overall performance, essential considerations for a startup.</p>
 
-<h2>Node JS Backend Repo:</h2> https://github.com/singhks0054/interio-nodejs
-
 <p>Throughout the project, I played a pivotal role in shaping the technological framework and ensuring the seamless integration of new features. The collaborative effort resulted in a successful platform that not only met the initial requirements but also showcased adaptability to evolving technologies, underscoring the efficiency of our development approach.</p>
+
+<h2>Node JS Backend Repo:</h2> https://github.com/singhks0054/interio-nodejs
 
