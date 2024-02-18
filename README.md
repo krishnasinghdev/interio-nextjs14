@@ -20,7 +20,7 @@ Here're some of the project's best features:
 
 <h2>🛠️ Installation Steps:</h2>
 
-<p>1. pnpm</p>
+<p>pnpm install</p>
 
 <h2>How I made this project?</h2>
 
@@ -29,6 +29,4 @@ Here're some of the project's best features:
 <p>I initiated the project using Next.js with TypeScript for the front end, coupled with Node.js and MongoDB for the backend, ensuring the incorporation of all essential features. As the project progressed, I stayed abreast of the latest technologies and, when Next.js introduced app routing and server actions, I promptly implemented these updates. This strategic move not only aligned with the project's goals but also contributed to cost reduction and improved overall performance, essential considerations for a startup.</p>
 
 <p>Throughout the project, I played a pivotal role in shaping the technological framework and ensuring the seamless integration of new features. The collaborative effort resulted in a successful platform that not only met the initial requirements but also showcased adaptability to evolving technologies, underscoring the efficiency of our development approach.</p>
-```
-pnpm install
-```
+
